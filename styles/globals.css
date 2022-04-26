@@ -14,3 +14,12 @@ a {
 * {
   box-sizing: border-box;
 }
+
+h1 {
+  color: #555 !important;
+}
+
+::selection {
+  color: #fff;
+  background-color: #4267B2;
+}

@@ -1,13 +1,14 @@
-import AuthPagesLayout from "../../components/layout/AuthPagesLayout";
+import AuthPageLayout from "../../components/layout/AuthPageLayout";
+import RegistrationForm from "../../components/registration-page/RegistrationForm";
 
 
 const RegistrationPage = () => {
 
 
     return (
-       <AuthPagesLayout>
-           <h1>Test</h1>
-       </AuthPagesLayout>
+       <AuthPageLayout headerTitle='Registration' headerText='We build thinking!'>
+           <RegistrationForm />
+       </AuthPageLayout>
     );
 };
 

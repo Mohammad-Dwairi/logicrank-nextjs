@@ -1,12 +1,12 @@
 import LoginForm from "../../components/login-page/LoginForm";
-import AuthPagesLayout from "../../components/layout/AuthPagesLayout";
+import AuthPageLayout from "../../components/layout/AuthPageLayout";
 
 const LoginPage = () => {
 
     return (
-        <AuthPagesLayout>
-            <LoginForm/>
-        </AuthPagesLayout>
+        <AuthPageLayout headerTitle='Login' headerText='Welcome back!' login>
+            <LoginForm />
+        </AuthPageLayout>
     );
 };
 

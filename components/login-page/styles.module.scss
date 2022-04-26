@@ -1,105 +1,11 @@
-@import "../../styles/sass/mixins";
-@import "../../styles/sass/variables";
+@import "../../styles/sass/base";
 
-.image {
-  margin: 0 2rem;
 
-  @include respond(tab-port) {
-    display: none;
-  }
 
-}
 
-.formContainer {
-  height: 100%;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
 
-  & .formContent {
-    width: 100%;
 
-    & .formGroup {
-        margin-bottom: 1.3rem;
-      & label {
-        margin-bottom: .4rem;
 
-      }
 
-    }
-  }
-
-  & .input {
-    outline: none;
-    display: block;
-    width: 100%;
-    border: none;
-    background-color: transparent;
-    border-bottom: 2px solid $color-secondary;
-    border-radius: 0;
-    box-shadow: none ;
-
-    &:focus {
-      background-color: transparent;
-      box-shadow: none ;
-      border-bottom: 2px solid $color-primary;
-    }
-
-  }
-}
-
-.headerContainer {
-  display: flex;
-  align-items: flex-end;
-  margin: 0 0 2rem;
-
-  & .loginHeaderText {
-    text-transform: uppercase;
-    font-size: 3.5rem;
-
-    @include respond(phone) {
-      font-size: 2rem;
-    }
-
-    @include respond(tab-port) {
-      font-size: 2.5rem;
-    }
-  }
-
-}
-
-.footerContainer {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin-top: 1.5rem;
-
-  & .footerText {
-    text-align: center;
-    margin-top: 1rem;
-  }
-}
-
-.button {
-  display: block;
-  border-radius: 3px;
-  height: 40px;
-  color: $color-white;
-  font-weight: 400;
-  text-transform: uppercase;
-  background-color: $color-primary;
-  width: 50%;
-  border: none;
-  margin: 1rem auto 0;
-  transition: all .3s;
-  box-shadow: 0 1.5rem 4rem rgba($color-black, .15);
-
-  &:hover {
-    background-color: darken($color-primary, 10%);
-    box-shadow: 0 1.5rem 3rem rgba($color-black, .15);
-  }
-}
 
 
