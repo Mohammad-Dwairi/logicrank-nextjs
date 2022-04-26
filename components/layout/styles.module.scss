@@ -3,6 +3,48 @@
 @import "../../styles/sass/variables";
 @import "../../styles/sass/mixins";
 
+.authPageBackground {
+  background-image: linear-gradient(to right bottom, rgba($color-primary, 0.8), rgba($color-secondary, 0.8));
+  min-height: 100vh;
+}
+
+.authFormContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem;
+
+  @include respond(phone) {
+    padding: .5rem;
+  }
+
+  & .authFormCard {
+    max-width: 900px;
+    width: 100%;
+    margin: 6rem 0;
+    background-color: rgba($color-white, 0.7);
+    padding: 3rem 3rem 1rem;
+    border-radius: 4px;
+    box-shadow: 0 1.5rem 4rem rgba($color-black, .15);
+
+    @include respond(phone) {
+      padding: 2rem 1rem;
+    }
+  }
+
+}
+
+.authPageLogo {
+  position: relative;
+  margin: 0 auto;
+  top: 2rem;
+  width: 18rem;
+
+  @include respond(phone) {
+    width: 14rem;
+  }
+
+}
 
 .footer {
   display: flex;
