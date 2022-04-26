@@ -2,44 +2,50 @@
 @import "../../styles/sass/mixins";
 @import "../../styles/sass/variables";
 
+
 .background {
-  display: flex;
-  height: 100vh;
   background-image: linear-gradient(to right bottom, rgba($color-primary, 0.8), rgba($color-secondary, 0.8));
+  min-height: 100vh;
+}
+
+.container {
+  display: flex;
   justify-content: center;
   align-items: center;
-}
-
-.card {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-
-  background-color: rgba($color-white, 0.7);
-
   padding: 3rem;
-  border-radius: 4px;
-  box-shadow: 0 1.5rem 4rem rgba($color-black, .15);
 
-  //@include respond(tab-land) {
-  //  width: 75%;
-  //}
-  //
-  //@include respond(tab-port) {
-  //  width: 85%;
-  //}
-  //
-  //@include respond(phone) {
-  //  width: 90%;
-  //}
+  @include respond(phone) {
+    padding: .5rem;
+  }
+
+  & .card {
+    max-width: 900px;
+    width: 100%;
+    margin: 6rem 0;
+    background-color: rgba($color-white, 0.7);
+    padding: 3rem 3rem 1rem;
+    border-radius: 4px;
+    box-shadow: 0 1.5rem 4rem rgba($color-black, .15);
+
+    @include respond(phone) {
+      padding: 2rem 1rem;
+    }
+  }
 
 }
+
+
 
 .logo {
-  position: absolute;
+  position: relative;
+  margin: 0 auto;
   top: 2rem;
-  left: 2rem;
   width: 18rem;
+
+  @include respond(phone) {
+    width: 14rem;
+  }
+
 }
 
 

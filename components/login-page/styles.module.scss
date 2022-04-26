@@ -1,46 +1,77 @@
-
 @import "../../styles/sass/mixins";
 @import "../../styles/sass/variables";
 
 .image {
-  width: 50rem;
   margin: 0 2rem;
 
-  //@include respond(desktop) {
-  //  display: none;
-  //}
+  @include respond(tab-port) {
+    display: none;
+  }
 
 }
 
-.loginHeader {
-  text-transform: uppercase;
-  font-size: 3.5rem;
-}
+.formContainer {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 
-.input {
-  border: none;
-  background-color: transparent;
-  border-bottom: 3px solid $color-secondary;
-  border-radius: 0;
-  box-shadow: none !important;
+  & .formContent {
+    width: 100%;
+  }
 
-  &:focus {
+  & .input {
+    border: none;
     background-color: transparent;
-    border-bottom: 3px solid $color-primary;
+    border-bottom: 3px solid $color-secondary;
+    border-radius: 0;
+    box-shadow: none !important;
+
+    &:focus {
+      background-color: transparent;
+      border-bottom: 3px solid $color-primary;
+    }
   }
 }
 
-.button {
-  text-transform: uppercase;
-  background-color: $color-primary;
-  width: 35%;
+.headerContainer {
   display: flex;
-  align-self: center;
-  justify-content: center;
-  border: none;
+  align-items: flex-end;
+  margin: 0 0 2rem;
+
+  & .loginHeaderText {
+    text-transform: uppercase;
+    font-size: 3.5rem;
+
+    @include respond(phone) {
+      font-size: 2rem;
+    }
+
+    @include respond(tab-port) {
+      font-size: 2.5rem;
+    }
+  }
+
 }
 
-.extra {
-  margin: 2rem 0 0;
-  text-align: center;
+.footerContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1.5rem;
+
+  .button {
+    text-transform: uppercase;
+    background-color: $color-primary;
+    width: 50%;
+    border: none;
+  }
+
+  & .footerText {
+    text-align: center;
+    margin-top: 1.5rem;
+  }
 }
+

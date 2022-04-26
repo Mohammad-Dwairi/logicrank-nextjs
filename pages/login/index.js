@@ -9,10 +9,13 @@ const LoginPage = () => {
             <div className={classes.logo}>
                 <Image src={require('../../public/logo.png')}/>
             </div>
-            <div className={classes.card}>
-                <LoginForm/>
+            <div className={classes.container}>
+                <div className={classes.card}>
+                    <LoginForm/>
+                </div>
             </div>
         </div>
+
     );
 };
 
