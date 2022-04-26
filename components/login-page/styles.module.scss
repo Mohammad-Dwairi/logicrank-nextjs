@@ -1,0 +1,46 @@
+
+@import "../../styles/sass/mixins";
+@import "../../styles/sass/variables";
+
+.image {
+  width: 50rem;
+  margin: 0 2rem;
+
+  //@include respond(desktop) {
+  //  display: none;
+  //}
+
+}
+
+.loginHeader {
+  text-transform: uppercase;
+  font-size: 3.5rem;
+}
+
+.input {
+  border: none;
+  background-color: transparent;
+  border-bottom: 3px solid $color-secondary;
+  border-radius: 0;
+  box-shadow: none !important;
+
+  &:focus {
+    background-color: transparent;
+    border-bottom: 3px solid $color-primary;
+  }
+}
+
+.button {
+  text-transform: uppercase;
+  background-color: $color-primary;
+  width: 35%;
+  display: flex;
+  align-self: center;
+  justify-content: center;
+  border: none;
+}
+
+.extra {
+  margin: 2rem 0 0;
+  text-align: center;
+}
