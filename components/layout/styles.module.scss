@@ -48,6 +48,7 @@
 
 .cardHeaderContainer {
   display: flex;
+  flex-wrap: wrap;
   align-items: flex-end;
   margin: 0 0 2rem;
 
@@ -55,13 +56,14 @@
     text-transform: uppercase;
     font-size: 3.5rem;
 
+    @include respond(tab-port) {
+      font-size: 2.5rem;
+    }
+
     @include respond(phone) {
       font-size: 2rem;
     }
 
-    @include respond(tab-port) {
-      font-size: 2.5rem;
-    }
   }
 
 }
@@ -131,6 +133,10 @@
     color: $color-white !important;
     font-size: 2.3rem;
     margin: 0 2rem;
+
+    @include respond(phone) {
+      margin: 0 1rem;
+    }
   }
 
   .link {
@@ -140,5 +146,6 @@
 
   .rightsText {
     color: lighten($color-grey-light, 20%);
+    text-align: center;
   }
 }
