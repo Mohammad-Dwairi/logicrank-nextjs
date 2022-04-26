@@ -1,0 +1,36 @@
+
+
+@import "../../styles/sass/variables";
+@import "../../styles/sass/mixins";
+
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: darken($color-secondary, 25%);
+  height: 20rem;
+  padding: 2rem 1rem;
+
+  .row {
+    display: flex;
+    justify-content: space-between;
+    margin: 1.5rem 0;
+  }
+
+  .icon {
+    color: $color-white !important;
+    font-size: 2.3rem;
+    margin: 0 2rem;
+  }
+
+  .link {
+    color: $color-white;
+    margin: 0 1rem;
+  }
+
+  .rightsText {
+    color: lighten($color-grey-light, 20%);
+  }
+}

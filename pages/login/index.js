@@ -1,6 +1,7 @@
 import classes from './styles.module.scss';
 import Image from "next/image";
 import LoginForm from "../../components/login-page/LoginForm";
+import AppFooter from "../../components/layout/AppFooter";
 
 const LoginPage = () => {
 
@@ -14,6 +15,7 @@ const LoginPage = () => {
                     <LoginForm/>
                 </div>
             </div>
+            <AppFooter />
         </div>
 
     );

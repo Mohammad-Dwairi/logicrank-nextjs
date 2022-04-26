@@ -2,11 +2,15 @@ import Form from "react-bootstrap/Form";
 import Image from "next/image";
 
 import classes from './styles.module.scss';
-import Button from "react-bootstrap/Button";
 import {Fragment} from "react";
 import Link from "next/link";
 
+import {useForm} from "react-hook-form";
+
 const LoginForm = props => {
+
+    const {register, handleSubmit, watch, formState: {errors}} = useForm();
+    const onSubmit = data => console.log(data);
 
     return (
         <Fragment>
@@ -14,26 +18,30 @@ const LoginForm = props => {
                 <h1 className={classes.loginHeaderText}>Login</h1>
                 <p className='text-muted mx-2'>Welcome back!</p>
             </div>
-            <Form className={classes.formContainer}>
-                <div className={classes.formContent}>
-                    <Form.Group className="mb-4">
-                        <Form.Label>Email address</Form.Label>
-                        <Form.Control type="email" placeholder="Enter email" className={classes.input}/>
-                    </Form.Group>
-                    <Form.Group className="mb-3">
-                        <Form.Label>Password</Form.Label>
-                        <Form.Control type="password" placeholder="Password" className={classes.input}/>
-                    </Form.Group>
-                    <Form.Group className="mb-3">
-                        <Form.Check type="checkbox" label="Remember me"/>
-                    </Form.Group>
+
+            <form onSubmit={handleSubmit(onSubmit)} action='#'>
+                <div className={classes.formContainer}>
+                    <div className={classes.formContent}>
+                        <div className={classes.formGroup}>
+                            <label htmlFor='email'>Email address</label>
+                            <input {...register("Email", {required: true})} id='email' type="email" placeholder="Enter email" className={classes.input}/>
+                            {(errors.Email || errors.Password) && <span className='text-danger'>Invalid email or password</span>}
+                        </div>
+                        <div className={classes.formGroup}>
+                            <label htmlFor='password'>Password</label>
+                            <input {...register("Password", {required: true})} id='password' type="password" placeholder="Password" className={classes.input}/>
+                        </div>
+                        <Form.Group className="mb-3">
+                            <Form.Check type="checkbox" label="Remember me"/>
+                        </Form.Group>
+                    </div>
+                    <div className={classes.image}>
+                        <Image src={require('../../public/think.svg')} alt='Thinking'/>
+                    </div>
                 </div>
-                <div className={classes.image}>
-                    <Image src={require('../../public/think.svg')} alt='Thinking'/>
-                </div>
-            </Form>
+                <input type="submit" className={classes.button} value='Login'/>
+            </form>
             <div className={classes.footerContainer}>
-                <Button type="submit" className={classes.button}>Login</Button>
                 <div className={classes.footerText}>
                     <div className='text-muted'>
                         Forgot Password?
