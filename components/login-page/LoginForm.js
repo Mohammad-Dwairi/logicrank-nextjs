@@ -18,7 +18,7 @@ const LoginForm = props => {
                     <FormGroupWrapper>
                         <label htmlFor='email'>Email address</label>
                         <input
-                            {...register("Email", {required: true})}
+                            {...register("email", {required: true})}
                             id='email' type="email"
                             placeholder="Enter email"
                             style={{width: '100%'}}
@@ -29,7 +29,7 @@ const LoginForm = props => {
                     <FormGroupWrapper>
                         <label htmlFor='password'>Password</label>
                         <input
-                            {...register("Password", {required: true})}
+                            {...register("password", {required: true})}
                             id='password'
                             type="password"
                             placeholder="Password"
