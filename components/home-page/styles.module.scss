@@ -1,0 +1,57 @@
+@import "../../styles/sass/variables";
+
+.raCardContainer {
+
+  display: flex;
+  //margin: 1rem;
+  padding: 1rem;
+  width: 100%;
+  //min-width: 23rem;
+  border-radius: 5px;
+  box-shadow: 0 .1rem .5rem rgba($color-black, .13);
+  transition: all .3s;
+
+  &:hover {
+    transform: scale(1.04);
+    cursor: pointer;
+  }
+
+  & .raCardImgContainer {
+    width: 8rem;
+    min-width: 7rem;
+    margin-right: 1rem;
+
+    & .raCardImg {
+      border-radius: 5px;
+    }
+  }
+
+  & .raCardBody {
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    & .raCardTitle {
+      color: darken($color-primary, 10%);
+      font-size: 1.1rem;
+    }
+
+    & .raCardInstructor {
+      font-size: .8rem;
+    }
+
+    & .raCardActivity {
+      font-size: .75rem;
+      color: $color-grey-light;
+    }
+
+  }
+}
+
+.raSection {
+  padding: 2rem;
+  & .raSectionTitle {
+    font-size: 1.5rem;
+  }
+}

@@ -201,3 +201,20 @@
     text-align: center;
   }
 }
+
+.horizontalSectionContainer {
+  padding: 2rem 3rem;
+
+  .sectionTitle {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .horizontalSection {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+

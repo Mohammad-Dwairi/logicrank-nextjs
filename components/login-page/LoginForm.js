@@ -10,7 +10,6 @@ const LoginForm = props => {
 
     const {register, handleSubmit, watch, formState: {errors}} = useForm();
     const onSubmit = data => console.log(data);
-
     return (
         <Fragment>
             <form onSubmit={handleSubmit(onSubmit)} action='#'>
@@ -23,6 +22,7 @@ const LoginForm = props => {
                             placeholder="Enter email"
                             style={{width: '100%'}}
                             className={classes.authInput}
+                            // autoComplete='off'
                         />
                         {(errors.Email || errors.Password) && <span className='text-danger'>Invalid email or password</span>}
                     </FormGroupWrapper>

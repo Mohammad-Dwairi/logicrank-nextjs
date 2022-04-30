@@ -49,7 +49,6 @@ const RegistrationForm = props => {
                 </AuthFormLayout>
                 <input type="submit" className={classes.authButton} value='Register'/>
             </form>
-
         </Fragment>
     );
 };
