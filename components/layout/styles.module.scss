@@ -23,6 +23,10 @@
   overflow-x: hidden; /* Disable horizontal scroll */
   //padding-top: 20px;
 
+  @include respond(tab-port) {
+    display: none;
+  }
+
   & a {
     display: flex;
     align-items: center;
