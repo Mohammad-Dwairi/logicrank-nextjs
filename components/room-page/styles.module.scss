@@ -1,0 +1,163 @@
+
+@import '../../styles/sass/variables';
+@import "../../styles/sass/mixins";
+
+.sideNavbar {
+  position: fixed !important;
+  height: 100vh !important;
+
+  .toggle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: .6rem 0;
+    font-size: 1.2rem;
+
+    &:hover {
+      color: $color-primary;
+    }
+  }
+
+  .logoContainer {
+    width: 14rem;
+    margin: 0 auto;
+    padding: 1rem 0;
+
+    & .roomName {
+      font-size: 1rem;
+      color: $color-secondary;
+      text-align: center;
+    }
+  }
+}
+
+.newPostInput {
+  margin-top: 3rem;
+  display: flex;
+  justify-content: center;
+  & .textAreaControl {
+    border: none;
+    width: 50%;
+    padding: .5rem 1rem;
+    outline: none;
+    box-shadow: 0 .1rem .5rem rgba($color-black, .1);
+    border-radius: 5px;
+    color: $color-grey-dark;
+
+    @include respond(tab-land) {
+      width: 70%;
+    }
+
+    @include respond(tab-port) {
+      width: 80%;
+    }
+
+    @include respond(phone) {
+      width: 90%;
+    }
+  }
+}
+
+.newsFeed {
+  //background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 2rem 0;
+}
+
+.post {
+  width: 50%;
+  background-color: $color-white;
+  box-shadow: 0 .1rem .5rem rgba($color-black, .1);
+  border-radius: 5px;
+  overflow: hidden;
+  margin: .5rem 0;
+
+  & .postHeader {
+    padding: .5rem 1rem;
+    display: flex;
+
+    & .imageContainer {
+      width: 3rem;
+      margin-right: 1rem;
+      & .image {
+        border-radius: 1.5rem;
+      }
+    }
+
+    & .postInfo {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      & .username {
+        font-size: 1rem;
+        margin: 0;
+      }
+
+      & .time {
+        font-size: .75rem;
+        margin: 0;
+      }
+
+      & .optionsIcon {
+        font-size: 1.5rem;
+        &:hover {
+          cursor: pointer;
+          color: $color-primary;
+        }
+      }
+    }
+
+  }
+
+  & .postContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    & .postText {
+      padding: 0 1rem;
+      margin: 0;
+    }
+
+    & .postImage {
+      width: 100%;
+    }
+  }
+
+  & .postFooter {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    border-top: 1px solid lighten($color-secondary, 20%);
+
+    & .postAction {
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex: 1;
+      text-align: center;
+      color: $color-grey-light;
+      font-size: 1.5rem;
+      border-radius: 5px;
+      transition: all .2s;
+      padding: .4rem 0;
+      margin: .3rem 1rem;
+
+      &:hover {
+        color: $color-white;
+        background-color: lighten($color-primary, 10%);
+        cursor: pointer;
+      }
+
+    }
+
+  }
+
+}
+
