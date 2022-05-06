@@ -8,13 +8,21 @@ import classes from './styles.module.scss';
 
 import 'react-pro-sidebar/dist/css/styles.css';
 import SideNavbarWrapper from "../layout/SideNavbarWrapper";
+import {useRouter} from "next/router";
+
+
+
 
 const RoomSideNavbar = props => {
 
+    const router = useRouter();
+    const {route} = router;
+
     const [collapsed, setCollapsed] = useState(true);
 
+
     return (
-        <SideNavbarWrapper>
+        <div className={classes.sideNavbarWrapper}>
             <ProSidebar collapsed={collapsed} className={classes.sideNavbar}>
                 <SidebarHeader className={classes.toggle} onClick={() => setCollapsed((prev) => !prev)}>
                     {collapsed ? <AiOutlineArrowRight /> : <AiOutlineArrowLeft />}
@@ -26,18 +34,18 @@ const RoomSideNavbar = props => {
                     </div>
                 </SidebarHeader>}
                 <Menu iconShape='round'>
-                    <MenuItem icon={<BsStack />} >Materials</MenuItem>
-                    <MenuItem icon={<BsNewspaper />}>Updates</MenuItem>
-                    <MenuItem icon={<BsNewspaper />}>Tasks</MenuItem>
-                    <MenuItem icon={<BsNewspaper />}>RoadMap</MenuItem>
-                    <MenuItem icon={<BsCodeSquare />}>Code Editor</MenuItem>
-                    <MenuItem icon={<GiMaze />}>Problems</MenuItem>
-                    <MenuItem icon={<BsUpload />}>Submissions</MenuItem>
-                    <MenuItem icon={<BsFillPeopleFill />}>Members</MenuItem>
-                    <MenuItem icon={<AiFillSetting />}>Settings</MenuItem>
+                    <MenuItem active={route === '/room/[rid]/materials'}  icon={<BsStack />}>Materials</MenuItem>
+                    <MenuItem active={route === '/room/[rid]'} icon={<BsNewspaper />}>Updates</MenuItem>
+                    <MenuItem active={route === '/room/[rid]/tasks'} icon={<BsNewspaper />}>Tasks</MenuItem>
+                    <MenuItem active={route === '/room/[rid]/roadmap'} icon={<BsNewspaper />}>RoadMap</MenuItem>
+                    <MenuItem active={route === '/room/[rid]/code-editor'} icon={<BsCodeSquare />}>Code Editor</MenuItem>
+                    <MenuItem active={route === '/room/[rid]/problems'} icon={<GiMaze />}>Problems</MenuItem>
+                    <MenuItem active={route === '/room/[rid]/submissions'} icon={<BsUpload />}>Submissions</MenuItem>
+                    <MenuItem active={route === '/room/[rid]/members'} icon={<BsFillPeopleFill />}>Members</MenuItem>
+                    <MenuItem active={route === '/room/[rid]/settings'} icon={<AiFillSetting />}>Settings</MenuItem>
                 </Menu>
             </ProSidebar>
-        </SideNavbarWrapper>
+        </div>
 
     );
 };

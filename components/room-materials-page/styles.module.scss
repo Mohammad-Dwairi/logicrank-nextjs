@@ -1,0 +1,36 @@
+@import "../../styles/sass/variables";
+
+.filesSectionContainer {
+  padding-top: 2rem;
+
+  & .headerText {
+    font-size: 1.8rem;
+  }
+}
+
+
+.fileCardContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  height: 8rem;
+  margin: .7rem 0;
+  padding: .5rem;
+  border-radius: 5px;
+  //background-color: #e56868;
+  box-shadow: 0 .1rem .5rem rgba($color-black, .1);
+  background-color: $color-white;
+
+  & .fileIcon {
+    font-size: 2.5rem;
+    color: darken($color-primary, 20%);
+  }
+
+  & .fileName {
+
+  }
+
+}
+
