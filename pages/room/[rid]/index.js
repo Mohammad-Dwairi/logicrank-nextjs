@@ -3,6 +3,7 @@ import RoomSideNavbar from "../../../components/room-page/RoomSideNavbar";
 import NewPostInput from "../../../components/room-page/NewPostInput";
 import NewsFeedSection from "../../../components/room-page/NewsFeedSection";
 import Container from "react-bootstrap/Container";
+import {withProtected} from "../../../hoc/RouteAuth";
 
 const Room = props => {
 
@@ -25,4 +26,4 @@ const Room = props => {
     );
 };
 
-export default Room;
+export default withProtected(Room);

@@ -1,5 +1,6 @@
 import RoomSideNavbar from "../../../components/room-page/RoomSideNavbar";
 import FilesSection from "../../../components/room-materials-page/FilesSection";
+import {withProtected} from "../../../hoc/RouteAuth";
 
 
 const MaterialsPage = props => {
@@ -17,4 +18,4 @@ const MaterialsPage = props => {
     );
 };
 
-export default MaterialsPage;
+export default withProtected(MaterialsPage);

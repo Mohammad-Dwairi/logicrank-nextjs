@@ -3,6 +3,7 @@ import RoomSideNavbar from "../../components/room-page/RoomSideNavbar";
 import Container from "react-bootstrap/Container";
 import CodeEditor from "../../components/code-editor-page/CodeEditor";
 import OutputSection from "../../components/code-editor-page/OutputSection";
+import {withProtected} from "../../hoc/RouteAuth";
 
 const CodeEditorPage = () => {
 
@@ -25,4 +26,4 @@ const CodeEditorPage = () => {
     );
 };
 
-export default CodeEditorPage;
+export default withProtected(CodeEditorPage);

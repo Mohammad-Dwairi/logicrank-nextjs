@@ -1,18 +1,34 @@
 import {useForm} from "react-hook-form";
-import {Fragment} from 'react';
+import {Fragment, useState} from 'react';
 import classes from './styles.module.scss';
 import AuthFormLayout from "../layout/AuthFormLayout";
 import FormGroupWrapper from "../layout/FormGroupWrapper";
+import {useAuth} from "../../contexts/AuthContext";
 
 const RegistrationForm = props => {
 
+    const {signup} = useAuth();
     const {register, handleSubmit, watch, formState: {errors}} = useForm();
-    const onSubmit = data => console.log(data);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState('');
+
+    const onSubmit = async data => {
+        try {
+            setError('');
+            setLoading(true);
+            await signup(data.email, data.password);
+        } catch {
+            setError("Failed to create a new account, try again later!")
+        } finally {
+            setLoading(false);
+        }
+    }
 
     return (
         <Fragment>
             <form onSubmit={handleSubmit(onSubmit)} action='#'>
                 <AuthFormLayout img={require('../../public/register.svg')}>
+                    <span>{error}</span>
                     <FormGroupWrapper>
                         <label htmlFor='fullName'>Full Name</label>
                         <input

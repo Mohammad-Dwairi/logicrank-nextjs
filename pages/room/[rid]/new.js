@@ -1,4 +1,5 @@
 import 'react-pro-sidebar/dist/css/styles.css';
+import {withProtected} from "../../../hoc/RouteAuth";
 
 const NewRoomPage = props => {
 
@@ -7,4 +8,4 @@ const NewRoomPage = props => {
 
 };
 
-export default NewRoomPage;
+export default withProtected(NewRoomPage);

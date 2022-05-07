@@ -1,5 +1,6 @@
 import LoginForm from "../../components/login-page/LoginForm";
 import AuthPageLayout from "../../components/layout/AuthPageLayout";
+import {withPublic} from "../../hoc/RouteAuth";
 
 const LoginPage = () => {
 
@@ -10,4 +11,4 @@ const LoginPage = () => {
     );
 };
 
-export default LoginPage;
+export default withPublic(LoginPage);

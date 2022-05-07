@@ -1,5 +1,6 @@
 import AuthPageLayout from "../../components/layout/AuthPageLayout";
 import RegistrationForm from "../../components/registration-page/RegistrationForm";
+import {withPublic} from "../../hoc/RouteAuth";
 
 
 const RegistrationPage = () => {
@@ -13,4 +14,4 @@ const RegistrationPage = () => {
 };
 
 
-export default RegistrationPage;
+export default withPublic(RegistrationPage);
