@@ -1,18 +1,36 @@
 import Form from "react-bootstrap/Form";
 
-import {Fragment} from "react";
+import {Fragment, useState} from "react";
 import classes from './styles.module.scss';
 import {useForm} from "react-hook-form";
 import AuthFormLayout from "../layout/AuthFormLayout";
 import FormGroupWrapper from "../layout/FormGroupWrapper";
+import {useAuth} from "../../contexts/AuthContext";
 
 const LoginForm = props => {
 
+    const {login} = useAuth();
+
     const {register, handleSubmit, watch, formState: {errors}} = useForm();
-    const onSubmit = data => console.log(data);
+    const [error, setError] = useState('');
+    const [loading, setLoading] = useState(false);
+
+    const onSubmit = async data => {
+        try {
+            setLoading(true);
+            setError('');
+            await login(data.email, data.password);
+        } catch (e) {
+            setError(e.message);
+        } finally {
+            setLoading(false);
+        }
+    };
+
     return (
         <Fragment>
             <form onSubmit={handleSubmit(onSubmit)} action='#'>
+                {error && <span className='text-danger'>{error}</span>}
                 <AuthFormLayout img={require('../../public/think.svg')}>
                     <FormGroupWrapper>
                         <label htmlFor='email'>Email address</label>
@@ -24,7 +42,8 @@ const LoginForm = props => {
                             className={classes.authInput}
                             // autoComplete='off'
                         />
-                        {(errors.Email || errors.Password) && <span className='text-danger'>Invalid email or password</span>}
+                        {(errors.email || errors.password) &&
+                            <span className='text-danger'>Invalid email or password</span>}
                     </FormGroupWrapper>
                     <FormGroupWrapper>
                         <label htmlFor='password'>Password</label>
@@ -40,7 +59,7 @@ const LoginForm = props => {
                         <Form.Check type="checkbox" label="Remember me"/>
                     </Form.Group>
                 </AuthFormLayout>
-                <input type="submit" className={classes.authButton} value='Login'/>
+                <input type="submit" className={classes.authButton} value={loading ? 'Logging In...' : 'Login'} disabled={loading}/>
             </form>
 
         </Fragment>

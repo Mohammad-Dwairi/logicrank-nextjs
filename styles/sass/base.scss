@@ -20,6 +20,10 @@
     background-color: darken($color-primary, 10%);
     box-shadow: 0 1.5rem 3rem rgba($color-black, .15);
   }
+
+  &:disabled {
+    background-color: $color-secondary
+  }
 }
 
 .authInput {

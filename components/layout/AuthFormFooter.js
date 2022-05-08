@@ -14,7 +14,7 @@ const AuthFormFooter = props => {
                         <>
                             <div className='text-muted'>
                                 Forgot Password?
-                                <Link href='#' passHref>
+                                <Link href='/reset-password' passHref>
                                     <a className='mx-1'>Reset</a>
                                 </Link>
                             </div>
