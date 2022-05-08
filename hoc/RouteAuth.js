@@ -2,6 +2,7 @@ import {useRouter} from "next/router";
 import React from "react";
 import {useAuth} from "../contexts/AuthContext";
 import LoadingSpinner from "../components/layout/LoadingSpinner";
+import Centered from "../components/layout/Centered";
 
 export function withPublic(Component) {
     return function WithPublic(props) {
@@ -10,7 +11,7 @@ export function withPublic(Component) {
 
         if (auth.currentUser) {
             router.replace("/home");
-            return <LoadingSpinner />
+            return (<Centered><LoadingSpinner /></Centered>)
         }
         return <Component auth={auth} {...props} />;
     };
@@ -23,7 +24,7 @@ export function withProtected(Component) {
 
         if (!auth.currentUser) {
             router.replace("/login");
-            return <LoadingSpinner />;
+            return <Centered><LoadingSpinner /></Centered>;
         }
 
         return <Component auth={auth} {...props} />;

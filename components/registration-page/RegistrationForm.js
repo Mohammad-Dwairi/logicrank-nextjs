@@ -27,8 +27,8 @@ const RegistrationForm = props => {
     return (
         <Fragment>
             <form onSubmit={handleSubmit(onSubmit)} action='#'>
+                {error && <span className='text-danger'>{error}</span>}
                 <AuthFormLayout img={require('../../public/register.svg')}>
-                    <span>{error}</span>
                     <FormGroupWrapper>
                         <label htmlFor='fullName'>Full Name</label>
                         <input
@@ -63,7 +63,7 @@ const RegistrationForm = props => {
                         {errors.password && <span className='text-danger'>Password must be at least 8 characters</span>}
                     </FormGroupWrapper>
                 </AuthFormLayout>
-                <input type="submit" className={classes.authButton} value='Register'/>
+                <input type="submit" className={classes.authButton} value={loading ? 'Just a Second!' : 'Register'} disabled={loading}/>
             </form>
         </Fragment>
     );

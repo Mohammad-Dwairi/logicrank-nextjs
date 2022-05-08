@@ -19,9 +19,8 @@ export function AuthProvider({children}) {
     function signup(email, password) {
         return createUserWithEmailAndPassword(auth, email, password)
             .then(user => {
-                console.log(user);
-                router.replace('/home')
-            }).catch((e) => console.log(e));
+                router.replace('/home');
+            });
     }
 
     function login(email, password) {
