@@ -18,7 +18,7 @@ const AppNavbar = props => {
     }
 
     return (
-        <div style={{height: '4rem', backgroundColor: 'red'}}>
+        <div style={{height: '4.5rem'}}>
             <Navbar bg="dark" variant="dark" fixed='top' style={{zIndex: 10}}>
                 <Container>
                     <Navbar.Brand href="#home" style={{width: '10rem'}}>

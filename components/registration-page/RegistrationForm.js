@@ -16,7 +16,7 @@ const RegistrationForm = props => {
         try {
             setError('');
             setLoading(true);
-            await signup(data.email, data.password);
+            await signup(data.email, data.password, data.fullName);
         } catch {
             setError("Failed to create a new account, try again later!")
         } finally {

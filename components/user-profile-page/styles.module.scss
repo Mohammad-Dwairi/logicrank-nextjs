@@ -1,0 +1,134 @@
+
+@import "../../styles/sass/variables";
+@import "../../styles/sass/mixins";
+
+.profilePictureContainer {
+
+  display: flex;
+  //justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
+
+  & .profilePicture {
+    border-radius: 5px;
+  }
+}
+
+.userNameSection {
+  display: flex;
+  flex-direction: column;
+  //justify-content: center;
+  height: 100%;
+  width: 100%;
+
+  & .userName {
+    font-size: 1.75rem;
+    font-weight: 500;
+    margin: 0;
+  }
+
+  & .locationContainer {
+    font-size: .85rem;
+    font-weight: 500;
+    color: $color-grey-light;
+  }
+
+  & .actions {
+    margin: 2rem 0;
+    display: flex;
+    //justify-content: space-around;
+
+    & .sendMessage {
+      display: flex;
+      align-items: center;
+      margin-right: 5rem;
+
+      & .messageIcon {
+        font-size: 1.5rem;
+        color: $color-primary;
+        position: relative;
+        top: 1px;
+        margin-right: 3px;
+      }
+
+      & .messageLink {
+        font-weight: 500;
+        color: $color-primary;
+      }
+    }
+
+    & .reportUser {
+      color: $color-grey-light;
+      font-size: .9rem;
+      font-weight: 500;
+    }
+  }
+}
+
+.additionalInfoSection {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding-bottom: 1rem;
+
+  & .itemsContainer {
+    padding-left: .5rem;
+
+    & .itemText {
+      font-size: .8rem;
+      font-weight: 600;
+      margin: .5rem 0;
+    }
+  }
+
+}
+
+.aboutSection {
+  height: 100%;
+  width: 100%;
+  padding: 0 4rem;
+
+  @include respond(tab-land) {
+    padding: 0 2rem;
+  }
+
+  @include respond(tab-port) {
+    padding: 0 1rem;
+  }
+
+  @include respond(phone) {
+    padding: 0;
+  }
+
+  & .infoTable {
+    width: inherit;
+    margin-bottom: 1rem;
+
+    & thead {
+      column-span: 2;
+      width: 100%;
+
+      & th {
+        font-size: .75rem;
+        color: $color-primary;
+        text-align: center;
+        text-transform: uppercase;
+      }
+
+    }
+
+    & tbody th {
+      font-size: .9rem;
+      color: $color-grey-light;
+
+    }
+
+    & td {
+      font-size: .9rem;
+      text-align: end;
+      height: 2.5rem;
+      color: $color-grey-dark;
+    }
+  }
+}
+

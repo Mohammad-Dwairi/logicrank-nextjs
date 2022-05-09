@@ -1,7 +1,14 @@
-import React, {useContext, useEffect, useState} from "react"
+import React, {useContext, useEffect, useState} from "react";
+
+import {collection, addDoc} from "firebase/firestore";
 import {auth, db} from '../firebase';
 
-import {createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, sendPasswordResetEmail} from "firebase/auth";
+import {
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+    signOut,
+    sendPasswordResetEmail
+} from "firebase/auth";
 import {useRouter} from "next/router";
 
 const AuthContext = React.createContext(null);
@@ -17,11 +24,15 @@ export function AuthProvider({children}) {
     const [currentUser, setCurrentUser] = useState(null)
     const [loading, setLoading] = useState(true)
 
-    function signup(email, password) {
+    function signup(email, password, fullName) {
         return createUserWithEmailAndPassword(auth, email, password)
-            .then(user => {
-                // router.replace('/home');
-                alert(JSON.stringify(user))
+            .then(async userCredential => {
+                alert(JSON.stringify(userCredential.user.uid))
+                try {
+                    const docRef = await addDoc(collection(db, 'users'), {fullName: fullName});
+                } catch (e) {
+                    console.log(e);
+                }
             });
     }
 
