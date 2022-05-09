@@ -1,0 +1,88 @@
+@import '../../../styles/sass/variables';
+
+.popoverContentContainer {
+  z-index: 1 !important;
+  max-width: 20rem;
+  min-width: 18rem;
+  background-color: $color-white;
+  border-radius: 5px;
+  padding: 1rem;
+  box-shadow: 0 .1rem .7rem rgba($color-black, .15);
+
+  & .title {
+    text-align: center;
+    color: $color-primary;
+    font-weight: 500;
+    font-size: 1.2rem;
+    border-bottom: 1px solid lighten($color-secondary, 30%);
+    margin-bottom: 1rem;
+  }
+
+  & .option {
+    padding: .6rem .5rem;
+
+    &:hover {
+      cursor: pointer;
+      background-color: rgba($color-primary, .2);
+      border-radius: 5px;
+    }
+  }
+
+  & .footerText {
+    display: block;
+    font-size: .9rem;
+    color: $color-primary;
+    text-align: center;
+    margin-top: 1.5rem;
+  }
+}
+
+.popoverIcon {
+  font-size: 1.5rem;
+  color: $color-white;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.chatListItem {
+
+  margin-bottom: 1rem;
+  padding: .2rem .5rem;
+
+  &:hover {
+    cursor: pointer;
+    background-color: rgba($color-primary, .2);
+    border-radius: 5px;
+  }
+
+  & .chatSender {
+    color: $color-grey-dark;
+    display: flex;
+    justify-content: space-between;
+    font-weight: 500;
+
+    & .msgTime {
+      font-size: .75rem;
+      color: $color-secondary;
+      text-align: right;
+    }
+  }
+
+  & .msg {
+    font-size: .80rem;
+    padding-left: .5rem;
+  }
+}
+
+.notificationListItem {
+  font-size: .9rem;
+  padding: .7rem .5rem;
+
+  &:hover {
+    cursor: pointer;
+    background-color: rgba($color-primary, .2);
+    border-radius: 5px;
+  }
+}

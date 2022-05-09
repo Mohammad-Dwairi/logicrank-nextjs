@@ -1,23 +1,20 @@
-import {Fragment} from "react";
-import AppNavbar from "../../components/layout/AppNavbar";
-import AppSideNavbar from "../../components/layout/AppSideNavbar";
 import RecentlyAccessRoomsSection from "../../components/home-page/RecentlyAccessRoomsSection";
 import RoomsSection from "../../components/home-page/RoomsSection";
 import {withProtected} from "../../hoc/RouteAuth";
+import Container from "react-bootstrap/Container";
 
 const HomePage = () => {
 
     return (
-        <Fragment>
-            <AppNavbar/>
-            <div style={{minHeight: '100vh', backgroundColor: '#cacada', display: 'flex'}}>
-                <AppSideNavbar/>
-                <section style={{flex: 1, display: 'block'}}>
-                    <RecentlyAccessRoomsSection rooms={DUMMY_ROOMS_CARDS} title='Recently Accessed Rooms'/>
-                    <RoomsSection rooms={DUMMY_ROOMS_CARDS} title='All Rooms'/>
-                </section>
-            </div>
-        </Fragment>
+        <div className='d-flex'>
+            {/*<div>*/}
+            {/*    <SideNavbar items={items}/>*/}
+            {/*</div>*/}
+            <Container >
+                <RecentlyAccessRoomsSection rooms={DUMMY_ROOMS_CARDS} title='Recently Accessed Rooms'/>
+                <RoomsSection rooms={DUMMY_ROOMS_CARDS} title='All Rooms'/>
+            </Container>
+        </div>
     );
 };
 

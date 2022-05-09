@@ -61,7 +61,7 @@
 }
 
 .roomCardContainer {
-
+  //background-color: $color-white;
   height: 90%;
   display: flex;
   flex-direction: column;
@@ -77,8 +77,8 @@
   @media (hover: hover) and (pointer: fine) {
     &:hover {
       cursor: pointer;
-      transform: scale(1.1);
-      background-color: #d8d8ea;
+      transform: scale(1.03);
+      background-color: $color-white;
     }
   }
 

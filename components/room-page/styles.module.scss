@@ -2,42 +2,7 @@
 @import '../../styles/sass/variables';
 @import "../../styles/sass/mixins";
 
-.sideNavbarWrapper {
-  width: 80px;
-  height: 100vh;
-}
 
-.sideNavbar {
-  position: fixed !important;
-  //height: 100vh !important;
-
-  //@include respond(phone) {
-  //  display: none;
-  //}
-  .toggle {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: .6rem 0;
-    font-size: 1.2rem;
-
-    &:hover {
-      color: $color-primary;
-    }
-  }
-
-  .logoContainer {
-    width: 14rem;
-    margin: 0 auto;
-    padding: 1rem 0;
-
-    & .roomName {
-      font-size: 1rem;
-      color: $color-secondary;
-      text-align: center;
-    }
-  }
-}
 
 .newPostInput {
   margin-top: 3rem;

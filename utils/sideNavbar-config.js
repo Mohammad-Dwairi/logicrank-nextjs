@@ -4,7 +4,7 @@ import {BsFolder, BsListCheck} from "react-icons/bs";
 import {MdMeetingRoom} from "react-icons/md";
 
 
-export const navs = [
+export const items = [
     {label: 'Code Editor', link: '/code-editor', icon: <BiCodeAlt size={25} className='me-2'/>},
     {label: 'Submissions', link: '/submissions', icon: <FiArrowUpRight size={25} className='me-2'/>},
     {label: 'Whiteboard', link: '/whiteboard', icon: <BiChalkboard size={25} className='me-2'/>},

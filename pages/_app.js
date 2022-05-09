@@ -1,10 +1,12 @@
 import '../styles/globals.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {AuthProvider} from "../contexts/AuthContext";
+import AppNavbar from "../components/layout/AppNavbar";
 
 function MyApp({Component, pageProps}) {
     return (
         <AuthProvider>
+            <AppNavbar />
             <Component {...pageProps} />
         </AuthProvider>
     );
