@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from "react"
-import {auth} from '../firebase';
+import {auth, db} from '../firebase';
 
 import {createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, sendPasswordResetEmail} from "firebase/auth";
 import {useRouter} from "next/router";
@@ -20,7 +20,8 @@ export function AuthProvider({children}) {
     function signup(email, password) {
         return createUserWithEmailAndPassword(auth, email, password)
             .then(user => {
-                router.replace('/home');
+                // router.replace('/home');
+                alert(JSON.stringify(user))
             });
     }
 
