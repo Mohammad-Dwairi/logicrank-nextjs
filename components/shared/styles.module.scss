@@ -1,4 +1,5 @@
 
+@import "../../styles/sass/variables";
 
   .userProfileBadge {
     margin: 0 1rem;
@@ -14,4 +15,22 @@
       cursor: pointer;
     }
   }
+
+  .editableText {
+    outline: none;
+    border: none;
+    padding: .2rem;
+    &:hover {
+      cursor: pointer;
+      color: $color-primary;
+
+    }
+
+    &:focus {
+      cursor: text;
+      color: $color-primary;
+    }
+
+  }
+
 

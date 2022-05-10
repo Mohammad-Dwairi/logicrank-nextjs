@@ -1,6 +1,6 @@
 import '../styles/globals.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {AuthProvider} from "../contexts/AuthContext";
+import {AuthProvider} from "../store/AuthContext";
 import AppNavbar from "../components/layout/AppNavbar";
 
 function MyApp({Component, pageProps}) {

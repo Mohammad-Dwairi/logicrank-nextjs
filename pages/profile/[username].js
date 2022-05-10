@@ -1,18 +1,47 @@
 import {withProtected} from "../../hoc/RouteAuth";
-import {useAuth} from "../../contexts/AuthContext";
+import {useAuth} from "../../store/AuthContext";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import ProfilePicture from "../../components/user-profile-page/ProfilePicture";
-import {IoLocation} from "react-icons/io5";
 import UserNameSection from "../../components/user-profile-page/UserNameSection";
 import AdditionalInfoSection from "../../components/user-profile-page/AdditionalInfoSection";
 import AboutSection from "../../components/user-profile-page/AboutSection";
+import {useCallback, useLayoutEffect, useState} from "react";
 
+import {collection, getDocs, query, where} from "firebase/firestore";
+import {db} from "../../firebase";
+import Centered from "../../components/layout/Centered";
+import LoadingSpinner from "../../components/layout/LoadingSpinner";
 
-const UserProfilePage = props => {
+const UserProfilePage = () => {
 
     const {currentUser} = useAuth();
+    const [userInfo, setUserInfo] = useState({});
+    const [loading, setLoading] = useState(false);
+
+    const loadUser = useCallback(async () => {
+        const usersRef = collection(db, 'users');
+        const q = await query(usersRef, where('__name__', '==', currentUser.uid));
+        const querySnapshot = await getDocs(q);
+        return querySnapshot.docs[0].data();
+    }, [currentUser.uid]);
+
+    useLayoutEffect(() => {
+        setLoading(true);
+        loadUser().then(userInfo => {
+            setUserInfo(userInfo);
+            setLoading(false);
+        });
+    }, [loadUser]);
+
+    if (loading) {
+        return (
+            <Centered>
+                <LoadingSpinner />
+            </Centered>
+        );
+    }
 
     return (
         <Container className='mt-5 p-4 bg-light'>
@@ -22,7 +51,7 @@ const UserProfilePage = props => {
                 </Col>
                 <Col sm={12} lg={1}/>
                 <Col sm={12} lg={6}>
-                    <UserNameSection/>
+                    <UserNameSection userInfo={userInfo}/>
                 </Col>
             </Row>
             <Row className='d-flex justify-content-center'>
@@ -33,7 +62,7 @@ const UserProfilePage = props => {
                 <Col sm={12} lg={1}/>
 
                 <Col sm={12} lg={6}>
-                    <AboutSection />
+                    <AboutSection userInfo={userInfo}/>
                 </Col>
             </Row>
         </Container>

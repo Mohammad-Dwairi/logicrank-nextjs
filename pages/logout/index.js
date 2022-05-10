@@ -1,6 +1,6 @@
 import {withProtected} from "../../hoc/RouteAuth";
 import {useCallback, useEffect} from "react";
-import {useAuth} from "../../contexts/AuthContext";
+import {useAuth} from "../../store/AuthContext";
 
 
 const Logout = () => {

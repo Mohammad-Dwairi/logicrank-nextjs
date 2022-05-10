@@ -2,7 +2,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import Container from 'react-bootstrap/Container';
 import Image from "next/image";
-import {useAuth} from "../../contexts/AuthContext";
+import {useAuth} from "../../store/AuthContext";
 import UserProfileBadgePopover from "../shared/popover/UserProfileBadgePopover";
 import NotificationsPopover from "../shared/popover/NotificationsPopover";
 import ChatPopover from "../shared/popover/ChatPopover";

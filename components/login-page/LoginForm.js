@@ -5,7 +5,7 @@ import classes from './styles.module.scss';
 import {useForm} from "react-hook-form";
 import AuthFormLayout from "../layout/AuthFormLayout";
 import FormGroupWrapper from "../layout/FormGroupWrapper";
-import {useAuth} from "../../contexts/AuthContext";
+import {useAuth} from "../../store/AuthContext";
 
 const LoginForm = props => {
 

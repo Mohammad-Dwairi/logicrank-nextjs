@@ -1,6 +1,6 @@
 import {useRouter} from "next/router";
 import React from "react";
-import {useAuth} from "../contexts/AuthContext";
+import {useAuth} from "../store/AuthContext";
 import LoadingSpinner from "../components/layout/LoadingSpinner";
 import Centered from "../components/layout/Centered";
 

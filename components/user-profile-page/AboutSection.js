@@ -1,8 +1,21 @@
 import classes from './styles.module.scss';
 import LabeledSeparator from "../layout/LabeledSeparator";
+import EditableText from "../shared/EditableText";
+import {userInfoChangeHandler} from "../../store/actions/user-profile-actions";
+import {useState} from "react";
+import {useAuth} from "../../store/AuthContext";
 
-const AboutSection = props => {
+const initState = (val) => val ? val : '';
 
+const AboutSection = ({userInfo}) => {
+
+    const {currentUser} = useAuth();
+
+    const [phone, setPhone] = useState(initState(userInfo.phoneNumber));
+    const [nationality, setNationality] = useState(initState(userInfo.nationality));
+    const [email, setEmail] = useState(initState(currentUser.email));
+    const [handle, setHandle] = useState(initState(userInfo.codeforcesHandle));
+    const [birthday, setBirthday] = useState(initState(userInfo.birthday));
 
     return (
         <>
@@ -10,35 +23,78 @@ const AboutSection = props => {
             <div className={classes.aboutSection}>
                 <table className={classes.infoTable}>
                     <thead>
+                    <tr>
                         <th colSpan={2}>Contact Information</th>
+                    </tr>
                     </thead>
                     <tbody>
                     <tr>
                         <th>Phone</th>
-                        <td>+96254356574</td>
+                        <td>
+                            <EditableText
+                                type='number'
+                                value={phone}
+                                placeholder='Add phone number'
+                                onChange={text => setPhone(text)}
+                                onFinish={() => userInfoChangeHandler('phoneNumber', phone)}
+                            />
+                        </td>
                     </tr>
                     <tr>
-                        <th>Address</th>
-                        <td>Jordan, Irbid</td>
+                        <th>From</th>
+                        <td>
+                            <EditableText
+                                value={nationality}
+                                placeholder='Add nationality'
+                                onChange={text => setNationality(text)}
+                                onFinish={() => userInfoChangeHandler('nationality', nationality)}
+                            />
+                        </td>
                     </tr>
                     <tr>
                         <th>E-mail</th>
-                        <td>mdwairy@gmail.com</td>
+                        <td>
+                            <EditableText
+                                readOnly
+                                type='email'
+                                value={email}
+                                placeholder='Add email'
+                                onChange={text => setEmail(text)}
+                                onFinish={() => userInfoChangeHandler('email', nationality)}
+                            />
+                        </td>
                     </tr>
                     <tr>
                         <th>Codeforces Handle</th>
-                        <td>Mohamamd_Dwairi</td>
+                        <td>
+                            <EditableText
+                                value={handle}
+                                placeholder='Add Codeforces Handle'
+                                onChange={text => setHandle(text)}
+                                onFinish={() => userInfoChangeHandler('codeforcesHandle', handle)}
+                            />
+                        </td>
                     </tr>
                     </tbody>
                 </table>
                 <table className={classes.infoTable}>
                     <thead>
-                    <th colSpan={2}>Basic Information</th>
+                    <tr>
+                        <th colSpan={2}>Basic Information</th>
+                    </tr>
                     </thead>
                     <tbody>
                     <tr>
                         <th>Birthday</th>
-                        <td>June 5, 1992</td>
+                        <td>
+                            <EditableText
+                                value={birthday}
+                                type='date'
+                                placeholder='Add Birthday'
+                                onChange={text => setBirthday(text)}
+                                onFinish={() => userInfoChangeHandler('birthday', birthday)}
+                            />
+                        </td>
                     </tr>
                     <tr>
                         <th>Gender</th>

@@ -3,17 +3,39 @@ import {IoLocation} from "react-icons/io5";
 import classes from './styles.module.scss';
 import Link from "next/link";
 import {RiMessageFill} from "react-icons/ri";
+import EditableText from "../shared/EditableText";
+import {userInfoChangeHandler} from "../../store/actions/user-profile-actions";
+import {useState} from "react";
 
 
-const UserNameSection = props => {
+const initState = (val) => val ? val : '';
 
+const UserNameSection = ({userInfo}) => {
+
+    const [fullName, setFullName] = useState(initState(userInfo.fullName));
+    const [location, setLocation] = useState(initState(userInfo.location));
 
     return (
         <div className={classes.userNameSection}>
-            <h1 className={classes.userName}>Mohammad Dwairi</h1>
+            <h1 className={classes.userName}>
+                <EditableText
+                    required
+                    defaultValue={userInfo.fullName}
+                    value={fullName}
+                    placeholder='Press to add user name'
+                    onChange={text => setFullName(text)}
+                    onFinish={() => userInfoChangeHandler('fullName', fullName)}
+                />
+            </h1>
             <div className={classes.locationContainer}>
                 <IoLocation/>
-                <span>New York</span>
+                <EditableText
+                    name='location'
+                    value={location}
+                    placeholder='Press to add location'
+                    onChange={text => setLocation(text)}
+                    onFinish={() => userInfoChangeHandler('location', location)}
+                />
             </div>
             <div className={classes.actions}>
                 <Link href='#' passHref>

@@ -2,7 +2,7 @@ import AuthFormLayout from "../layout/AuthFormLayout";
 import classes from "../login-page/styles.module.scss";
 import FormGroupWrapper from "../layout/FormGroupWrapper";
 import {useForm} from "react-hook-form";
-import {useAuth} from "../../contexts/AuthContext";
+import {useAuth} from "../../store/AuthContext";
 import {useState} from "react";
 import Link from "next/link";
 
