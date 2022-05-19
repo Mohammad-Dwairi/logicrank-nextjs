@@ -3,25 +3,33 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import classes from './styles.module.scss';
+import {useEffect} from "react";
+import {useUser} from "../../store/UserContext";
 
 const renderCard = rooms => {
-    rooms = rooms.slice(0, 3);
-    return rooms.map((room, index) => (
-        <Col key={index} xl={4} lg={12}>
-            <RecentlyAccessedRoomCard room={room}/>
+    return Object.keys(rooms).map(roomUID => (
+        <Col key={roomUID} xl={4} lg={12}>
+            <RecentlyAccessedRoomCard room={rooms[roomUID]}/>
         </Col>
     ));
 };
 
 const RecentlyAccessRoomsSection = props => {
 
-    const {rooms, title} = props;
+    const {userInfo, reloadUserInfo} = useUser();
+
+    const {title} = props;
+
+    useEffect(() => {
+        reloadUserInfo();
+    }, []);
 
     return (
         <Container fluid className={classes.raSection}>
             <h1 className={classes.raSectionTitle}>{title}</h1>
             <Row>
-                {renderCard(rooms)}
+                {Object.keys(userInfo.recentRooms || {}).length === 0 && <span className={classes.noRoomsPlaceholder}>No Recent Rooms</span>}
+                {userInfo.recentRooms && renderCard(userInfo.recentRooms)}
             </Row>
         </Container>
     );

@@ -1,4 +1,4 @@
-import {addDoc, collection, getDocs} from 'firebase/firestore';
+import {addDoc, collection, getDocs, query, where} from 'firebase/firestore';
 import {db} from "../../firebase";
 
 export const uploadDoc = async (col, newDoc) => {
@@ -16,4 +16,11 @@ export const loadDocs = async (col) => {
         docs[doc.id] = doc.data();
     });
     return docs;
+};
+
+export const loadDoc = async (col, key, value) => {
+    const colRef = collection(db, col);
+    const q = await query(colRef, where(key, '==', value));
+    const querySnapshot = await getDocs(q);
+    return querySnapshot.docs[0].data();
 };
