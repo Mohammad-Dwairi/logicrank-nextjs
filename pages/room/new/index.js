@@ -5,8 +5,7 @@ import Col from "react-bootstrap/Col";
 import Image from "next/image";
 
 
-const NewRoomPage = props => {
-
+const NewRoomPage = () => {
 
     return (
         <Container className='mt-5'>

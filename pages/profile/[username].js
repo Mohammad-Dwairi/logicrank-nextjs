@@ -13,6 +13,7 @@ import {collection, getDocs, query, where} from "firebase/firestore";
 import {db} from "../../firebase";
 import Centered from "../../components/layout/Centered";
 import LoadingSpinner from "../../components/layout/LoadingSpinner";
+import {getUserByUID} from "../../store/actions/user-profile-actions";
 
 const UserProfilePage = () => {
 
@@ -21,10 +22,7 @@ const UserProfilePage = () => {
     const [loading, setLoading] = useState(false);
 
     const loadUser = useCallback(async () => {
-        const usersRef = collection(db, 'users');
-        const q = await query(usersRef, where('__name__', '==', currentUser.uid));
-        const querySnapshot = await getDocs(q);
-        return querySnapshot.docs[0].data();
+        return await getUserByUID(currentUser.uid);
     }, [currentUser.uid]);
 
     useLayoutEffect(() => {
