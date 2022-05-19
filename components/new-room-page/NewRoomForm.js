@@ -49,13 +49,15 @@ const NewRoomForm = () => {
 
     const onFormSubmit = async data => {
         setIsLoading(true);
+
         if (coverImage) {
-            await uploadBlobToStorage(coverImage);
+            data['coverImageURL'] = await uploadBlobToStorage(coverImage);
         }
+
         const userInfo = await getUserByUID(currentUser.uid);
 
-        data['adminUID'] = currentUser.uid;
-        data['adminName'] = userInfo.fullName;
+        data['roomInstructorUID'] = currentUser.uid;
+        data['roomInstructor'] = userInfo.fullName;
 
         const roomRef = await uploadDoc('rooms', data);
         await router.replace(`/room/${roomRef.id}`);

@@ -12,7 +12,7 @@ const HomePage = () => {
             {/*</div>*/}
             <Container >
                 <RecentlyAccessRoomsSection rooms={DUMMY_ROOMS_CARDS} title='Recently Accessed Rooms'/>
-                <RoomsSection rooms={DUMMY_ROOMS_CARDS} title='All Rooms'/>
+                <RoomsSection title='All Rooms'/>
             </Container>
         </div>
     );
