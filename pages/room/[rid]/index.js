@@ -4,7 +4,7 @@ import NewPostInput from "../../../components/room-page/NewPostInput";
 import NewsFeedSection from "../../../components/room-page/NewsFeedSection";
 import Container from "react-bootstrap/Container";
 import {withProtected} from "../../../hoc/RouteAuth";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import {userInfoChangeHandler} from "../../../store/actions/user-profile-actions";
 import {useUser} from "../../../store/UserContext";
 import {loadDoc} from "../../../store/actions/firestore-docs-actions";
@@ -15,6 +15,8 @@ const Room = () => {
     const {rid} = router.query;
 
     const {userInfo} = useUser();
+
+    const [room, setRoom] = useState({});
 
     useEffect(() => {
         const handle = async () => {
@@ -27,6 +29,7 @@ const Room = () => {
                 recentRooms.shift();
             }
             recentRooms.push(thisRoom);
+            setRoom(thisRoom);
             userInfoChangeHandler('recentRooms', recentRooms);
         };
         handle();
@@ -35,7 +38,7 @@ const Room = () => {
     return (
         <section className='d-flex'>
             <div>
-                <RoomSideNavbar/>
+                <RoomSideNavbar roomCoverImg={room.coverImageURL}/>
             </div>
             <div className='flex-grow-1'>
                 <NewPostInput/>

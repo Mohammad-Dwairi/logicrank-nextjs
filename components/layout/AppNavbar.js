@@ -6,6 +6,7 @@ import {useAuth} from "../../store/AuthContext";
 import UserProfileBadgePopover from "../shared/popover/UserProfileBadgePopover";
 import NotificationsPopover from "../shared/popover/NotificationsPopover";
 import ChatPopover from "../shared/popover/ChatPopover";
+import Link from "next/link";
 
 
 const AppNavbar = props => {
@@ -21,16 +22,18 @@ const AppNavbar = props => {
         <div style={{height: '4.5rem'}}>
             <Navbar bg="dark" variant="dark" fixed='top' style={{zIndex: 10}}>
                 <Container>
-                    <Navbar.Brand href="#home" style={{width: '10rem'}}>
-                        <Image src={require('../../public/logo.png')} alt='logo'/>
-                    </Navbar.Brand>
+                    <Link href='/home' passHref>
+                        <Navbar.Brand style={{width: '10rem'}}>
+                            <Image src={require('../../public/logo.png')} alt='logo'/>
+                        </Navbar.Brand>
+                    </Link>
                     <Nav className="me-auto"/>
                     <Nav className='d-flex align-items-center justify-content-center'>
                         <Nav.Link>
-                            <NotificationsPopover />
+                            <NotificationsPopover/>
                         </Nav.Link>
                         <Nav.Link className='mx-2'>
-                            <ChatPopover />
+                            <ChatPopover/>
                         </Nav.Link>
                         <Nav.Link>
                             <UserProfileBadgePopover/>

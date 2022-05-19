@@ -2,7 +2,40 @@
 @import '../../styles/sass/variables';
 @import "../../styles/sass/mixins";
 
+.sideNavbarWrapper {
+  width: 80px;
+  height: 100vh;
+}
 
+.sideNavbar {
+  top: 0;
+  position: fixed !important;
+  .toggle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 4.5rem;
+    padding: .6rem 0;
+    font-size: 1.2rem;
+    border: none !important;
+    &:hover {
+      color: $color-primary;
+    }
+  }
+
+  .logoContainer {
+    width: 90%;
+    margin: 0 auto;
+
+    & .roomName {
+      font-size: 1rem;
+      color: $color-secondary;
+      text-align: center;
+      margin-top: 1rem;
+    }
+
+  }
+}
 
 .newPostInput {
   margin-top: 3rem;

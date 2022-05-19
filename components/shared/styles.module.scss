@@ -1,36 +1,36 @@
-
 @import "../../styles/sass/variables";
 
-  .userProfileBadge {
-    margin: 0 1rem;
-    display: inline-block;
-    width: 1.8rem;
-    height: 1.8rem;
-    overflow: hidden;
-    border-radius: 1rem;
-    top: 3px;
-    position: relative;
+.userProfileBadge {
+  margin: 0 1rem;
+  display: inline-block;
+  width: 1.8rem;
+  height: 1.8rem;
+  overflow: hidden;
+  border-radius: 1rem;
+  top: 3px;
+  position: relative;
 
-    &:hover {
-      cursor: pointer;
-    }
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.editableText {
+  outline: none;
+  border: none;
+  padding: .2rem;
+
+  &:hover {
+    cursor: pointer;
+    color: $color-primary;
+
   }
 
-  .editableText {
-    outline: none;
-    border: none;
-    padding: .2rem;
-    &:hover {
-      cursor: pointer;
-      color: $color-primary;
-
-    }
-
-    &:focus {
-      cursor: text;
-      color: $color-primary;
-    }
-
+  &:focus {
+    cursor: text;
+    color: $color-primary;
   }
+
+}
 
 
