@@ -1,41 +1,39 @@
 import classes from './styles.module.scss';
 import Post from "./Post";
+import {useEffect, useState} from "react";
+import {loadDocs, loadDocsByQuery} from "../../store/actions/firestore-docs-actions";
+import {useRouter} from "next/router";
+import {collection, getDocs, query, orderBy, limit} from "firebase/firestore";
+import {db} from "../../firebase";
 
-const renderPosts = posts => posts.map((post, i) => <Post post={post} key={i}/>);
+const renderPosts = posts => Object.keys(posts).map(postUID => <Post post={posts[postUID]} key={postUID}/>);
 
-const NewsFeedSection = props => {
+const NewsFeedSection = () => {
+
+    const [posts, setPosts] = useState({});
+    const router = useRouter();
+    const {rid} = router.query;
+
+    useEffect(() => {
+        const handle = async () => {
+            const postsColRef = collection(db, 'roomsDetails', rid, 'posts');
+            const q = query(postsColRef, orderBy("datePosted", "desc"), limit(100));
+            const querySnapshot = await getDocs(q);
+            const fetchedPosts = {};
+            querySnapshot.forEach(doc => {
+                fetchedPosts[doc.id] = doc.data();
+            });
+            setPosts(fetchedPosts);
+        };
+        handle();
+    }, []);
+
 
     return (
         <section className={classes.newsFeed}>
-            {renderPosts(DUMMY_POSTS)}
+            {renderPosts(posts)}
         </section>
     );
 };
-
-const DUMMY_POSTS = [
-    {
-        userName: 'Mohammad Dwairi',
-        timePosted: '2',
-        likes: '3',
-        comments: [],
-        text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque doloremque eligendi laudantium obcaecati sapiente. Dicta eaque facere fugiat, ipsam nam natus omnis possimus quaerat quibusdam saepe sapiente tempora tenetur veniam?',
-        imageURL: 'https://lifesupportscounselling.com.au/wp-content/uploads/2017/01/problem-solving-anger-management.png'
-    },
-    {
-        userName: 'Mohammad Dwairi',
-        timePosted: '2',
-        likes: '3',
-        comments: [],
-        text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque doloremque eligendi laudantium obcaecati sapiente. Dicta eaque facere fugiat, ipsam nam natus omnis possimus quaerat quibusdam saepe sapiente tempora tenetur veniam?'
-    },
-    {
-        userName: 'Mohammad Dwairi',
-        timePosted: '2',
-        likes: '3',
-        comments: [],
-        text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque doloremque eligendi laudantium obcaecati sapiente. Dicta eaque facere fugiat, ipsam nam natus omnis possimus quaerat quibusdam saepe sapiente tempora tenetur veniam?'
-    },
-
-];
 
 export default NewsFeedSection;

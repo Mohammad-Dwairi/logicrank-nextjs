@@ -8,6 +8,10 @@ import {useEffect, useState} from "react";
 import {userInfoChangeHandler} from "../../../store/actions/user-profile-actions";
 import {useUser} from "../../../store/UserContext";
 import {loadDoc} from "../../../store/actions/firestore-docs-actions";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Centered from "../../../components/layout/Centered";
+import LoadingSpinner from "../../../components/layout/LoadingSpinner";
 
 const Room = () => {
 
@@ -17,6 +21,7 @@ const Room = () => {
     const {userInfo} = useUser();
 
     const [room, setRoom] = useState({});
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
         const handle = async () => {
@@ -32,18 +37,33 @@ const Room = () => {
             setRoom(thisRoom);
             userInfoChangeHandler('recentRooms', recentRooms);
         };
+        setIsLoading(true);
         handle();
+        setIsLoading(false);
     }, []);
 
+    if (isLoading) {
+        return (
+            <Centered>
+                <LoadingSpinner />
+            </Centered>
+        );
+    }
     return (
         <section className='d-flex'>
             <div>
                 <RoomSideNavbar roomCoverImg={room.coverImageURL}/>
             </div>
             <div className='flex-grow-1'>
-                <NewPostInput/>
                 <Container>
-                    <NewsFeedSection/>
+                    <Row className='d-flex justify-content-center'>
+                        <Col xl={6}>
+                            <NewPostInput setIsLoading={setIsLoading}/>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <NewsFeedSection/>
+                    </Row>
                 </Container>
             </div>
         </section>

@@ -37,32 +37,93 @@
   }
 }
 
-.newPostInput {
+.newPostForm {
+  width: 100%;
   margin-top: 3rem;
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  align-items: center;
+
+  & .submitBtn {
+    width: 100%;
+    background-color: $color-primary;
+    color: $color-white;
+    border: none;
+    padding: .3rem .5rem;
+
+    &:disabled {
+      background-color: $color-secondary;
+    }
+
+  }
+
+
+
+  & .postControl {
+
+    width: 100%;
+    display: flex;
+
+    & input[type='file'] {
+      display: none;
+    }
+
+    & .fileUpload {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.5rem;
+      color: $color-primary;
+      width: 100%;
+      border: 1px solid $color-primary;
+      padding: 6px 12px;
+      cursor: pointer;
+
+      &:hover {
+        color: darken($color-primary, 20%);
+      }
+
+      & .fileUploadLabel {
+        font-size: 1rem;
+        margin: 0 .5rem;
+        white-space: nowrap;
+        overflow: hidden;
+      }
+    }
+
+    & .removeFile {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.5rem;
+      color: $color-primary;
+      width: 100%;
+      border: 1px solid $color-primary;
+      padding: 6px 12px;
+      cursor: pointer;
+
+      &:hover {
+        color: crimson;
+      }
+
+      & .removeFileLabel {
+        font-size: 1rem;
+        margin: 0 .5rem;
+      }
+
+    }
+  }
+
 
   & .textAreaControl {
     border: none;
-    width: 50rem;
+    width: 100%;
     padding: .5rem 1rem;
     outline: none;
     box-shadow: 0 .1rem .5rem rgba($color-black, .1);
     border-radius: 5px;
     color: $color-grey-dark;
 
-    @include respond(tab-land) {
-      width: 70%;
-    }
-
-    @include respond(tab-port) {
-      width: 80%;
-    }
-
-    @include respond(phone) {
-      width: 95%;
-    }
   }
 }
 
@@ -138,11 +199,11 @@
   & .postContent {
     display: flex;
     flex-direction: column;
-    align-items: center;
 
     & .postText {
       padding: 0 1rem;
       margin: 0;
+      text-align: left;
     }
 
     & .postImage {

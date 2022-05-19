@@ -33,4 +33,21 @@
 
 }
 
+.fileTypeContainer {
+  display: flex;
+  align-items: center;
+  background-color: $color-white;
+
+  & .fileTypeIcon {
+    font-size: 4rem;
+    color: $color-primary;
+  }
+
+  & .fileName {
+    font-size: 1rem;
+    position: relative;
+    top: 10px;
+  }
+}
+
 
