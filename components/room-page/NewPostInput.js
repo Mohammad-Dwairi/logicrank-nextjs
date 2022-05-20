@@ -50,7 +50,7 @@ const NewPostInput = props => {
         data['userName'] = userInfo.fullName;
         if (file) {
             data['attachment'] = {
-                link: await uploadBlobToStorage(file),
+                link: await uploadBlobToStorage(`${rid}/posts`, file),
                 type: file.type,
                 size: file.size,
                 name: file.name

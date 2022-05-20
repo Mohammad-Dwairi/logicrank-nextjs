@@ -36,7 +36,9 @@
 .fileTypeContainer {
   display: flex;
   align-items: center;
-  background-color: $color-white;
+  justify-content: center;
+  //background-color: $color-white;
+  border-radius: 3px;
 
   & .fileTypeIcon {
     font-size: 4rem;
@@ -48,6 +50,41 @@
     position: relative;
     top: 10px;
   }
+}
+
+.fileUpload {
+  display: flex;
+  align-items: center;
+  color: $color-primary;
+  border: 1px dashed $color-primary;
+  padding: .5rem 1rem;
+  margin-right: 2rem;
+
+  &:hover {
+    cursor: pointer;
+    color: green;
+  }
+
+  & input[type='file'] {
+    display: none;
+  }
+
+  & .fileUploadLabel {
+    font-weight: 600;
+  }
+
+  & .icon {
+    font-size: 2rem;
+    margin-right: 1rem;
+  }
+}
+
+.uploadButton {
+  background-color: $color-primary;
+  border: none;
+  color: $color-white;
+  padding: 0.3rem 1rem;
+  border-radius: 3px;
 }
 
 

@@ -8,6 +8,7 @@ import classes from './styles.module.scss';
 
 import 'react-pro-sidebar/dist/css/styles.css';
 import {useRouter} from "next/router";
+import Link from "next/link";
 
 
 const RoomSideNavbar = props => {
@@ -16,6 +17,7 @@ const RoomSideNavbar = props => {
 
     const router = useRouter();
     const {route} = router;
+    const {rid} = router.query;
 
     const [collapsed, setCollapsed] = useState(true);
 
@@ -42,7 +44,9 @@ const RoomSideNavbar = props => {
                 <Menu iconShape='round'>
                     <MenuItem active={route === '/room/[rid]/materials'} icon={<BsStack/>}>Materials</MenuItem>
                     <MenuItem active={route === '/room/[rid]'} icon={<BsNewspaper/>}>Updates</MenuItem>
-                    <MenuItem active={route === '/room/[rid]/tasks'} icon={<BsNewspaper/>}>Tasks</MenuItem>
+                    <Link href={`/room/${rid}/tasks`} passHref>
+                        <MenuItem active={route === '/room/[rid]/tasks'} icon={<BsNewspaper/>}>Tasks</MenuItem>
+                    </Link>
                     <MenuItem active={route === '/room/[rid]/roadmap'} icon={<BsNewspaper/>}>RoadMap</MenuItem>
                     <MenuItem active={route === '/room/[rid]/code-editor'} icon={<BsCodeSquare/>}>Code Editor</MenuItem>
                     <MenuItem active={route === '/room/[rid]/problems'} icon={<GiMaze/>}>Problems</MenuItem>
