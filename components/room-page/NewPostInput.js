@@ -9,12 +9,15 @@ import {useUser} from "../../store/UserContext";
 import {useState} from "react";
 import FileType from "../shared/FileType";
 import {uploadBlobToStorage} from "../../store/actions/firebase-storage-actions";
+import Image from "next/image";
+import BlobImageView from "../shared/BlobImageView";
 
 
 const NewPostInput = props => {
 
     const {register, handleSubmit, watch, formState: {errors}} = useForm();
     const [file, setFile] = useState(null);
+    const [isImage, setIsImage] = useState(false);
 
     const router = useRouter();
     const {rid} = router.query;
@@ -26,13 +29,19 @@ const NewPostInput = props => {
 
     const handleFile = (event) => {
         const file = event.target.files[0];
+
         if ((file.size / 1024 / 1024) >= 40) {
             event.target.file[0] = '';
             return alert('File Too Large');
         }
-        setFile(file);
-    };
 
+        setFile(file);
+
+        if (file.type.includes('image')) {
+            setIsImage(true);
+        }
+
+    };
 
     const handlePostSubmit = async data => {
         setIsLoading(true);
@@ -61,7 +70,8 @@ const NewPostInput = props => {
                 rows={3}
                 {...register('text', {required: true})}
             />
-            {file && <FileType type={file.type} name={file.name}/>}
+            {file && !file.type.includes('image') && <FileType type={file.type} name={file.name}/>}
+            {isImage && <div className='d-flex justify-content-center bg-secondary'><BlobImageView imgFile={file} /></div>}
             <div className={classes.postControl}>
                 {!file ?
                     <label className={classes.fileUpload}>

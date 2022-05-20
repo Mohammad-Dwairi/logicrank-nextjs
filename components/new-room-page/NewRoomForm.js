@@ -12,12 +12,12 @@ import LoadingSpinner from "../layout/LoadingSpinner";
 import {useAuth} from "../../store/AuthContext";
 import {getUserByUID} from "../../store/actions/user-profile-actions";
 import {useRouter} from "next/router";
+import BlobImageView from "../shared/BlobImageView";
 
 const NewRoomForm = () => {
 
     const {register, handleSubmit, watch, formState: {errors}} = useForm();
     const [coverImage, setCoverImage] = useState(null);
-    const [renderedImage, setRenderedImage] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
 
     const {currentUser} = useAuth();
@@ -35,17 +35,7 @@ const NewRoomForm = () => {
             return alert('File too big');
         }
         setCoverImage(image);
-        renderImage(image);
     };
-
-    const renderImage = (image) => {
-        const reader = new FileReader();
-        reader.addEventListener("load", () => {
-            setRenderedImage(reader.result);
-        });
-        reader.readAsDataURL(image);
-    };
-
 
     const onFormSubmit = async data => {
         setIsLoading(true);
@@ -150,7 +140,7 @@ const NewRoomForm = () => {
                                 <BiUpload/>
                             </label> :
                             <div>
-                                <img src={renderedImage} className={classes.imagePreview} alt=''/>
+                                <BlobImageView imgFile={coverImage}/>
                                 <a className={classes.removeImageBtn} onClick={() => setCoverImage(null)}>Remove Image</a>
                             </div>
                         }

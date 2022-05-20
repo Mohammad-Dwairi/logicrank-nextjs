@@ -57,12 +57,14 @@ const Room = () => {
             <div className='flex-grow-1'>
                 <Container>
                     <Row className='d-flex justify-content-center'>
-                        <Col xl={6}>
+                        <Col xl={7}>
                             <NewPostInput setIsLoading={setIsLoading}/>
                         </Col>
                     </Row>
-                    <Row>
-                        <NewsFeedSection/>
+                    <Row className='d-flex justify-content-center'>
+                        <Col xl={7}>
+                            <NewsFeedSection/>
+                        </Col>
                     </Row>
                 </Container>
             </div>

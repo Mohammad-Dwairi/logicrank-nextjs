@@ -24,12 +24,12 @@ const Post = props => {
             </div>
             <div className={classes.postContent}>
                 <p className={classes.postText}>{post.text}</p>
-                {post.attachment && <a href={post.attachment.link} download><FileType type={post.attachment.type} name={post.attachment.name}/></a>}
-                {/*{post.imageURL &&*/}
-                {/*    <div className={classes.postImage}>*/}
-                {/*        <Image src={post.imageURL} alt='post img' width='100%' height='100%' layout='responsive'/>*/}
-                {/*    </div>*/}
-                {/*}*/}
+                {post.attachment && !post.attachment.type.includes('image') && <a href={post.attachment.link} download><FileType type={post.attachment.type} name={post.attachment.name}/></a>}
+                {post.attachment && post.attachment.type.includes('image') &&
+                    <div className={classes.postImage}>
+                        <Image src={post.attachment.link} alt='post img' width='100%' height='100%' layout='responsive'/>
+                    </div>
+                }
             </div>
             <div className={classes.postFooter}>
                 <div className={classes.postAction}>
