@@ -13,6 +13,9 @@ import {useAuth} from "../../store/AuthContext";
 import {getUserByUID} from "../../store/actions/user-profile-actions";
 import {useRouter} from "next/router";
 import BlobImageView from "../shared/BlobImageView";
+import {addDoc, arrayUnion, collection, doc, updateDoc} from "firebase/firestore";
+import {db} from "../../firebase";
+import {useUser} from "../../store/UserContext";
 
 const NewRoomForm = () => {
 
@@ -21,6 +24,8 @@ const NewRoomForm = () => {
     const [isLoading, setIsLoading] = useState(false);
 
     const {currentUser} = useAuth();
+    const {reloadUserInfo} = useUser();
+
     const router = useRouter();
 
     const coverImageHandler = (event) => {
@@ -48,11 +53,14 @@ const NewRoomForm = () => {
 
         data['roomInstructorUID'] = currentUser.uid;
         data['roomInstructor'] = userInfo.fullName;
-
-        const roomRef = await uploadDoc('rooms', data);
+        data['members'] = [currentUser.uid];
+        data['membersNum'] = 1;
+        data['dateCreated'] = + new Date();
+        const roomRef = await addDoc(collection(db, 'rooms'), data);
+        await updateDoc(doc(db, 'users', currentUser.uid), {enrolledRooms: arrayUnion(roomRef.id)});
+        reloadUserInfo();
         await router.replace(`/room/${roomRef.id}`);
         setIsLoading(false);
-
     };
 
     if (isLoading) {

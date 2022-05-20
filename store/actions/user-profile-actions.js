@@ -1,5 +1,6 @@
 import {doc, updateDoc, deleteField, collection, query, where, getDocs} from 'firebase/firestore';
 import {auth, db} from "../../firebase";
+import {signOut} from "firebase/auth";
 
 
 export const userInfoChangeHandler = async (fieldName, fieldValue) => {
@@ -12,5 +13,8 @@ export const getUserByUID = async (uid) => {
     const usersRef = collection(db, 'users');
     const q = await query(usersRef, where('__name__', '==', uid));
     const querySnapshot = await getDocs(q);
-    return querySnapshot.docs[0].data();
+    // if (!querySnapshot.docs[0]) {
+    //     return signOut(auth);
+    // }
+    return querySnapshot?.docs[0]?.data();
 };

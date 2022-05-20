@@ -243,6 +243,41 @@
     }
 
   }
+}
 
+.roomInfoRow {
+
+  max-width: 25rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.1rem;
+  text-transform: capitalize;
+  margin: 1rem 0;
+
+  & .key {
+    font-weight: 600;
+    margin-right: 3rem;
+  }
+}
+
+.enrollButton {
+  background-color: $color-primary;
+  color: $color-white;
+  border: none;
+  padding: .2rem 1rem;
+  transition: all .3s;
+  border-radius: 3px;
+  width: 100%;
+  margin: 0 .2rem;
+  &:hover {
+    background-color: darken($color-primary, 20%);
+  }
+}
+
+.roomPrice {
+  margin: 0;
+  width: 100%;
+  color: $color-primary;
 }
 
