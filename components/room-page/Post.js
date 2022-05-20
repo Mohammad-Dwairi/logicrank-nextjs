@@ -24,19 +24,32 @@ const Post = props => {
             </div>
             <div className={classes.postContent}>
                 <p className={classes.postText}>{post.text}</p>
-                {post.attachment && !post.attachment.type.includes('image') && <a href={post.attachment.link} download><FileType type={post.attachment.type} name={post.attachment.name}/></a>}
+                {post.attachment && !post.attachment.type.includes('image') && !post.attachment.type.includes('video') &&
+                    <a href={post.attachment.link} download><FileType type={post.attachment.type}
+                                                                      name={post.attachment.name}/></a>}
                 {post.attachment && post.attachment.type.includes('image') &&
                     <div className={classes.postImage}>
-                        <Image src={post.attachment.link} alt='post img' width='100%' height='100%' layout='responsive'/>
+                        <Image src={post.attachment.link} alt='post img' width='100%' height='100%'
+                               layout='responsive'/>
+                    </div>
+                }
+                {post.attachment && post.attachment.type.includes('video') &&
+                    <div>
+                        <video width="100%" height="100%" controls>
+                            <source src={post.attachment.link} type="video/mp4"/>
+                            <source src={post.attachment.link} type="video/ogg"/>
+                            <source src={post.attachment.link} type="video/webm"/>
+                            Your browser does not support the video tag.
+                        </video>
                     </div>
                 }
             </div>
             <div className={classes.postFooter}>
                 <div className={classes.postAction}>
-                    <AiOutlineLike />
+                    <AiOutlineLike/>
                 </div>
                 <div className={classes.postAction}>
-                    <AiOutlineComment />
+                    <AiOutlineComment/>
                 </div>
             </div>
         </div>
