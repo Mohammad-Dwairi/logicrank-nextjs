@@ -5,6 +5,7 @@ import Link from "next/link";
 import {useAuth} from "../../store/AuthContext";
 import {AiFillCode, AiFillFile, AiFillFolder} from "react-icons/ai";
 import {FcTodoList} from "react-icons/fc";
+import {BiChalkboard} from "react-icons/bi";
 
 
 const ToolsSection = props => {
@@ -15,7 +16,7 @@ const ToolsSection = props => {
     return (
         <Row className={classes.raSection}>
             <h1 className={classes.raSectionTitle}>{title}</h1>
-            <Col md={4} className='mt-2'>
+            <Col lg={3} className='mt-2'>
                 <Link href='/code-editor' passHref>
                     <a className={classes.toolCard}>
                         <AiFillCode className={classes.toolCardIcon}/>
@@ -23,7 +24,15 @@ const ToolsSection = props => {
                     </a>
                 </Link>
             </Col>
-            <Col md={4} className='mt-2'>
+            <Col lg={3} className='mt-2'>
+                <Link href='/whiteboard' passHref>
+                    <a className={classes.toolCard}>
+                        <BiChalkboard className={classes.toolCardIcon}/>
+                        <span>Whiteboard</span>
+                    </a>
+                </Link>
+            </Col>
+            <Col lg={3} className='mt-2'>
                 <Link href={`/profile/${currentUser.uid}/files`} passHref>
                     <a className={classes.toolCard}>
                         <AiFillFolder className={classes.toolCardIcon}/>
@@ -31,7 +40,7 @@ const ToolsSection = props => {
                     </a>
                 </Link>
             </Col>
-            <Col md={4} className='mt-2'>
+            <Col lg={3} className='mt-2'>
                 <Link href={`/profile/${currentUser.uid}/todo`} passHref>
                     <a className={classes.toolCard}>
                         <FcTodoList className={classes.toolCardIcon}/>

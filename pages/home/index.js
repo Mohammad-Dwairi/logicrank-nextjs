@@ -10,7 +10,7 @@ const HomePage = () => {
         <div className='d-flex'>
             <Container >
                 <RecentlyAccessRoomsSection title='Recently Accessed Rooms'/>
-                <ToolsSection title='Tools & '/>
+                <ToolsSection title='Assets & Utilities'/>
                 <RoomsSection title='All Rooms'/>
             </Container>
         </div>
