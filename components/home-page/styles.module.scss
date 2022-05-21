@@ -142,7 +142,6 @@
   justify-content: center;
   align-items: center;
   border-radius: 5px;
-  //background-color: $color-secondary;
   border: 1px solid $color-grey-dark;
 
   box-shadow: 0 .1rem .5rem rgba($color-black, .13);
@@ -154,5 +153,12 @@
   &:hover {
     transform: scale(1.04);
     cursor: pointer;
+    color: $color-primary;
   }
+
+  & .toolCardIcon {
+    font-size: 2rem;
+    margin: 0 .5rem;
+  }
+
 }
