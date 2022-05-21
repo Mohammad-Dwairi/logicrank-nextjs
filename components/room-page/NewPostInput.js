@@ -81,7 +81,10 @@ const NewPostInput = props => {
                     </label> :
                     <div className={classes.removeFile}>
                         <BiTrash/>
-                        <span onClick={() => setFile(null)} className={classes.removeFileLabel}>Remove Attachment</span>
+                        <span onClick={() => {
+                            setIsImage(false);
+                            setFile(null);
+                        }} className={classes.removeFileLabel}>Remove Attachment</span>
                     </div>
                 }
                 <input type='submit' className={classes.submitBtn} value='Publish Post' disabled={errors.newPost}/>

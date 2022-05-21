@@ -54,9 +54,11 @@ const NewRoomForm = () => {
         data['dateCreated'] = + new Date();
         const roomRef = await addDoc(collection(db, 'rooms'), data);
         await updateDoc(doc(db, 'users', currentUser.uid), {enrolledRooms: arrayUnion(roomRef.id)});
+
         if (coverImage) {
             data['coverImageURL'] = await uploadBlobToStorage(`${roomRef.id}/data`, coverImage);
         }
+
         reloadUserInfo();
         await router.replace(`/room/${roomRef.id}`);
         setIsLoading(false);

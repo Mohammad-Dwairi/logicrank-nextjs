@@ -7,7 +7,6 @@ import {useEffect, useState} from "react";
 import {useUser} from "../../store/UserContext";
 import Centered from "../layout/Centered";
 import LoadingSpinner from "../layout/LoadingSpinner";
-import {set} from "react-hook-form";
 
 const renderCard = rooms => {
     return Object.keys(rooms).map(roomUID => (
