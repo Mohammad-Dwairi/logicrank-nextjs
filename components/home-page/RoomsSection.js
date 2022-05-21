@@ -35,19 +35,18 @@ const RoomsSection = props => {
     if (isLoading) {
         return (
             <Centered>
-                <LoadingSpinner />
+                <LoadingSpinner/>
             </Centered>
         );
     }
 
     return (
-        <Container fluid className={classes.raSection}>
+        <Row className={classes.raSection}>
             <h1 className={classes.raSectionTitle}>{title}</h1>
-            <Row>
-                {Object.keys(rooms).length === 0 && <span className={classes.noRoomsPlaceholder}>No Rooms Available Right Now</span>}
-                {renderRooms(rooms)}
-            </Row>
-        </Container>
+            {Object.keys(rooms).length === 0 &&
+                <span className={classes.noRoomsPlaceholder}>No Rooms Available Right Now</span>}
+            {renderRooms(rooms)}
+        </Row>
     );
 };
 

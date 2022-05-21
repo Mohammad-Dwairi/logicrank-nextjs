@@ -2,6 +2,7 @@ import RecentlyAccessRoomsSection from "../../components/home-page/RecentlyAcces
 import RoomsSection from "../../components/home-page/RoomsSection";
 import {withProtected} from "../../hoc/RouteAuth";
 import Container from "react-bootstrap/Container";
+import ToolsSection from "../../components/home-page/ToolsSection";
 
 const HomePage = () => {
 
@@ -9,6 +10,7 @@ const HomePage = () => {
         <div className='d-flex'>
             <Container >
                 <RecentlyAccessRoomsSection title='Recently Accessed Rooms'/>
+                <ToolsSection title='Tools & '/>
                 <RoomsSection title='All Rooms'/>
             </Container>
         </div>

@@ -4,16 +4,23 @@ import {userBadgePopoverOptions} from "../../../utils/UserBadgePopoverOptions";
 import UserProfileBadge from "../UserProfileBadge";
 
 import classes from './styles.module.scss';
+import {useUser} from "../../../store/UserContext";
+import {useAuth} from "../../../store/AuthContext";
 
 const UserOptionsPopoverContent = props => {
 
     const {options} = props;
+    const {userInfo} = useUser();
+    const {currentUser} = useAuth();
 
     return (
         <div className={classes.popoverContentContainer}>
-            <div className={classes.title}>
-                Mohammad Dwairi
-            </div>
+            <Link href={`/profile/${currentUser.uid}`} passHref>
+                <a className={classes.title}>
+                    {userInfo.fullName}
+                </a>
+            </Link>
+
             {options.map((option, index) => (
                 <Link href={option.link} key={index} passHref>
                     <div className={classes.option}>{option.label}</div>

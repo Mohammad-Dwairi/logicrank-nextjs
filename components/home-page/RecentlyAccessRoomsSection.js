@@ -34,19 +34,18 @@ const RecentlyAccessRoomsSection = props => {
     if (loading) {
         return (
             <Centered>
-                <LoadingSpinner />
+                <LoadingSpinner/>
             </Centered>
         );
     }
 
     return (
-        <Container fluid className={classes.raSection}>
+        <Row className={classes.raSection}>
             <h1 className={classes.raSectionTitle}>{title}</h1>
-            <Row>
-                {Object.keys(userInfo?.recentRooms || {}).length === 0 && <span className={classes.noRoomsPlaceholder}>No Recent Rooms</span>}
-                {userInfo?.recentRooms && renderCard(userInfo.recentRooms)}
-            </Row>
-        </Container>
+            {Object.keys(userInfo?.recentRooms || {}).length === 0 &&
+                <span className={classes.noRoomsPlaceholder}>No Recent Rooms</span>}
+            {userInfo?.recentRooms && renderCard(userInfo.recentRooms)}
+        </Row>
     );
 };
 

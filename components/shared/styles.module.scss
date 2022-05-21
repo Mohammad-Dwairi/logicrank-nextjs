@@ -9,9 +9,11 @@
   border-radius: 1rem;
   top: 3px;
   position: relative;
+  transition: all .3s;
 
   &:hover {
     cursor: pointer;
+    transform: scale(1.2);
   }
 }
 
