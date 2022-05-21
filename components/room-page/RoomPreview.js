@@ -2,21 +2,19 @@ import Container from "react-bootstrap/Container";
 import {useEffect, useState} from "react";
 import Centered from "../layout/Centered";
 import LoadingSpinner from "../layout/LoadingSpinner";
-import {loadDoc, updateDocByUID} from "../../store/actions/firestore-docs-actions";
+import {loadDoc} from "../../store/actions/firestore-docs-actions";
 import {useRouter} from "next/router";
 import Row from "react-bootstrap/Row";
 import Image from "next/image";
 import Col from "react-bootstrap/Col";
 
 import classes from './styles.module.scss';
-import {userInfoChangeHandler} from "../../store/actions/user-profile-actions";
-import {doc, updateDoc, arrayUnion, increment} from "firebase/firestore";
+import {arrayUnion, doc, increment, updateDoc} from "firebase/firestore";
 import {db} from "../../firebase";
 import {useAuth} from "../../store/AuthContext";
 
-const RoomPreview = props => {
+const RoomPreview = () => {
 
-    const {userInfo} = props;
     const {currentUser} = useAuth();
 
     const [room, setRoom] = useState(null);
@@ -43,8 +41,7 @@ const RoomPreview = props => {
 
     const handleEnrollment = async () => {
         await updateDoc(doc(db, 'users', currentUser.uid), {enrolledRooms: arrayUnion(rid)});
-        await updateDoc(doc(db, 'rooms', rid), {membersNum: increment(1)});
-        await updateDoc(doc(db, 'roomsDetails', rid), {members: arrayUnion(currentUser.uid)});
+        await updateDoc(doc(db, 'rooms', rid), {membersNum: increment(1), members: arrayUnion(currentUser.uid)});
         router.reload(window.location.path);
     };
 
