@@ -20,8 +20,11 @@
     "react-hook-form": "^7.30.0",
     "react-icons": "^4.3.1",
     "react-pro-sidebar": "^0.7.1",
+    "react-redux": "^8.0.1",
     "react-simple-code-editor": "^0.11.0",
-    "react-tiny-popover": "^7.0.1"
+    "react-tiny-popover": "^7.0.1",
+    "redux": "^4.2.0",
+    "redux-thunk": "^2.4.1"
   },
   "devDependencies": {
     "@types/react-edit-text": "^4.4.0",
