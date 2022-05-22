@@ -1,5 +1,4 @@
 import Spinner from "react-bootstrap/Spinner";
-import Centered from "./Centered";
 
 
 const LoadingSpinner = () => {

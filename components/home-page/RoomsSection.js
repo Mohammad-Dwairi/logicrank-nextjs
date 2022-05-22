@@ -1,12 +1,7 @@
-import Container from "react-bootstrap/Container";
 import classes from './styles.module.scss';
 import RoomCard from "./RoomCard";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import {useEffect, useState} from "react";
-import {loadDocs} from "../../store/actions/firestore-docs-actions";
-import Centered from "../layout/Centered";
-import LoadingSpinner from "../layout/LoadingSpinner";
 
 const renderRooms = rooms => {
     return Object.keys(rooms)?.map(roomUID => (
@@ -16,30 +11,7 @@ const renderRooms = rooms => {
     ));
 };
 
-
-const RoomsSection = props => {
-
-    const {title} = props;
-
-    const [rooms, setRooms] = useState({});
-    const [isLoading, setIsLoading] = useState(true);
-
-    useEffect(() => {
-        const handle = async () => {
-            const rooms = await loadDocs('rooms');
-            setRooms(rooms);
-        };
-        handle().then(() => setIsLoading(false));
-    }, []);
-
-    if (isLoading) {
-        return (
-            <Centered>
-                <LoadingSpinner/>
-            </Centered>
-        );
-    }
-
+const RoomsSection = ({rooms, title}) => {
     return (
         <Row className={classes.raSection}>
             <h1 className={classes.raSectionTitle}>{title}</h1>

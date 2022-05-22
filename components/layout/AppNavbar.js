@@ -2,17 +2,16 @@ import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import Container from 'react-bootstrap/Container';
 import Image from "next/image";
-import {useAuth} from "../../store/AuthContext";
 import UserProfileBadgePopover from "../shared/popover/UserProfileBadgePopover";
 import NotificationsPopover from "../shared/popover/NotificationsPopover";
 import ChatPopover from "../shared/popover/ChatPopover";
 import Link from "next/link";
+import {useAuth} from "../../context/AuthContext";
 
 
-const AppNavbar = props => {
+const AppNavbar = () => {
 
-    const {brand} = props;
-    const {logout, currentUser} = useAuth();
+    const {currentUser} = useAuth();
 
     if (!currentUser) {
         return null;

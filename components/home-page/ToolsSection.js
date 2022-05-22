@@ -2,10 +2,10 @@ import Row from "react-bootstrap/Row";
 import classes from "./styles.module.scss";
 import Col from "react-bootstrap/Col";
 import Link from "next/link";
-import {useAuth} from "../../store/AuthContext";
-import {AiFillCode, AiFillFile, AiFillFolder} from "react-icons/ai";
+import {AiFillCode, AiFillFolder} from "react-icons/ai";
 import {FcTodoList} from "react-icons/fc";
 import {BiChalkboard} from "react-icons/bi";
+import {useAuth} from "../../context/AuthContext";
 
 
 const ToolsSection = props => {

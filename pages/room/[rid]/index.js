@@ -1,20 +1,26 @@
 import {withProtected} from "../../../hoc/RouteAuth";
-import {useUser} from "../../../store/UserContext";
 import {useRouter} from "next/router";
 import EnrolledRoom from "../../../components/room-page/EnrolledRoom";
 import RoomPreview from "../../../components/room-page/RoomPreview";
+import {useSelector} from "react-redux";
+import Centered from "../../../components/layout/Centered";
+import LoadingSpinner from "../../../components/layout/LoadingSpinner";
 
 const Room = () => {
 
-    const {userInfo} = useUser();
-    const router = useRouter();
-    const {rid} = router.query;
+    const userInfo = useSelector(state => state.userCtx.userInfo);
+    const {rid} = useRouter().query;
 
-    if (userInfo.enrolledRooms && userInfo.enrolledRooms.includes(rid)) {
-        return <EnrolledRoom />;
+    if (!userInfo) {
+        return (
+            <Centered>
+                <LoadingSpinner/>
+            </Centered>
+        );
     }
 
-    return <RoomPreview userInfo={userInfo}/>;
+    return userInfo.enrolledRooms && userInfo.enrolledRooms.includes(rid) ? <EnrolledRoom/> : <RoomPreview/>;
+
 };
 
 export default withProtected(Room);

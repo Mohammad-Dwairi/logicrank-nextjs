@@ -2,16 +2,14 @@ import AuthFormLayout from "../layout/AuthFormLayout";
 import classes from "../login-page/styles.module.scss";
 import FormGroupWrapper from "../layout/FormGroupWrapper";
 import {useForm} from "react-hook-form";
-import {useAuth} from "../../store/AuthContext";
 import {useState} from "react";
 import Link from "next/link";
+import {fbrResetPassword} from "../../firebase/functions/auth-functions";
 
 
 const ResetPasswordForm = props => {
 
     const {register, handleSubmit, watch, formState: {errors}} = useForm();
-
-    const {resetPassword} = useAuth();
 
     const [loading, setLoading] = useState(false);
     const [completed, setCompleted] = useState(false);
@@ -21,7 +19,7 @@ const ResetPasswordForm = props => {
         try {
             setLoading(true);
             setError('');
-            await resetPassword(data.email);
+            await fbrResetPassword(data.email);
             setCompleted(true);
         } catch (e) {
             setError('Something went wrong, Please try again later')

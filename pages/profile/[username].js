@@ -1,5 +1,5 @@
 import {withProtected} from "../../hoc/RouteAuth";
-import {useAuth} from "../../store/AuthContext";
+import {useAuth} from "../../context/AuthContext";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -8,12 +8,10 @@ import UserNameSection from "../../components/user-profile-page/UserNameSection"
 import AdditionalInfoSection from "../../components/user-profile-page/AdditionalInfoSection";
 import AboutSection from "../../components/user-profile-page/AboutSection";
 import {useCallback, useLayoutEffect, useState} from "react";
-
-import {collection, getDocs, query, where} from "firebase/firestore";
-import {db} from "../../firebase";
 import Centered from "../../components/layout/Centered";
 import LoadingSpinner from "../../components/layout/LoadingSpinner";
-import {getUserByUID} from "../../store/actions/user-profile-actions";
+import {fbQueryDocByUID} from "../../firebase/functions/firestore-docs-functions";
+import {USERS_COLLECTION} from "../../firebase/constants/COLLECTIONS";
 
 const UserProfilePage = () => {
 
@@ -22,7 +20,7 @@ const UserProfilePage = () => {
     const [loading, setLoading] = useState(false);
 
     const loadUser = useCallback(async () => {
-        return await getUserByUID(currentUser.uid);
+        return await fbQueryDocByUID(USERS_COLLECTION, currentUser.uid);
     }, [currentUser.uid]);
 
     useLayoutEffect(() => {

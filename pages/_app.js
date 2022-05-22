@@ -1,18 +1,21 @@
 import '../styles/globals.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {AuthProvider} from "../store/AuthContext";
 import AppNavbar from "../components/layout/AppNavbar";
-import {UserProvider} from "../store/UserContext";
+import {AuthProvider} from "../context/AuthContext";
+import PersistState from "../hoc/PersistState";
+import {wrapper} from "../store/store";
 
 function MyApp({Component, pageProps}) {
+
+
     return (
         <AuthProvider>
-            <UserProvider>
-                <AppNavbar />
+            <PersistState>
+                <AppNavbar/>
                 <Component {...pageProps} />
-            </UserProvider>
+            </PersistState>
         </AuthProvider>
     );
 }
 
-export default MyApp
+export default wrapper.withRedux(MyApp);

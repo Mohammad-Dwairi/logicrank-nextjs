@@ -2,30 +2,28 @@ import classes from './styles.module.scss';
 import {useRouter} from "next/router";
 import {useForm} from "react-hook-form";
 import {BiTrash, BiUpload} from "react-icons/bi";
-import {addDoc, collection} from "firebase/firestore";
-import {db} from "../../firebase";
-import {useAuth} from "../../store/AuthContext";
-import {useUser} from "../../store/UserContext";
+import {collection} from "firebase/firestore";
+import {db} from "../../firebase/firebase";
+import {useAuth} from "../../context/AuthContext";
 import {useState} from "react";
 import FileType from "../shared/FileType";
-import {uploadBlobToStorage} from "../../store/actions/firebase-storage-actions";
-import Image from "next/image";
+import {fbUploadBlobToStorage} from "../../firebase/functions/firebase-storage-functions";
 import BlobImageView from "../shared/BlobImageView";
+import {useSelector} from "react-redux";
+import {fbAddNewDoc} from "../../firebase/functions/firestore-docs-functions";
+import {POSTS_COLLECTION, ROOMS_DETAILS_COLLECTION} from "../../firebase/constants/COLLECTIONS";
 
 
-const NewPostInput = props => {
+const NewPostInput = ({onSubmitStart, onSubmitFinish}) => {
 
     const {register, handleSubmit, watch, formState: {errors}} = useForm();
     const [file, setFile] = useState(null);
     const [isImage, setIsImage] = useState(false);
-
     const router = useRouter();
     const {rid} = router.query;
-
     const {currentUser} = useAuth();
-    const {userInfo} = useUser();
 
-    const {setIsLoading} = props;
+    const userInfo = useSelector(state => state.userCtx.userInfo);
 
     const handleFile = (event) => {
         const file = event.target.files[0];
@@ -43,23 +41,27 @@ const NewPostInput = props => {
 
     };
 
-    const handlePostSubmit = async data => {
-        setIsLoading(true);
+    const populateMetaData = async data => {
         data['datePosted'] = +new Date();
         data['userUID'] = currentUser.uid;
         data['userName'] = userInfo.fullName;
         if (file) {
             data['attachment'] = {
-                link: await uploadBlobToStorage(`${rid}/posts`, file),
+                link: await fbUploadBlobToStorage(`${rid}/posts`, file),
                 type: file.type,
                 size: file.size,
                 name: file.name
             };
         }
-        const postsRef = collection(db, 'roomsDetails', rid, 'posts');
-        await addDoc(postsRef, data);
+    };
+
+    const handlePostSubmit = async data => {
+        onSubmitStart();
+        await populateMetaData(data);
+        const postsCollectionRef = collection(db, ROOMS_DETAILS_COLLECTION, rid, POSTS_COLLECTION);
+        await fbAddNewDoc(postsCollectionRef, data);
         setFile(null);
-        setIsLoading(false);
+        onSubmitFinish();
     };
 
     return (
@@ -71,7 +73,8 @@ const NewPostInput = props => {
                 {...register('text', {required: true})}
             />
             {file && !file.type.includes('image') && <FileType type={file.type} name={file.name}/>}
-            {isImage && <div className='d-flex justify-content-center bg-secondary'><BlobImageView imgFile={file} /></div>}
+            {isImage &&
+                <div className='d-flex justify-content-center bg-secondary'><BlobImageView imgFile={file}/></div>}
             <div className={classes.postControl}>
                 {!file ?
                     <label className={classes.fileUpload}>

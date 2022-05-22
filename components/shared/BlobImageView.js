@@ -15,7 +15,7 @@ const BlobImageView = props => {
         reader.readAsDataURL(imgFile);
     }, [imgFile]);
 
-    return renderedImage && <img src={renderedImage} {...props} alt='img' style={{maxWidth: '100%', height: 'auto'}}/>;
+    return renderedImage && <img src={renderedImage} alt='img' style={{maxWidth: '100%', height: 'auto'}}/>;
 };
 
 export default BlobImageView;

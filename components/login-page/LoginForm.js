@@ -5,21 +5,21 @@ import classes from './styles.module.scss';
 import {useForm} from "react-hook-form";
 import AuthFormLayout from "../layout/AuthFormLayout";
 import FormGroupWrapper from "../layout/FormGroupWrapper";
-import {useAuth} from "../../store/AuthContext";
+import {fbLogin} from "../../firebase/functions/auth-functions";
 
-const LoginForm = props => {
-
-    const {login} = useAuth();
+const LoginForm = () => {
 
     const {register, handleSubmit, watch, formState: {errors}} = useForm();
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
 
+
     const onSubmit = async data => {
         try {
             setLoading(true);
             setError('');
-            await login(data.email, data.password);
+            await fbLogin(data.email, data.password);
+
         } catch (e) {
             setError(e.message);
         } finally {
@@ -40,7 +40,6 @@ const LoginForm = props => {
                             placeholder="Enter email"
                             style={{width: '100%'}}
                             className={classes.authInput}
-                            // autoComplete='off'
                         />
                         {(errors.email || errors.password) &&
                             <span className='text-danger'>Invalid email or password</span>}
@@ -59,7 +58,8 @@ const LoginForm = props => {
                         <Form.Check type="checkbox" label="Remember me"/>
                     </Form.Group>
                 </AuthFormLayout>
-                <input type="submit" className={classes.authButton} value={loading ? 'Logging In...' : 'Login'} disabled={loading}/>
+                <input type="submit" className={classes.authButton} value={loading ? 'Logging In...' : 'Login'}
+                       disabled={loading}/>
             </form>
 
         </Fragment>

@@ -2,7 +2,7 @@ import classes from './styles.module.scss';
 import {SiFacebook, SiInstagram, SiLinkedin, SiTwitter} from 'react-icons/si';
 import Link from "next/link";
 
-const AppFooter = props => {
+const AppFooter = () => {
 
     return (
         <footer className={classes.footer}>
@@ -11,7 +11,6 @@ const AppFooter = props => {
                 <SiFacebook className={classes.icon}/>
                 <SiInstagram className={classes.icon}/>
                 <SiLinkedin className={classes.icon}/>
-
             </div>
             <div className={classes.row}>
                 <Link href='#' passHref><a className={classes.link}>Info</a></Link>

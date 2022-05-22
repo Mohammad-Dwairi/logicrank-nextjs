@@ -1,16 +1,16 @@
 import {withProtected} from "../../hoc/RouteAuth";
-import {useCallback, useEffect} from "react";
-import {useAuth} from "../../store/AuthContext";
+import {useEffect} from "react";
+import {useDispatch} from "react-redux";
+import {logoutAction} from "../../store/actions/authActions";
 
 
 const Logout = () => {
 
-    const {logout} = useAuth();
-    const logoutHandler = useCallback(async () => await logout(), [logout]);
+    const dispatch = useDispatch();
 
     useEffect(() => {
-        logoutHandler();
-    }, [logoutHandler]);
+        dispatch(logoutAction());
+    }, [dispatch]);
 
 };
 

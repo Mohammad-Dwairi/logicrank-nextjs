@@ -5,28 +5,25 @@ import Col from "react-bootstrap/Col";
 import {useState} from "react";
 import {BiUpload} from "react-icons/bi";
 import {useForm} from "react-hook-form";
-import {uploadBlobToStorage} from "../../store/actions/firebase-storage-actions";
-import {uploadDoc} from "../../store/actions/firestore-docs-actions";
-import Centered from "../layout/Centered";
-import LoadingSpinner from "../layout/LoadingSpinner";
-import {useAuth} from "../../store/AuthContext";
-import {getUserByUID} from "../../store/actions/user-profile-actions";
+import {fbUploadBlobToStorage} from "../../firebase/functions/firebase-storage-functions";
+import {fbAddNewDoc} from "../../firebase/functions/firestore-docs-functions";
+import {useAuth} from "../../context/AuthContext";
 import {useRouter} from "next/router";
 import BlobImageView from "../shared/BlobImageView";
-import {addDoc, arrayUnion, collection, doc, updateDoc} from "firebase/firestore";
-import {db} from "../../firebase";
-import {useUser} from "../../store/UserContext";
+import {arrayUnion, collection} from "firebase/firestore";
+import {ROOMS_COLLECTION} from "../../firebase/constants/COLLECTIONS";
+import {useDispatch, useSelector} from "react-redux";
+import {updateUserInfo} from "../../store/actions/user-actions";
+import {db} from "../../firebase/firebase";
 
-const NewRoomForm = () => {
+const NewRoomForm = ({onSubmitStart, onSubmitFinish}) => {
 
     const {register, handleSubmit, watch, formState: {errors}} = useForm();
     const [coverImage, setCoverImage] = useState(null);
-    const [isLoading, setIsLoading] = useState(false);
-
-    const {currentUser} = useAuth();
-    const {reloadUserInfo} = useUser();
-
+    const {uid} = useAuth().currentUser;
     const router = useRouter();
+    const dispatch = useDispatch();
+    const userInfo = useSelector(state => state.userCtx.userInfo);
 
     const coverImageHandler = (event) => {
         const image = event.target.files[0];
@@ -42,35 +39,26 @@ const NewRoomForm = () => {
         setCoverImage(image);
     };
 
-    const onFormSubmit = async data => {
-        setIsLoading(true);
-
-        const userInfo = await getUserByUID(currentUser.uid);
-
-        data['roomInstructorUID'] = currentUser.uid;
-        data['roomInstructor'] = userInfo.fullName;
-        data['members'] = [currentUser.uid];
-        data['membersNum'] = 1;
-        data['dateCreated'] = + new Date();
-        const roomRef = await addDoc(collection(db, 'rooms'), data);
-        await updateDoc(doc(db, 'users', currentUser.uid), {enrolledRooms: arrayUnion(roomRef.id)});
-
+    const populateMetaData = async (originalData, roomUID) => {
+        originalData['roomInstructorUID'] = uid;
+        originalData['roomInstructor'] = userInfo.fullName;
+        originalData['members'] = [uid];
+        originalData['membersNum'] = 1;
+        originalData['dateCreated'] = +new Date();
         if (coverImage) {
-            data['coverImageURL'] = await uploadBlobToStorage(`${roomRef.id}/data`, coverImage);
+            originalData['coverImageURL'] = await fbUploadBlobToStorage(`${roomUID}/data`, coverImage);
         }
-
-        reloadUserInfo();
-        await router.replace(`/room/${roomRef.id}`);
-        setIsLoading(false);
     };
 
-    if (isLoading) {
-        return (
-            <Centered>
-                <LoadingSpinner/>
-            </Centered>
-        );
-    }
+    const onFormSubmit = async data => {
+        onSubmitStart();
+        await populateMetaData(data);
+        const roomsColRef = collection(db, ROOMS_COLLECTION);
+        const roomRef = await fbAddNewDoc(roomsColRef, data);
+        dispatch(updateUserInfo(uid, {enrolledRooms: arrayUnion(roomRef.id)}));
+        await router.replace(`/room/${roomRef.id}`);
+        onSubmitFinish();
+    };
 
     return (
         <form onSubmit={handleSubmit(onFormSubmit)}>
@@ -125,7 +113,8 @@ const NewRoomForm = () => {
                             placeholder='JOD 0'
                             {...register('roomPrice', {required: true, valueAsNumber: true, min: 0, max: 200})}
                         />
-                        {errors.roomPrice && <span className='text-danger'>Room's price should be between 0$ and 200$</span>}
+                        {errors.roomPrice &&
+                            <span className='text-danger'>Room's price should be between 0$ and 200$</span>}
 
                     </Col>
                 </Row>
@@ -150,7 +139,8 @@ const NewRoomForm = () => {
                             </label> :
                             <div>
                                 <BlobImageView imgFile={coverImage}/>
-                                <a className={classes.removeImageBtn} onClick={() => setCoverImage(null)}>Remove Image</a>
+                                <a className={classes.removeImageBtn} onClick={() => setCoverImage(null)}>Remove
+                                    Image</a>
                             </div>
                         }
                     </Col>

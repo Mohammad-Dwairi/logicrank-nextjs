@@ -2,16 +2,15 @@ import {useState} from "react";
 import classes from './styles.module.scss';
 import FileUpload from "../shared/FileUpload";
 import FileType from "../shared/FileType";
-import {uploadBlobToStorage} from "../../store/actions/firebase-storage-actions";
+import {fbUploadBlobToStorage} from "../../firebase/functions/firebase-storage-functions";
 import {useRouter} from "next/router";
-import {useUser} from "../../store/UserContext";
+import {useSelector} from "react-redux";
 
-const MaterialsUploadInput = props => {
+const MaterialsUploadInput = () => {
 
     const [file, setFile] = useState(null);
-    const router = useRouter();
-    const {userInfo} = useUser();
-    const {rid} = router.query;
+    const userInfo = useSelector(state => state.userCtx.userInfo);
+    const {rid} = useRouter().query;
 
     const fileHandler = (e) => {
         const f = e.target.files[0];
@@ -23,7 +22,7 @@ const MaterialsUploadInput = props => {
     };
 
     const fileUploadHandler = async () => {
-        const url = await uploadBlobToStorage(`${rid}/materials`, file, userInfo.fullName);
+        await fbUploadBlobToStorage(`${rid}/materials`, file, userInfo.fullName);
     };
 
     if (!file) {

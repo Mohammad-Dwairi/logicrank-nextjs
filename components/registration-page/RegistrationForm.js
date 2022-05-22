@@ -3,20 +3,20 @@ import {Fragment, useState} from 'react';
 import classes from './styles.module.scss';
 import AuthFormLayout from "../layout/AuthFormLayout";
 import FormGroupWrapper from "../layout/FormGroupWrapper";
-import {useAuth} from "../../store/AuthContext";
+import {fbRegister} from "../../firebase/functions/auth-functions";
 
 const RegistrationForm = props => {
 
-    const {signup} = useAuth();
     const {register, handleSubmit, watch, formState: {errors}} = useForm();
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
+
 
     const onSubmit = async data => {
         try {
             setError('');
             setLoading(true);
-            await signup(data.email, data.password, data.fullName);
+            await fbRegister(data.fullName, data.email, data.password);
         } catch {
             setError("Failed to create a new account, try again later!")
         } finally {
@@ -63,7 +63,8 @@ const RegistrationForm = props => {
                         {errors.password && <span className='text-danger'>Password must be at least 8 characters</span>}
                     </FormGroupWrapper>
                 </AuthFormLayout>
-                <input type="submit" className={classes.authButton} value={loading ? 'Just a Second!' : 'Register'} disabled={loading}/>
+                <input type="submit" className={classes.authButton} value={loading ? 'Just a Second!' : 'Register'}
+                       disabled={loading}/>
             </form>
         </Fragment>
     );
