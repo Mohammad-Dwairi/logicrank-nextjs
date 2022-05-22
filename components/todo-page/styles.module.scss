@@ -1,0 +1,130 @@
+@import '../../styles/sass/variables';
+@import '../../styles/sass/mixins';
+
+.todoListContainer {
+
+  width: 100%;
+  padding: 1rem;
+  background-color: rgba(66, 103, 178, 0.07);
+  border-radius: 3px;
+  box-shadow: 0 .1rem .5rem rgba($color-black, .12);
+  text-align: center;
+
+  & .todoItem {
+    display: flex;
+    padding: 1rem .5rem;
+
+    &:hover {
+      background-color: lighten($color-primary, 40%);
+    }
+
+    &:not(:last-child) {
+      border-bottom: 1px solid rgba($color-grey-light, .3);
+    }
+
+    & .control {
+      display: flex;
+      border-right: 1px solid green;
+      padding-right: 1rem;
+
+      & .checkbox {
+        border-color: $color-grey-light !important;
+        margin-right: 1rem !important;
+
+        &:hover {
+          cursor: pointer;
+        }
+      }
+
+      & .trashBtn {
+        font-size: 1.5rem;
+        color: crimson;
+        transition: all .3s;
+
+        &:hover {
+          cursor: pointer;
+          transform: scale(1.1);
+        }
+      }
+
+    }
+
+    & .content {
+      padding: 0 1rem;
+    }
+
+    & .contentCompleted {
+      padding: 0 1rem;
+      text-decoration: line-through;
+    }
+  }
+}
+
+.newTodoContainer {
+
+  display: flex;
+  flex-direction: column;
+  height: 50vh;
+  width: 50vw;
+  justify-content: space-around;
+  align-items: center;
+  background-color: $color-white;
+  border-radius: 5px;
+
+
+  @include respond(tab-land) {
+    height: 60vh;
+    width: 70vw;
+  }
+
+  @include respond(phone) {
+    height: 70vh;
+    width: 90vw;
+  }
+
+  & .newTodoTitleContainer {
+    display: flex;
+    align-items: center;
+
+    & .newTodoTitle {
+      text-transform: uppercase;
+      color: $color-primary;
+    }
+
+    & .newTodoIcon {
+      font-size: 2rem;
+      margin-right: 1rem;
+    }
+  }
+
+
+  & .newTodoInputContainer {
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    & input[type='text'] {
+      width: 100%;
+      padding: 1rem;
+      border-radius: 5px;
+      outline: none;
+      border: 1px solid $color-primary;
+      box-shadow: 0 .1rem .5rem rgba($color-black, .12);
+      background-color: rgba(243, 243, 243, 0.76);
+    }
+  }
+
+  & .newTodoBtn {
+    background-color: $color-primary;
+    border: none;
+    padding: .5rem 1rem;
+    color: white;
+    border-radius: 5px;
+    text-transform: capitalize;
+
+    &:hover {
+      background-color: darken($color-primary, 10%);
+    }
+  }
+}

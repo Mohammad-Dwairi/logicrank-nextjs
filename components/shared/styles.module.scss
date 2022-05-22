@@ -1,4 +1,5 @@
 @import "../../styles/sass/variables";
+@import "../../styles/sass/mixins";
 
 .userProfileBadge {
   margin: 0 1rem;
@@ -81,12 +82,44 @@
   }
 }
 
-.uploadButton {
+.appButton {
   background-color: $color-primary;
   border: none;
   color: $color-white;
   padding: 0.3rem 1rem;
   border-radius: 3px;
+  max-height: 40px;
+  transition: all .3s;
+  text-transform: capitalize;
+
+  &:hover {
+    background-color: darken($color-primary, 10%);
+  }
+
+}
+
+.centered {
+  @include absCenter();
+}
+
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+
+  & .modalCloseIcon {
+    color: crimson;
+    float: right;
+    cursor: pointer;
+    font-size: 1.8rem;
+
+    &:hover {
+      color: darken(crimson, 10%);
+    }
+  }
 }
 
 

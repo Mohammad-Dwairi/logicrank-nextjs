@@ -1,17 +1,17 @@
-import {withProtected} from "../../hoc/RouteAuth";
-import {useAuth} from "../../context/AuthContext";
+import {withProtected} from "../../../hoc/RouteAuth";
+import {useAuth} from "../../../context/AuthContext";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import ProfilePicture from "../../components/user-profile-page/ProfilePicture";
-import UserNameSection from "../../components/user-profile-page/UserNameSection";
-import AdditionalInfoSection from "../../components/user-profile-page/AdditionalInfoSection";
-import AboutSection from "../../components/user-profile-page/AboutSection";
+import ProfilePicture from "../../../components/user-profile-page/ProfilePicture";
+import UserNameSection from "../../../components/user-profile-page/UserNameSection";
+import AdditionalInfoSection from "../../../components/user-profile-page/AdditionalInfoSection";
+import AboutSection from "../../../components/user-profile-page/AboutSection";
 import {useCallback, useLayoutEffect, useState} from "react";
-import Centered from "../../components/layout/Centered";
-import LoadingSpinner from "../../components/layout/LoadingSpinner";
-import {fbQueryDocByUID} from "../../firebase/functions/firestore-docs-functions";
-import {USERS_COLLECTION} from "../../firebase/constants/COLLECTIONS";
+import Centered from "../../../components/layout/Centered";
+import LoadingSpinner from "../../../components/layout/LoadingSpinner";
+import {fbQueryDocByUID} from "../../../firebase/functions/firestore-docs-functions";
+import {USERS_COLLECTION} from "../../../firebase/constants/COLLECTIONS";
 
 const UserProfilePage = () => {
 
