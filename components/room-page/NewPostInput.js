@@ -6,7 +6,7 @@ import {collection} from "firebase/firestore";
 import {db} from "../../firebase/firebase";
 import {useAuth} from "../../context/AuthContext";
 import {useState} from "react";
-import FileType from "../shared/FileType";
+import FileType from "../files-shared/FileType";
 import {fbUploadBlobToStorage} from "../../firebase/functions/firebase-storage-functions";
 import BlobImageView from "../shared/BlobImageView";
 import {useSelector} from "react-redux";

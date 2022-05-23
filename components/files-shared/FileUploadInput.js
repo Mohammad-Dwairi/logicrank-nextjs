@@ -1,10 +1,10 @@
 import {useState} from "react";
 import classes from './styles.module.scss';
 import AppButton from "../shared/AppButton";
-import FileUpload from "../shared/FileUpload";
+import FileUpload from "./FileUpload";
 import {MdFileUpload} from "react-icons/md";
 import {AiFillFolder} from "react-icons/ai";
-import FileType from "../shared/FileType";
+import FileType from "./FileType";
 
 const FileUploadInput = ({onFileUpload}) => {
 

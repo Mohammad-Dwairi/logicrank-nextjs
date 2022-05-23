@@ -2,7 +2,7 @@ import classes from './styles.module.scss';
 import Image from "next/image";
 import {BiDotsHorizontalRounded} from 'react-icons/bi';
 import {AiOutlineComment, AiOutlineLike} from "react-icons/ai";
-import FileType from "../shared/FileType";
+import FileType from "../files-shared/FileType";
 
 const Post = props => {
 

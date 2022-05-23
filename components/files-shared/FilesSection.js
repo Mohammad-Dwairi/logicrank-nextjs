@@ -13,14 +13,14 @@ const renderFiles = (files, onFileDelete) => files.map(file => <FileCard file={f
 
 const FilesSection = props => {
 
-    const {files, onFileUpload, onFileDelete} = props;
+    const {files, title, onFileUpload, onFileDelete} = props;
     const [isNewFileModalOpen, setIsNewFileModalOpen] = useState(false);
 
     return (
         <Container className={classes.filesSectionContainer}>
             <Row>
                 <Col className='d-flex justify-content-between align-items-center' xl={8}>
-                    <h1 className={classes.headerText}>Room's Materials</h1>
+                    <h1 className={classes.headerText}>{title}</h1>
                     <IoAddCircleOutline className={classes.openFileUploadModalIcon} onClick={() => setIsNewFileModalOpen(true)}/>
                 </Col>
             </Row>

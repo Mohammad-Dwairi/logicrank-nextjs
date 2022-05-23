@@ -1,4 +1,4 @@
-import classes from './styles.module.scss';
+import classes from '../shared/styles.module.scss';
 import {BiUpload} from "react-icons/bi";
 
 const FileUpload = props => {

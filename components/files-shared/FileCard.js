@@ -2,7 +2,7 @@ import classes from './styles.module.scss';
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import FileType from "../shared/FileType";
+import FileType from "./FileType";
 import AppButton from "../shared/AppButton";
 import {BiTrash} from "react-icons/bi";
 import {useState} from "react";

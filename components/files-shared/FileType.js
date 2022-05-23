@@ -1,4 +1,4 @@
-import classes from './styles.module.scss';
+import classes from '../shared/styles.module.scss';
 import {AiFillFileImage, AiFillFilePdf, AiFillFileText, AiFillFileUnknown, AiFillFileZip} from "react-icons/ai";
 
 
