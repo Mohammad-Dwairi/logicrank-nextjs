@@ -10,7 +10,7 @@ const renderFiles = files => files.map(file => <FileCard file={file} key={file.t
 
 const FilesSection = props => {
 
-    const {files} = props;
+    const {files, onFileUpload} = props;
 
     return (
         <Container className={classes.filesSectionContainer}>
@@ -19,7 +19,7 @@ const FilesSection = props => {
             </Row>
             <Row>
                 <Col xl={4}>
-                    <MaterialsUploadInput/>
+                    <MaterialsUploadInput onFileUpload={onFileUpload}/>
                 </Col>
             </Row>
             <Row>
