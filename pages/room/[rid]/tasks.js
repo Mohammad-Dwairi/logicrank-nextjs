@@ -1,5 +1,5 @@
 import RoomSideNavbar from "../../../components/room-page/RoomSideNavbar";
-import FilesSection from "../../../components/room-materials-page/FilesSection";
+import FilesSection from "../../../components/files-upload-shared/FilesSection";
 
 
 const TasksPage = props => {

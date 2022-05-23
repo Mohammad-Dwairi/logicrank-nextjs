@@ -150,11 +150,14 @@
   height: 5rem;
   transition: all .3s;
 
-  &:hover {
-    transform: scale(1.04);
-    cursor: pointer;
-    color: $color-primary;
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      transform: scale(1.04);
+      cursor: pointer;
+      color: $color-primary;
+    }
   }
+
 
   & .toolCardIcon {
     font-size: 2rem;

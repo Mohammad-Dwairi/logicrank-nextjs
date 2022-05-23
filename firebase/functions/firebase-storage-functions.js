@@ -1,4 +1,4 @@
-import {getDownloadURL, getMetadata, listAll, ref, updateMetadata, uploadBytes} from "firebase/storage";
+import {getDownloadURL, getMetadata, listAll, ref, updateMetadata, uploadBytes, deleteObject} from "firebase/storage";
 import {storage} from "../firebase";
 
 
@@ -11,6 +11,10 @@ export const fbUploadBlobToStorage = async (path, file, owner) => {
     return await getDownloadURL(storageRef);
 };
 
+export const fbDeleteFileFromStorage = async (filePath) => {
+    const fileRef = ref(storage, filePath);
+    await deleteObject(fileRef);
+};
 
 export const fbGetAllFiles = async (dirPath) => {
     const filesRef = ref(storage, dirPath);
