@@ -1,4 +1,4 @@
-import {addDoc, collection, doc, getDocs, query, updateDoc, where} from 'firebase/firestore';
+import {addDoc, collection, doc, getDocs, query, updateDoc, where, getDoc} from 'firebase/firestore';
 import {db} from "../firebase";
 
 
@@ -38,7 +38,7 @@ export const fbQueryDocs = async (fbQuery) => {
 
 export const fbQuerySingleDoc = async (col, key, value) => {
     const colRef = collection(db, col);
-    const q = await query(colRef, where(key, '==', value));
+    const q = query(colRef, where(key, '==', value));
     const querySnapshot = await getDocs(q);
     return querySnapshot.docs[0].data();
 };
@@ -60,4 +60,9 @@ export const fbUpdateDocByUID = async (collectionPath, uid, updatedFieldsObj) =>
 
 export const fbUpdateDocByQuery = async () => {
     // TODO
+};
+
+export const checkDocExist = async (fbQuery) => {
+    const docSnapshot = await getDoc(fbQuery);
+    return docSnapshot.exists();
 };

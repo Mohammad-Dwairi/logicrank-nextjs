@@ -1,0 +1,141 @@
+@import "../../styles/sass/variables";
+@import "../../styles/sass/mixins";
+
+
+.pageHeader {
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 3rem 0 1rem;
+  //width: 60%;
+  //
+  //@include respond(tab-land) {
+  //  width: 100%;
+  //}
+
+  & .pageTitle {
+    font-size: 2rem;
+    text-transform: capitalize;
+  }
+
+}
+
+
+.problemCard {
+  border-radius: 5px;
+  background-color: rgba(56, 56, 56, 0.07);
+  margin: 1rem 0;
+  padding: 1rem .5rem;
+  box-shadow: 0 .1rem .1rem rgba($color-black, .1);
+
+  & .problemName {
+    display: flex;
+    align-items: center;
+    color: $color-primary;
+
+    & .problemCompletedIcon {
+      font-size: 27px;
+      color: green;
+      margin-right: 1rem;
+
+      &:hover {
+        color: $color-primary;
+        transform: scale(1.1);
+        cursor: pointer;
+
+      }
+    }
+
+    & .problemPendingIcon {
+      font-size: 27px;
+      color: $color-grey-light;
+      margin-right: 1rem;
+      transition: all .3s;
+
+      &:hover {
+        color: $color-primary;
+        transform: scale(1.1);
+        cursor: pointer;
+      }
+
+    }
+  }
+
+  & .problemInfo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: $color-grey-dark;
+  }
+
+
+
+}
+
+.newProblemForm {
+  display: flex;
+  flex-direction: column;
+  height: 50vh;
+  width: 50vw;
+  justify-content: space-evenly;
+  background-color: $color-white;
+  border-radius: 5px;
+  padding: 1rem 2rem;
+
+  & .newProblemTitle {
+    font-size: 2rem;
+    text-transform: uppercase;
+    color: $color-primary;
+    text-align: center;
+  }
+
+  & .inputRow {
+    margin: 1.5rem 0;
+  }
+
+  @include respond(tab-land) {
+    height: 60vh;
+    width: 70vw;
+  }
+
+  @include respond(phone) {
+    height: 70vh;
+    width: 90vw;
+  }
+
+  & label {
+    font-weight: 500;
+  }
+
+  & input[type='text'], select{
+    width: 100%;
+    outline: none;
+    border: 1px solid rgba(62, 62, 62, 0.43);
+    background-color: $color-white;
+    border-radius: 3px;
+
+    &:focus {
+      border-color: $color-primary;
+    }
+  }
+
+  & select {
+    width: 100%;
+  }
+
+  & input[type='submit'] {
+    background-color: $color-primary;
+    color: $color-white;
+    border: none;
+    padding: .4rem 0;
+    border-radius: 5px;
+    transition: all .3s;
+
+    &:hover {
+      background-color: darken($color-primary, 10%);
+    }
+
+  }
+
+}
