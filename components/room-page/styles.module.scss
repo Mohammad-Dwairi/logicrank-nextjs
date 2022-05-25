@@ -304,19 +304,35 @@
   }
 
   & .lectureCard {
-    width: 100%;
-    padding: .5rem 1rem;
     box-shadow: 0 .1rem .2rem rgba($color-black, .25);
-    border-bottom: 3px solid rgba(66, 103, 178, 0.56);
-    margin-bottom: 1rem;
+    border-bottom: 2px solid rgba(66, 103, 178, 0.56);
+    //margin-bottom: 1rem;
     background-color: $color-white;
-    border-radius: 5px;
+    //border-radius: 5px;
     transition: all .3s;
+    padding: 1rem;
+    display: flex;
 
     @media (hover: hover) and (pointer: fine) {
       &:hover {
         transform: scale(1.03);
       }
+    }
+
+    & .lectureNum {
+      background-color: $color-primary;
+      margin-right: 1rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 1rem;
+      color: $color-white;
+      font-size: 1.1rem;
+      border-radius: 10px;
+    }
+
+    & .lectureCardInfo {
+      width: 100%;
     }
 
     & .headerContainer {

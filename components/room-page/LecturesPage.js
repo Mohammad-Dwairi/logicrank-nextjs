@@ -16,7 +16,7 @@ import AppModal from "../shared/AppModal";
 import NewLectureForm from "./NewLectureForm";
 
 const renderLectures = lectures => lectures.map((lecture, index) => (
-    <LectureCard lecture={lecture} key={index}/>
+    <LectureCard lecture={lecture} key={index} num={index+1}/>
 ));
 
 const LecturesPage = props => {
