@@ -2,16 +2,14 @@ import {useRouter} from "next/router";
 import {useCallback, useEffect, useState} from "react";
 import {fbQueryDocByUID} from "../../firebase/functions/firestore-docs-functions";
 import RoomSideNavbar from "./RoomSideNavbar";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import NewPostInput from "./NewPostInput";
-import NewsFeedSection from "./NewsFeedSection";
 import {useAuth} from "../../context/AuthContext";
 import LoadingView from "../../hoc/LoadingView";
 import {ROOMS_COLLECTION} from "../../firebase/constants/COLLECTIONS";
 import {useDispatch, useSelector} from "react-redux";
-import {loadUserInfo, updateUserInfo} from "../../store/actions/user-actions";
+import {updateUserInfo} from "../../store/actions/user-actions";
+import {Tab, Tabs} from "react-bootstrap";
+import NewsFeedPage from "./NewsFeedPage";
+import LecturesPage from "./LecturesPage";
 
 
 const EnrolledRoom = () => {
@@ -72,21 +70,14 @@ const EnrolledRoom = () => {
                     <RoomSideNavbar roomCoverImg={room.coverImageURL}/>
                 </div>
                 <div className='flex-grow-1'>
-                    <Container>
-                        <Row className='d-flex justify-content-center'>
-                            <Col xl={7}>
-                                <NewPostInput
-                                    onSubmitStart={() => setIsLoading(true)}
-                                    onSubmitFinish={() => setIsLoading(false)}
-                                />
-                            </Col>
-                        </Row>
-                        <Row className='d-flex justify-content-center'>
-                            <Col xl={7}>
-                                <NewsFeedSection/>
-                            </Col>
-                        </Row>
-                    </Container>
+                    <Tabs defaultActiveKey="updates" className="mb-3 justify-content-center">
+                        <Tab eventKey="updates" title="Newsfeed & Updates">
+                            <NewsFeedPage room={room}/>
+                        </Tab>
+                        <Tab eventKey="lectures" title="Lectures">
+                            <LecturesPage />
+                        </Tab>
+                    </Tabs>
                 </div>
             </section>
         </LoadingView>
