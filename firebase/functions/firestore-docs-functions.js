@@ -36,10 +36,8 @@ export const fbQueryDocs = async (fbQuery) => {
     return fetchedDocs;
 };
 
-export const fbQuerySingleDoc = async (col, key, value) => {
-    const colRef = collection(db, col);
-    const q = query(colRef, where(key, '==', value));
-    const querySnapshot = await getDocs(q);
+export const fbQuerySingleDoc = async (fbQuery) => {
+    const querySnapshot = await getDocs(fbQuery);
     return querySnapshot.docs[0].data();
 };
 

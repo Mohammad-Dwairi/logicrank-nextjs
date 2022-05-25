@@ -1,0 +1,22 @@
+
+
+@import "../../styles/sass/variables";
+
+.infoContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 3rem;
+
+  & .title {
+    display: block;
+    font-size: 2rem;
+    border-bottom: 1px solid $color-grey-light;
+    padding-bottom: .5rem;
+    color: $color-primary;
+  }
+
+  & .extraInfo {
+    display: flex;
+    justify-content: space-between;
+  }
+}

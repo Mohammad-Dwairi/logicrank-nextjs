@@ -1,23 +1,36 @@
 import Container from "react-bootstrap/Container";
-import ProblemCard from "../../../components/problems-page/ProblemCard";
-import classes from '../../../components/problems-page/styles.module.scss';
+import ProblemCard from "../../../../components/problems-page/ProblemCard";
+import classes from '../../../../components/problems-page/styles.module.scss';
 import Row from "react-bootstrap/Row";
-import AppButton from "../../../components/shared/AppButton";
+import AppButton from "../../../../components/shared/AppButton";
 import Col from "react-bootstrap/Col";
-import AppModal from "../../../components/shared/AppModal";
+import AppModal from "../../../../components/shared/AppModal";
 import {useEffect, useState} from "react";
-import NewProblemForm from "../../../components/problems-page/NewProblemForm";
-import LoadingView from "../../../hoc/LoadingView";
+import NewProblemForm from "../../../../components/problems-page/NewProblemForm";
+import LoadingView from "../../../../hoc/LoadingView";
 import {useRouter} from "next/router";
-import {fbAddNewDoc, fbQueryDocs} from "../../../firebase/functions/firestore-docs-functions";
+import {fbAddNewDoc, fbQueryDocs} from "../../../../firebase/functions/firestore-docs-functions";
 import {
     PROBLEMS_COLLECTION,
     ROOMS_DETAILS_COLLECTION,
     USER_SOLVED_PROBLEMS
-} from "../../../firebase/constants/COLLECTIONS";
-import {addDoc, collection, orderBy, query, where, deleteDoc, getDocs, doc} from "firebase/firestore";
-import {db} from "../../../firebase/firebase";
-import {useAuth} from "../../../context/AuthContext";
+} from "../../../../firebase/constants/COLLECTIONS";
+import {
+    addDoc,
+    collection,
+    orderBy,
+    query,
+    where,
+    deleteDoc,
+    getDocs,
+    doc,
+    updateDoc,
+    increment,
+} from "firebase/firestore";
+import {db} from "../../../../firebase/firebase";
+import {useAuth} from "../../../../context/AuthContext";
+import {withProtected} from "../../../../hoc/RouteAuth";
+import {useSelector} from "react-redux";
 
 
 const renderProblemCard = (problems, solvedProblems, onDeleteProblem, onAddSolvedProblem, onRemoveSolvedProblem) => Object.keys(problems).map(problemID => (
@@ -41,6 +54,8 @@ const ProblemsPage = props => {
     const {rid} = useRouter().query;
     const {uid} = useAuth().currentUser;
 
+    const userInfo = useSelector(state => state.userCtx.userInfo);
+
     useEffect(() => {
         const handle = async () => {
             const problemsColRef = collection(db, ROOMS_DETAILS_COLLECTION, rid, PROBLEMS_COLLECTION);
@@ -59,11 +74,11 @@ const ProblemsPage = props => {
         handle();
     }, [rid, uid]);
 
-    console.log(uid, solvedProblems);
 
     const uploadNewProblem = async problem => {
         setIsLoading(true);
         problem.dateCreated = +new Date();
+        problem.numOfSubmissions = 0;
         await fbAddNewDoc(collection(db, ROOMS_DETAILS_COLLECTION, rid, PROBLEMS_COLLECTION), problem);
         setProblems({problem, ...problems,});
         setIsModalOpen(false);
@@ -77,11 +92,13 @@ const ProblemsPage = props => {
                 problemId: problemId,
                 roomId: rid,
                 solvedIn: +new Date(),
-                codeSnippet: ''
+                codeSnippet: '',
+                userName: userInfo.fullName
             };
             const updatedSolvedProblems = [newSolvedProblem, ...solvedProblems];
             setSolvedProblems(updatedSolvedProblems);
             await addDoc(collection(db, USER_SOLVED_PROBLEMS), newSolvedProblem);
+            await updateDoc(doc(db, ROOMS_DETAILS_COLLECTION, rid, PROBLEMS_COLLECTION, problemId), {numOfSubmissions: increment(1)})
         }
     };
 
@@ -91,6 +108,8 @@ const ProblemsPage = props => {
         const deleteQuery = query(collection(db, USER_SOLVED_PROBLEMS), where('problemId', '==', problemId), where('userId', '==', uid));
         const querySnapshot = await getDocs(deleteQuery);
         querySnapshot.forEach(doc => deleteDoc(doc.ref))
+        await updateDoc(doc(db, ROOMS_DETAILS_COLLECTION, rid, PROBLEMS_COLLECTION, problemId), {numOfSubmissions: increment(-1)})
+
     };
 
     const onDeleteProblem = async problemId => {
@@ -122,4 +141,4 @@ const ProblemsPage = props => {
     );
 };
 
-export default ProblemsPage;
+export default withProtected(ProblemsPage);

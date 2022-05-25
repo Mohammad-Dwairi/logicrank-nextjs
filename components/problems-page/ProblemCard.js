@@ -2,6 +2,8 @@ import classes from './styles.module.scss';
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import ToggleProblemCompletePopover from "./ToggleProblemCompletePopover";
+import Link from "next/link";
+import {useRouter} from "next/router";
 
 const ProblemCard = props => {
 
@@ -10,6 +12,8 @@ const ProblemCard = props => {
     const {name, source, difficulty, link} = problem;
 
     const isCompleted = solvedProblems.find(problem => problem.problemId === problemId);
+
+    const {rid} = useRouter().query;
 
     return (
         <Row className={classes.problemCard}>
@@ -28,6 +32,10 @@ const ProblemCard = props => {
             <Col className={classes.problemInfo}>
                 <span className='text-capitalize'>{difficulty}</span>
                 <span className='text-capitalize'>{source}</span>
+                <Link href={`/room/${rid}/problems/${problemId}`} passHref>
+                    <a className='text-capitalize'>show details</a>
+                </Link>
+
             </Col>
         </Row>
     );
