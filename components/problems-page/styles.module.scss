@@ -124,6 +124,10 @@
     width: 100%;
   }
 
+  & textarea {
+    width: 100%;
+  }
+
   & input[type='submit'] {
     background-color: $color-primary;
     color: $color-white;

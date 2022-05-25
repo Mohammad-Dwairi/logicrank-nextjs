@@ -17,10 +17,12 @@ import ProblemSubmissions from "../../../../components/problem-details-page/Prob
 
 const ProblemDetailsPage = () => {
 
-    const {problemId, rid} = useRouter().query;
     const [isLoading, setIsLoading] = useState(true);
     const [problem, setProblem] = useState(null);
     const [submissions, setSubmissions] = useState([]);
+
+    const router = useRouter();
+    const {problemId, rid} = router.query;
 
     useEffect(() => {
         const handle = async () => {
@@ -32,14 +34,16 @@ const ProblemDetailsPage = () => {
             const submissionsQuery = query(submissionsRef, where('problemId', '==', problemId));
             const fetchedSubmissions = await fbQueryDocs(submissionsQuery);
 
-            setProblem(fetchedProblem);
+            setProblem(fetchedProblem || null);
+            if (!fetchedProblem) {
+               return  await router.replace(`/room/${rid}/problems`);
+            }
             setSubmissions(Object.values(fetchedSubmissions));
             setIsLoading(false);
         };
         handle();
     }, [problemId, rid]);
 
-    console.log('SUBS ', submissions);
     return (
         <LoadingView isLoading={isLoading}>
             <Container>

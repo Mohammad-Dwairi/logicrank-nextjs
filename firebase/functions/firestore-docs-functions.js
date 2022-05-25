@@ -38,7 +38,7 @@ export const fbQueryDocs = async (fbQuery) => {
 
 export const fbQuerySingleDoc = async (fbQuery) => {
     const querySnapshot = await getDocs(fbQuery);
-    return querySnapshot.docs[0].data();
+    return querySnapshot.docs[0]?.data();
 };
 
 export const fbAddNewDoc = async (collectionRef, data) => {

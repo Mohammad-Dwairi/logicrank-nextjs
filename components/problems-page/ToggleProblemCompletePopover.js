@@ -10,7 +10,7 @@ const PopoverContent = props => {
     return (
         <div className={`${classes.popoverContentContainer} d-flex justify-content-center flex-column`}>
             <AppButton
-                onClick={isCompleted ? () => onRemoveSolvedProblem(problemId) : () => onAddSolvedProblem(problemId)}
+                onClick={isCompleted ? () => onRemoveSolvedProblem(problemId) : onAddSolvedProblem}
                 title={isCompleted ? 'Mark as uncompleted' : 'Mark as completed'}
                 outlined
                 danger={isCompleted}

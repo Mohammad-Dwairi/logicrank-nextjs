@@ -2,28 +2,38 @@ import Row from "react-bootstrap/Row";
 import classes from './styles.module.scss';
 import Col from "react-bootstrap/Col";
 import {Table} from "react-bootstrap";
-import AppButton from "../shared/AppButton";
 import Link from "next/link";
-import {useEffect, useState} from "react";
-import {collection, orderBy, query, where} from "firebase/firestore";
-import {USERS_COLLECTION} from "../../firebase/constants/COLLECTIONS";
-import {fbQueryDocs} from "../../firebase/functions/firestore-docs-functions";
-import {db} from "../../firebase/firebase";
+import AppModal from "../shared/AppModal";
+import {useState} from "react";
+import ProblemExtraDetails from "./ProblemExtraDetails";
 
-const renderTableRows = submissions => submissions.map((s, i) => (
-    <tr key={i}>
-        <td>{i + 1}</td>
-        <td>
-            <Link href={`/profile/${s.userId}`}>
-                {s.userName}
-            </Link>
-        </td>
-        <td>{new Date(s.solvedIn).toDateString()}</td>
-        <td>
-            <div>Show Submitted Code</div>
-        </td>
-    </tr>
-));
+const renderTableRows = submissions => {
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    return submissions.map((s, i) => (
+        <tr key={i}>
+            <td>{i + 1}</td>
+            <td>
+                <Link href={`/profile/${s.userId}`}>
+                    {s.userName}
+                </Link>
+            </td>
+            <td>{new Date(s.solvedIn).toDateString()}</td>
+            <td>
+                {
+                    s.codeSnippet || s.comment ?
+                        <div className={classes.link} onClick={() => setIsModalOpen(true)}>
+                            Show Submitted Code</div> :
+                        <div>No Code or Comment Submitted</div>
+                }
+            </td>
+            <AppModal isOpen={isModalOpen} onRequestClose={() => setIsModalOpen(false)}>
+                <ProblemExtraDetails code={s.codeSnippet} comment={s.comment}/>
+            </AppModal>
+        </tr>
+    ));
+}
 
 const ProblemSubmissions = props => {
 
@@ -39,7 +49,7 @@ const ProblemSubmissions = props => {
                         <th>#</th>
                         <th>Name</th>
                         <th>Solved In</th>
-                        <th>Code</th>
+                        <th>Code & Comments</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -47,6 +57,8 @@ const ProblemSubmissions = props => {
                     </tbody>
                 </Table>
             </Col>
+
+
         </Row>
     );
 };

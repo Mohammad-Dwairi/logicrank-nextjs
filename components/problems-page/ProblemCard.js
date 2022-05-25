@@ -4,6 +4,9 @@ import Col from "react-bootstrap/Col";
 import ToggleProblemCompletePopover from "./ToggleProblemCompletePopover";
 import Link from "next/link";
 import {useRouter} from "next/router";
+import AppModal from "../shared/AppModal";
+import {useState} from "react";
+import ProblemCompleteForm from "./ProblemCompleteForm";
 
 const ProblemCard = props => {
 
@@ -15,6 +18,8 @@ const ProblemCard = props => {
 
     const {rid} = useRouter().query;
 
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
     return (
         <Row className={classes.problemCard}>
             <Col xl={8} className={classes.problemName}>
@@ -22,7 +27,7 @@ const ProblemCard = props => {
                     <ToggleProblemCompletePopover
                         problemId={problemId}
                         isCompleted={isCompleted}
-                        onAddSolvedProblem={onAddSolvedProblem}
+                        onAddSolvedProblem={() => setIsModalOpen(true)}
                         onRemoveSolvedProblem={onRemoveSolvedProblem}
                         onDeleteProblem={onDeleteProblem}
                     />
@@ -35,7 +40,13 @@ const ProblemCard = props => {
                 <Link href={`/room/${rid}/problems/${problemId}`} passHref>
                     <a className='text-capitalize'>show details</a>
                 </Link>
-
+                <AppModal isOpen={isModalOpen} onRequestClose={() => setIsModalOpen(false)}>
+                    <ProblemCompleteForm
+                        problemId={problemId}
+                        onAddSolvedProblem={onAddSolvedProblem}
+                        onSubmitFinish={() => setIsModalOpen(false)}
+                    />
+                </AppModal>
             </Col>
         </Row>
     );

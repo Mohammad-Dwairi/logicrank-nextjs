@@ -1,6 +1,6 @@
 
-
 @import "../../styles/sass/variables";
+@import "../../styles/sass/mixins";
 
 .infoContainer {
   display: flex;
@@ -18,5 +18,54 @@
   & .extraInfo {
     display: flex;
     justify-content: space-between;
+  }
+}
+
+.link {
+  color: $color-primary;
+
+  &:hover {
+    cursor: pointer;
+    color: darken($color-primary, 10%);
+  }
+}
+
+.extraInfoModal {
+  display: flex;
+  flex-direction: column;
+  height: 50vh;
+  width: 50vw;
+  //justify-content: space-evenly;
+  background-color: $color-white;
+  border-radius: 5px;
+  padding: 1rem 2rem;
+
+  & p {
+    font-weight: 500;
+    color: $color-primary;
+    margin-bottom: .5rem;
+  }
+
+  & .inputRow {
+    margin: 1.5rem 0;
+  }
+
+  @include respond(tab-land) {
+    height: 60vh;
+    width: 70vw;
+  }
+
+  @include respond(phone) {
+    height: 70vh;
+    width: 90vw;
+  }
+
+  & .codeView {
+    display: flex;
+    flex: 1
+  }
+
+  & .commentView {
+
   }
 }

@@ -85,14 +85,15 @@ const ProblemsPage = props => {
         setIsLoading(false);
     };
 
-    const onAddSolvedProblem = async (problemId) => {
+    const onAddSolvedProblem = async (problemId, extraData) => {
         if (!solvedProblems.includes(problemId)) {
             const newSolvedProblem = {
                 userId: uid,
                 problemId: problemId,
                 roomId: rid,
                 solvedIn: +new Date(),
-                codeSnippet: '',
+                codeSnippet: extraData.code || '',
+                comment: extraData.comment || '',
                 userName: userInfo.fullName
             };
             const updatedSolvedProblems = [newSolvedProblem, ...solvedProblems];
