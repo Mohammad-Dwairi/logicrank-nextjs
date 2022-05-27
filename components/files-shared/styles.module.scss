@@ -3,15 +3,22 @@
 
 .filesSectionContainer {
   padding-top: 2rem;
-
   & .headerText {
     font-size: 2rem;
   }
 
   & .openFileUploadModalIcon {
+
+    text-transform: capitalize;
     color: $color-primary;
-    font-size: 1.8rem;
+    display: flex;
+    align-items: center;
     transition: all .3s;
+
+    & svg {
+      font-size: 1.8rem;
+      margin: 0 .2rem;
+    }
 
     @media (hover: hover) and (pointer: fine) {
       &:hover {
@@ -19,6 +26,18 @@
         transform: scale(1.1);
       }
     }
+
+  }
+
+}
+
+.emptyImage {
+  margin-top: 7rem;
+  display: flex;
+  justify-content: center;
+
+  & img {
+    max-width: 400px !important;
   }
 
 }

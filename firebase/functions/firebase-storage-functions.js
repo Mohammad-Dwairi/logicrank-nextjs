@@ -3,10 +3,11 @@ import {storage} from "../firebase";
 
 
 export const fbUploadBlobToStorage = async (path, file, owner) => {
-    const storageRef = ref(storage, `${path}/${file.name}`);
+    const filePath = `${path}/${file.name}`;
+    const storageRef = ref(storage, filePath);
     await uploadBytes(storageRef, file);
     if (owner) {
-        await updateMetadata(storageRef, {customMetadata: {owner: owner}});
+        await updateMetadata(storageRef, {customMetadata: {owner: owner, filePath}});
     }
     return await getDownloadURL(storageRef);
 };
@@ -28,7 +29,8 @@ export const fbGetAllFiles = async (dirPath) => {
             timeCreated: meta.timeCreated,
             size: meta.size,
             link: await getDownloadURL(itemRef),
-            owner: meta.customMetadata.owner
+            owner: meta.customMetadata.owner,
+            path: meta.customMetadata.filePath
         });
     }
     return fetchedFiles;

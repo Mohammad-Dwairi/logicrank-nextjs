@@ -11,6 +11,7 @@ import {Tab, Tabs} from "react-bootstrap";
 import NewsFeedPage from "./NewsFeedPage";
 import LecturesPage from "./LecturesPage";
 
+import classes from './styles.module.scss';
 
 const EnrolledRoom = () => {
 
@@ -70,12 +71,12 @@ const EnrolledRoom = () => {
                     <RoomSideNavbar roomCoverImg={room.coverImageURL}/>
                 </div>
                 <div className='flex-grow-1'>
-                    <Tabs defaultActiveKey="updates" className="mb-3 justify-content-center">
-                        <Tab eventKey="updates" title="Newsfeed & Updates">
+                    <Tabs defaultActiveKey="updates" className={classes.tabBar}>
+                        <Tab eventKey="updates" title="Newsfeed & Updates" tabClassName={classes.tab}>
                             <NewsFeedPage room={room}/>
                         </Tab>
-                        <Tab eventKey="lectures" title="Lectures">
-                            <LecturesPage />
+                        <Tab eventKey="lectures" title="Lectures" tabClassName={classes.tab}>
+                            <LecturesPage/>
                         </Tab>
                     </Tabs>
                 </div>

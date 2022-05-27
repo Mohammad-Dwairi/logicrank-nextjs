@@ -19,7 +19,7 @@ const AppNavbar = () => {
 
     return (
         <div style={{height: '4.5rem'}}>
-            <Navbar bg="dark" variant="dark" fixed='top' style={{zIndex: 10}}>
+            <Navbar  variant="dark" fixed='top' style={{zIndex: 10, backgroundColor: '#4267B2'}}>
                 <Container>
                     <Link href='/home' passHref>
                         <Navbar.Brand style={{width: '10rem'}}>

@@ -37,7 +37,7 @@ const FilesPage = props => {
     const onFileDelete = async (filePath) => {
         setIsLoading(true);
         await fbDeleteFileFromStorage(filePath);
-        await loadRoomFiles();
+        await loadFiles();
     }
 
     return (

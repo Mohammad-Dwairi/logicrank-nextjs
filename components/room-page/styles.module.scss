@@ -1,14 +1,19 @@
 @import '../../styles/sass/variables';
 @import "../../styles/sass/mixins";
 
+$sidebar-bg-color: #fff !default;
+@import '~react-pro-sidebar/dist/scss/styles.scss';
+
 .sideNavbarWrapper {
   width: 80px;
   height: 100vh;
 }
 
 .sideNavbar {
+
   top: 0;
   position: fixed !important;
+  //background-color: red !important;
 
   .toggle {
     display: flex;
@@ -25,8 +30,11 @@
   }
 
   .logoContainer {
-    width: 90%;
-    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 22rem;
+    max-height: 10rem;
 
     & .roomName {
       font-size: 1rem;
@@ -34,7 +42,6 @@
       text-align: center;
       margin-top: 1rem;
     }
-
   }
 }
 
@@ -426,6 +433,17 @@
       background-color: darken($color-primary, 10%);
     }
 
+  }
+}
+
+.tabBar {
+
+  display: flex;
+  justify-content: center;
+  border-bottom: 1px solid #4267B2;
+  & .tab {
+    min-width: 400px !important;
+    border: 1px solid rgba(66, 103, 178, 0.48) !important;
   }
 }
 

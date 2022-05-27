@@ -6,13 +6,11 @@ import FileType from "./FileType";
 import AppButton from "../shared/AppButton";
 import {BiTrash} from "react-icons/bi";
 import {useState} from "react";
-import {useRouter} from "next/router";
 
 const FileCard = props => {
 
-    const {file, onFileDelete} = props;
+    const {file, onFileDelete, displayOwner} = props;
     const [showControl, setShowControl] = useState(false);
-    const {rid} = useRouter().query;
 
     return (
 
@@ -32,13 +30,13 @@ const FileCard = props => {
                         <div>
                             <span>{(file?.size / 1024 / 1024).toFixed(2)}MB</span>
                             <span>{new Date(file?.timeCreated).toDateString()}</span>
-                            <span>Uploaded By {file?.owner}</span>
+                            {displayOwner && <span>Uploaded By {file?.owner}</span>}
                         </div>
                     </a>
                 </Col>
                 <Col className={classes.fileCardControl}>
                     {(window.matchMedia("(pointer: coarse)").matches || showControl) &&
-                        <AppButton onClick={() => onFileDelete(`${rid}/materials/${file?.name}`)}
+                        <AppButton onClick={() => onFileDelete(file.path)}
                                    title={<BiTrash size={25}/>} outlined danger/>}
                 </Col>
             </Row>

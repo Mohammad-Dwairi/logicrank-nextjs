@@ -7,6 +7,11 @@ body {
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
+input:-webkit-autofill {
+  background-color: transparent !important;
+  -webkit-box-shadow: 0 0 0 50px rgba(255, 255, 255, 0.9) inset !important;
+}
+
 a {
   color: #4267B2 ;
   text-decoration: none !important;
@@ -23,4 +28,14 @@ h1, h2, h3, h4, h5, h6 {
 ::selection {
   color: #fff;
   background-color: #4267B2;
+}
+
+.pro-sidebar > .pro-sidebar-inner > .pro-sidebar-layout {
+  background-color: #4267B2;
+  color: #edf0f4;
+}
+
+.pro-sidebar .pro-menu.shaped .pro-menu-item > .pro-inner-item > .pro-icon-wrapper {
+  background-color: #edf0f4 !important;
+  color: #333333;
 }

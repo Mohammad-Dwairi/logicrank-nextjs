@@ -15,42 +15,27 @@
   & label {
     display: block;
     margin-right: 1rem;
+    font-weight: 500;
   }
 
-  & input[type='text'], input[type='number']{
-    padding: .2rem;
-    outline: none;
-    display: inline-block;
-    border: none;
-    background-color: $color-white;
+  & input, select {
+    background-color: $color-background;
+    border: none $color-primary;
     border-bottom: 1px solid $color-primary;
     border-radius: 0;
-    box-shadow: 0 .1rem .2rem rgba($color-black, .1);
     width: 100%;
-
-    @include respond(phone) {
-      width: 100%;
-    }
-  }
-
-  & select {
-    display: inline-block;
-
-    border: none;
+    padding: .3rem 0;
     outline: none;
-    width: 100%;
-    padding: .2rem;
-    background-color: $color-white;
-    box-shadow: 0 .1rem .2rem rgba($color-black, .1);
-    border-bottom: 1px solid $color-primary;
+    display: inline-block;
   }
 
   & textarea {
     display: inline-block;
-
     width: 100%;
-    border-color: $color-primary;
     outline: none;
+    background-color: $color-background;
+    border-radius: 5px;
+    border: 1px solid $color-primary;
   }
 
   & input[type='submit']{
@@ -60,7 +45,7 @@
     color: $color-white;
     border: none;
     border-radius: 3px;
-    padding: .2rem;
+    padding: .4rem;
     transition: all .3s;
     text-transform: capitalize;
     &:hover {

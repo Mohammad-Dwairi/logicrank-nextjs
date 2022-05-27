@@ -1,5 +1,5 @@
 import {useState} from "react";
-import {Menu, MenuItem, ProSidebar, SidebarHeader} from "react-pro-sidebar";
+import {Menu, MenuItem, ProSidebar, SidebarFooter, SidebarHeader} from "react-pro-sidebar";
 import {AiFillSetting, AiOutlineArrowLeft, AiOutlineArrowRight} from "react-icons/ai";
 import Image from "next/image";
 import {GiMaze} from "react-icons/gi";
@@ -24,23 +24,11 @@ const RoomSideNavbar = props => {
 
     return (
         <div className={classes.sideNavbarWrapper}>
-            <ProSidebar collapsed={collapsed} className={classes.sideNavbar}>
+            <ProSidebar collapsed={collapsed} className={classes.sideNavbar} width={220}>
                 <SidebarHeader className={classes.toggle} onClick={() => setCollapsed((prev) => !prev)}>
                     {collapsed ? <AiOutlineArrowRight/> : <AiOutlineArrowLeft/>}
                 </SidebarHeader>
-                {!collapsed && <SidebarHeader>
-                    <div className={classes.logoContainer}>
-                        <Image
-                            src={roomCoverImg || require('../../public/dreamer.svg')}
-                            alt='Room Cover Image'
-                            width='100%'
-                            height='100%'
-                            layout='responsive'
-                            objectFit='contain'
-                        />
-                        <h1 className={classes.roomName}>Dynamic Programming</h1>
-                    </div>
-                </SidebarHeader>}
+
                 <Menu iconShape='round'>
                     <MenuItem active={route === '/room/[rid]/materials'} icon={<BsStack/>}>Materials</MenuItem>
                     <MenuItem active={route === '/room/[rid]'} icon={<BsNewspaper/>}>Updates</MenuItem>
@@ -58,6 +46,19 @@ const RoomSideNavbar = props => {
                     <MenuItem active={route === '/room/[rid]/members'} icon={<BsFillPeopleFill/>}>Members</MenuItem>
                     <MenuItem active={route === '/room/[rid]/settings'} icon={<AiFillSetting/>}>Settings</MenuItem>
                 </Menu>
+                {/*<SidebarFooter>*/}
+                {/*    <div className={classes.logoContainer}>*/}
+                {/*        <Image*/}
+                {/*            src={roomCoverImg || require('../../public/dreamer.svg')}*/}
+                {/*            alt='Room Cover Image'*/}
+                {/*            width='100%'*/}
+                {/*            height='100%'*/}
+                {/*            layout='responsive'*/}
+                {/*            objectFit='contain'*/}
+                {/*        />*/}
+                {/*        {! collapsed && <h1 className={classes.roomName}>Dynamic Programming</h1>}*/}
+                {/*    </div>*/}
+                {/*</SidebarFooter>*/}
             </ProSidebar>
         </div>
 
