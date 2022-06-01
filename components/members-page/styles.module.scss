@@ -1,0 +1,16 @@
+@import "../../styles/sass/variables";
+
+.roomMemberCard {
+  background-color: $color-white;
+  align-items: center;
+  padding: .5rem 0;
+  border-bottom: 1px solid $color-border;
+
+  & div:nth-child(2), div:nth-child(3) {
+    font-weight: 500;
+  }
+
+  & img {
+    border-radius: 10px !important;
+  }
+}

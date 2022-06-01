@@ -26,9 +26,15 @@
   width: 100%;
 
   & .userName {
+    display: flex;
+    align-items: center;
     font-size: 1.75rem;
     font-weight: 500;
     margin: 0;
+
+    & div {
+      margin-right: .5rem;
+    }
   }
 
   & .locationContainer {

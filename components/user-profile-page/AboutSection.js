@@ -5,6 +5,7 @@ import {useState} from "react";
 import {useAuth} from "../../context/AuthContext";
 import {useDispatch} from "react-redux";
 import {updateUserInfo} from "../../store/actions/user-actions";
+import {useRouter} from "next/router";
 
 const initState = (val) => val ? val : '';
 
@@ -12,6 +13,10 @@ const AboutSection = ({userInfo}) => {
 
     const {currentUser} = useAuth();
     const {uid} = currentUser;
+    const {uid: routerUID} = useRouter().query;
+
+    const readOnly = uid !== routerUID;
+
     const [phone, setPhone] = useState(initState(userInfo.phoneNumber));
     const [nationality, setNationality] = useState(initState(userInfo.nationality));
     const [email, setEmail] = useState(initState(currentUser.email));
@@ -35,6 +40,7 @@ const AboutSection = ({userInfo}) => {
                         <th>Phone</th>
                         <td>
                             <EditableText
+                                readOnly={readOnly}
                                 type='number'
                                 value={phone}
                                 placeholder='Add phone number'
@@ -47,6 +53,7 @@ const AboutSection = ({userInfo}) => {
                         <th>From</th>
                         <td>
                             <EditableText
+                                readOnly={readOnly}
                                 value={nationality}
                                 placeholder='Add nationality'
                                 onChange={text => setNationality(text)}
@@ -71,6 +78,7 @@ const AboutSection = ({userInfo}) => {
                         <th>Codeforces Handle</th>
                         <td>
                             <EditableText
+                                readOnly={readOnly}
                                 value={handle}
                                 placeholder='Add Codeforces Handle'
                                 onChange={text => setHandle(text)}
@@ -91,6 +99,7 @@ const AboutSection = ({userInfo}) => {
                         <th>Birthday</th>
                         <td>
                             <EditableText
+                                readOnly={readOnly}
                                 value={birthday}
                                 type='date'
                                 placeholder='Add Birthday'

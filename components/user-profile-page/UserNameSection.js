@@ -8,6 +8,8 @@ import {useState} from "react";
 import {fbUpdateDocByUID} from "../../firebase/functions/firestore-docs-functions";
 import {USERS_COLLECTION} from "../../firebase/constants/COLLECTIONS";
 import {useAuth} from "../../context/AuthContext";
+import UserOnlineStatus from "../shared/UserOnlineStatus";
+import {useRouter} from "next/router";
 
 
 const initState = (val) => val ? val : '';
@@ -17,31 +19,37 @@ const UserNameSection = ({userInfo}) => {
     const [fullName, setFullName] = useState(initState(userInfo.fullName));
     const [location, setLocation] = useState(initState(userInfo.location));
 
-    const {currentUser} = useAuth();
+    const {uid: routerUID} = useRouter().query;
+
+    const {uid} = useAuth().currentUser;
+    const readOnly = uid !== routerUID;
 
     return (
         <div className={classes.userNameSection}>
             <h1 className={classes.userName}>
                 <EditableText
                     required
+                    readOnly={readOnly}
                     defaultValue={userInfo.fullName}
                     value={fullName}
                     placeholder='Press to add user name'
                     onChange={text => setFullName(text)}
-                    onFinish={() => fbUpdateDocByUID(USERS_COLLECTION, currentUser.uid, {fullName})}
+                    onFinish={() => fbUpdateDocByUID(USERS_COLLECTION, uid, {fullName})}
                 />
+                <UserOnlineStatus isOnline={userInfo.isOnline}/>
             </h1>
             <div className={classes.locationContainer}>
                 <IoLocation/>
                 <EditableText
+                    readOnly={readOnly}
                     name='location'
                     value={location}
                     placeholder='Press to add location'
                     onChange={text => setLocation(text)}
-                    onFinish={() => fbUpdateDocByUID(USERS_COLLECTION, currentUser.uid, {location})}
+                    onFinish={() => fbUpdateDocByUID(USERS_COLLECTION, uid, {location})}
                 />
             </div>
-            <div className={classes.actions}>
+            {readOnly && <div className={classes.actions}>
                 <Link href='#' passHref>
                     <a className={classes.sendMessage}>
                         <RiMessageFill className={classes.messageIcon}/>
@@ -51,7 +59,7 @@ const UserNameSection = ({userInfo}) => {
                 <Link href='#' passHref>
                     <a className={classes.reportUser}>Report User</a>
                 </Link>
-            </div>
+            </div>}
         </div>
     );
 };
