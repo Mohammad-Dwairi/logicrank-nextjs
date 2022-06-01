@@ -1,4 +1,3 @@
-import Image from "next/image";
 import {useLayoutEffect, useState} from "react";
 
 

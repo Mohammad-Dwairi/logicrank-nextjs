@@ -9,6 +9,8 @@ import LectureInfo from "../../../../components/lecture-details-page/LectureInfo
 import {collection, query} from "firebase/firestore";
 import {db} from "../../../../firebase/firebase";
 import LectureDiscussion from "../../../../components/lecture-details-page/LectureDiscussion";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
 
 const LectureDetailsPage = () => {
@@ -27,12 +29,23 @@ const LectureDetailsPage = () => {
         handle();
     }, [lectureId]);
 
+    const onCommentUpdate = (comments) => {
+        const updatedLecture = {...lecture};
+        updatedLecture.comments = comments;
+        setLecture(updatedLecture);
+    };
 
     return (
         <LoadingView isLoading={isLoading}>
-            <Container>
-                <LectureInfo lecture={lecture}/>
-                <LectureDiscussion comments={lecture?.comments}/>
+            <Container className='mt-5'>
+                <Row>
+                    <Col xl={4}>
+                        <LectureInfo lecture={lecture}/>
+                    </Col>
+                    <Col xl={8}>
+                        <LectureDiscussion comments={lecture?.comments} updateCommentsHandler={onCommentUpdate}/>
+                    </Col>
+                </Row>
             </Container>
         </LoadingView>
     );

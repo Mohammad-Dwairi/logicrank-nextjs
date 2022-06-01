@@ -8,26 +8,24 @@ const LectureInfo = ({lecture}) => {
     const {title, link, startTime, endTime} = lecture;
 
     return (
-        <Table striped bordered hover className={classes.infoTable}>
-            <tbody>
-            <tr>
-                <th>Lecture Title</th>
-                <td>{title}</td>
-            </tr>
-            <tr>
-                <th>Join Link</th>
-                <td><a href={link} target='_blank' rel="noreferrer">{link}</a></td>
-            </tr>
-            <tr>
-                <th>Start Time</th>
-                <td>{startTime}</td>
-            </tr>
-            <tr>
-                <th>End Time</th>
-                <td>{endTime}</td>
-            </tr>
-            </tbody>
-        </Table>
+        <div className={classes.lectureInfoSection}>
+            <div>
+                <h1>Lecture Title</h1>
+                <span>{title}</span>
+            </div>
+            <div>
+                <h1>Meeting Link</h1>
+                <a href={link}>{link}</a>
+            </div>
+            <div>
+                <h1>Start Time</h1>
+                <span>{startTime}</span>
+            </div>
+            <div>
+                <h1>End Time</h1>
+                <span>{endTime}</span>
+            </div>
+        </div>
     );
 };
 
