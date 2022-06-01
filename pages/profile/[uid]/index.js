@@ -12,6 +12,7 @@ import Centered from "../../../components/layout/Centered";
 import LoadingSpinner from "../../../components/layout/LoadingSpinner";
 import {fbQueryDocByUID} from "../../../firebase/functions/firestore-docs-functions";
 import {USERS_COLLECTION} from "../../../firebase/constants/COLLECTIONS";
+import {useRouter} from "next/router";
 
 const UserProfilePage = () => {
 
@@ -19,8 +20,10 @@ const UserProfilePage = () => {
     const [userInfo, setUserInfo] = useState({});
     const [loading, setLoading] = useState(false);
 
+    const {uid} = useRouter().query;
+
     const loadUser = useCallback(async () => {
-        return await fbQueryDocByUID(USERS_COLLECTION, currentUser.uid);
+        return await fbQueryDocByUID(USERS_COLLECTION, uid);
     }, [currentUser.uid]);
 
     useLayoutEffect(() => {
