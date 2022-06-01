@@ -16,7 +16,7 @@ import AppModal from "../shared/AppModal";
 import NewLectureForm from "./NewLectureForm";
 
 const renderLectures = lectures => lectures.map((lecture, index) => (
-    <LectureCard lecture={lecture} key={index} num={index+1}/>
+    <LectureCard lecture={lecture} key={index} num={index + 1}/>
 ));
 
 const LecturesPage = props => {
@@ -32,7 +32,8 @@ const LecturesPage = props => {
             const lecturesRef = collection(db, ROOMS_DETAILS_COLLECTION, rid, ROOM_LECTURES);
             const lecturesQuery = query(lecturesRef);
             const fetchedLectures = await fbQueryDocs(lecturesQuery);
-            setLectures(Object.values(fetchedLectures));
+            console.table(fetchedLectures)
+            setLectures(Object.keys(fetchedLectures).map(lectureId => ({id: lectureId, ...fetchedLectures[lectureId]})));
             setIsLoading(false);
         };
 
