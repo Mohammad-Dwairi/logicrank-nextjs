@@ -1,0 +1,60 @@
+@import "../../styles/sass/variables";
+@import "../../styles/sass/base";
+
+
+.graphPageHeader {
+
+  margin-top: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: .5rem;
+  border-radius: 5px;
+
+  & h1 {
+    font-size: 2rem;
+  }
+
+  & .graphControl {
+    display: flex;
+    color: $color-primary;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all .3s;
+
+    &:hover {
+      transform: scale(1.03);
+    }
+
+    & svg {
+      margin: 0 .5rem;
+    }
+  }
+}
+
+.newNodeForm {
+
+  padding: 3rem 5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  height: 100%;
+
+  & label {
+    font-weight: 500;
+    color: $color-grey-dark;
+  }
+
+  & input[type='text'] {
+    display: block;
+    width: 100%;
+    border: 1px solid $color-primary;
+    outline: none;
+    border-radius: 5px;
+    padding: .2rem;
+  }
+
+  & select {
+    display: block;
+  }
+}

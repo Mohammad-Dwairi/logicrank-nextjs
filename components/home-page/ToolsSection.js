@@ -6,6 +6,7 @@ import {AiFillCode, AiFillFolder} from "react-icons/ai";
 import {FcTodoList} from "react-icons/fc";
 import {BiChalkboard} from "react-icons/bi";
 import {useAuth} from "../../context/AuthContext";
+import {GrGraphQl} from "react-icons/gr";
 
 
 const ToolsSection = props => {
@@ -16,7 +17,7 @@ const ToolsSection = props => {
     return (
         <Row className={classes.raSection}>
             <h1 className={classes.raSectionTitle}>{title}</h1>
-            <Col lg={3} className='mt-2'>
+            <Col className='mt-2'>
                 <Link href='/code-editor' passHref>
                     <a className={classes.toolCard}>
                         <AiFillCode className={classes.toolCardIcon}/>
@@ -24,7 +25,7 @@ const ToolsSection = props => {
                     </a>
                 </Link>
             </Col>
-            <Col lg={3} className='mt-2'>
+            <Col className='mt-2'>
                 <Link href='/whiteboard' passHref>
                     <a className={classes.toolCard}>
                         <BiChalkboard className={classes.toolCardIcon}/>
@@ -32,7 +33,7 @@ const ToolsSection = props => {
                     </a>
                 </Link>
             </Col>
-            <Col lg={3} className='mt-2'>
+            <Col  className='mt-2'>
                 <Link href={`/profile/${currentUser.uid}/files`} passHref>
                     <a className={classes.toolCard}>
                         <AiFillFolder className={classes.toolCardIcon}/>
@@ -40,11 +41,19 @@ const ToolsSection = props => {
                     </a>
                 </Link>
             </Col>
-            <Col lg={3} className='mt-2'>
+            <Col  className='mt-2'>
                 <Link href={`/profile/${currentUser.uid}/todo`} passHref>
                     <a className={classes.toolCard}>
                         <FcTodoList className={classes.toolCardIcon}/>
                         <span>My ToDo List</span>
+                    </a>
+                </Link>
+            </Col>
+            <Col  className='mt-2'>
+                <Link href={`/graph`} passHref>
+                    <a className={classes.toolCard}>
+                        <GrGraphQl className={classes.toolCardIcon}/>
+                        <span>Graph Visualizer</span>
                     </a>
                 </Link>
             </Col>

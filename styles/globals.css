@@ -40,3 +40,10 @@ h1, h2, h3, h4, h5, h6 {
   background-color: #edf0f4 !important;
   color: #333333;
 }
+
+.absCenter {
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+}

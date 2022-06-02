@@ -6,7 +6,7 @@ const ModalContentWrapper = props => {
 
     return (
         <div className={classes.modalContentWrapper}>
-
+            {props.children}
         </div>
     );
 };
