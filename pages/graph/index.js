@@ -7,11 +7,11 @@ import ModalContentWrapper from "../../components/shared/ModalContentWrapper";
 import {useState} from "react";
 import NewNodeForm from "../../components/graph-page/NewNodeForm";
 
-const GraphVisualizerPage = () => {
+const GraphVisualizerPage = ({roadmap, onAddNodeFinish, title, direction}) => {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    const [graph, setGraph] = useState({nodes: [], edges: []});
+    const [graph, setGraph] = useState(roadmap || {nodes: [], edges: []});
 
     const newNodeHandler = async (node) => {
         const updatedGraph = {...graph};
@@ -43,13 +43,14 @@ const GraphVisualizerPage = () => {
         updatedGraph.edges = edges;
         setGraph(updatedGraph);
         setIsModalOpen(false);
+        onAddNodeFinish && await onAddNodeFinish(updatedGraph);
     };
 
     return (
         <div>
             <Container>
-                <GraphPageHeader onClick={() => setIsModalOpen(true)}/>
-                <GraphCanvas graph={graph}/>
+                <GraphPageHeader onClick={() => setIsModalOpen(true)} title={title}/>
+                <GraphCanvas graph={graph} direction={direction}/>
                 <AppModal isOpen={isModalOpen} onRequestClose={() => setIsModalOpen(false)}>
                     <ModalContentWrapper>
                         <NewNodeForm roadmap={graph} onSubmit={newNodeHandler}/>

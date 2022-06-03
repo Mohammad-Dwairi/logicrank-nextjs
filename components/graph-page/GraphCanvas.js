@@ -1,20 +1,20 @@
 import dynamic from "next/dynamic";
 import {useWindowDimensions} from "../../hooks/useWindowDimensions";
 import Image from "next/image";
+import LoadingView from "../../hoc/LoadingView";
 
 const Canvas = dynamic(() =>
-    import('reaflow/dist/index.esm.js').then((mod) => mod.Canvas)
-);
+    import('reaflow/dist/index.esm.js').then((mod) => mod.Canvas).catch(() => LoadingView));
 
 
 const GraphCanvas = props => {
 
-    const {graph} = props;
+    const {graph, direction} = props;
     const {height, width} = useWindowDimensions();
 
-    let direction = 'RIGHT';
+    let dir = direction || 'RIGHT';
     if (height > width) {
-        direction = 'DOWN';
+        dir = 'DOWN';
     }
 
     if (graph?.nodes.length === 0) {
@@ -28,10 +28,10 @@ const GraphCanvas = props => {
     return (
         <Canvas
             fit
-            defaultPosition='center'
+            defaultPosition={dir === 'DOWN' ? 'top' : 'center'}
             maxWidth={width}
             maxHeight={height - 185}
-            direction={direction}
+            direction={dir}
             nodes={graph?.nodes}
             edges={graph?.edges}
         />
