@@ -29,10 +29,15 @@ const RoadmapPage = () => {
         handle().then(() => setIsLoading(false));
     }, [rid]);
 
+    if (isLoading) return <LoadingView/>;
+
     return (
-        <LoadingView isLoading={isLoading}>
-            <GraphVisualizerPage title='Topics Road Map' direction='DOWN' onAddNodeFinish={onAddNodeFinish} roadmap={roadmap}/>
-        </LoadingView>
+        <GraphVisualizerPage
+            title='Topics Road Map'
+            direction='DOWN'
+            onAddNodeFinish={onAddNodeFinish}
+            roadmap={roadmap}
+        />
     );
 };
 

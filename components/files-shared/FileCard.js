@@ -21,7 +21,7 @@ const FileCard = props => {
             <Row>
                 <Col className={classes.fileType} md={1}>
                     <a download href={file?.link}>
-                        <FileType type={file?.type}/>
+                        <FileType type={file?.type} iconSize={50}/>
                     </a>
                 </Col>
                 <Col md={8} className={classes.fileCardInfo}>

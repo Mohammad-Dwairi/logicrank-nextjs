@@ -5,14 +5,11 @@ import {useRouter} from "next/router";
 import {useEffect, useState} from "react";
 import LoadingView from "../../../../hoc/LoadingView";
 import {fbQueryDocs, fbQuerySingleDoc} from "../../../../firebase/functions/firestore-docs-functions";
-import {
-    PROBLEMS_COLLECTION,
-    ROOMS_DETAILS_COLLECTION,
-    USER_SOLVED_PROBLEMS
-} from "../../../../firebase/constants/COLLECTIONS";
+import {PROBLEMS_COLLECTION, ROOMS_DETAILS_COLLECTION, SUBMISSIONS} from "../../../../firebase/constants/COLLECTIONS";
 import {collection, query, where} from "firebase/firestore";
 import {db} from "../../../../firebase/firebase";
 import ProblemSubmissions from "../../../../components/problem-details-page/ProblemSubmissions";
+import {useAuth} from "../../../../context/AuthContext";
 
 
 const ProblemDetailsPage = () => {
@@ -20,6 +17,8 @@ const ProblemDetailsPage = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [problem, setProblem] = useState(null);
     const [submissions, setSubmissions] = useState([]);
+
+    const {uid} = useAuth().currentUser;
 
     const router = useRouter();
     const {problemId, rid} = router.query;
@@ -30,27 +29,32 @@ const ProblemDetailsPage = () => {
             const problemQuery = query(problemRef, where("__name__", '==', problemId));
             const fetchedProblem = await fbQuerySingleDoc(problemQuery);
 
-            const submissionsRef = collection(db, USER_SOLVED_PROBLEMS);
-            const submissionsQuery = query(submissionsRef, where('problemId', '==', problemId));
-            const fetchedSubmissions = await fbQueryDocs(submissionsQuery);
+            if (!fetchedProblem) {
+                return await router.replace(`/room/${rid}/problems`);
+            }
+
+            const q = query(collection(db, SUBMISSIONS), where("userId", '==', uid), where("problemId", '==', problemId));
+            const fetchedSubmissions = await fbQueryDocs(q);
+
+            if (fetchedSubmissions) {
+                setSubmissions(Object.values(fetchedSubmissions));
+            }
 
             setProblem(fetchedProblem || null);
-            if (!fetchedProblem) {
-               return  await router.replace(`/room/${rid}/problems`);
-            }
-            setSubmissions(Object.values(fetchedSubmissions));
             setIsLoading(false);
         };
         handle();
     }, [problemId, rid]);
 
+    console.log(submissions)
+
+    if (isLoading) return <LoadingView/>;
+
     return (
-        <LoadingView isLoading={isLoading}>
-            <Container>
-                <ProblemInfoSection problem={problem}/>
-                <ProblemSubmissions submissions={submissions}/>
-            </Container>
-        </LoadingView>
+        <Container>
+            <ProblemInfoSection problem={problem}/>
+            <ProblemSubmissions submissions={submissions}/>
+        </Container>
     );
 };
 

@@ -19,6 +19,10 @@ const ProblemInfoSection = props => {
                             <td>{problem.source}</td>
                         </tr>
                         <tr>
+                            <td>Link</td>
+                            <td><a href={problem.link}>{problem.link}</a></td>
+                        </tr>
+                        <tr>
                             <td>Difficulty</td>
                             <td>{problem.difficulty}</td>
                         </tr>

@@ -1,12 +1,12 @@
 import {withProtected} from "../../../../hoc/RouteAuth";
 import LoadingView from "../../../../hoc/LoadingView";
-import {useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import {fbQuerySingleDoc} from "../../../../firebase/functions/firestore-docs-functions";
 import {ROOM_LECTURES, ROOMS_DETAILS_COLLECTION} from "../../../../firebase/constants/COLLECTIONS";
 import {useRouter} from "next/router";
 import Container from "react-bootstrap/Container";
 import LectureInfo from "../../../../components/lecture-details-page/LectureInfo";
-import {collection, query} from "firebase/firestore";
+import {collection, query, where} from "firebase/firestore";
 import {db} from "../../../../firebase/firebase";
 import LectureDiscussion from "../../../../components/lecture-details-page/LectureDiscussion";
 import Row from "react-bootstrap/Row";
@@ -19,35 +19,30 @@ const LectureDetailsPage = () => {
     const {lectureId, rid} = useRouter().query;
     const [lecture, setLecture] = useState(null);
 
-    useEffect(() => {
-        const handle = async () => {
-            const q = query(collection(db, ROOMS_DETAILS_COLLECTION, rid, ROOM_LECTURES));
-            const lecture = await fbQuerySingleDoc(q);
-            setLecture(lecture);
-            setIsLoading(false);
-        };
-        handle();
-    }, [lectureId]);
+    const fetchLectureDetails = useCallback(async () => {
+        const q = query(collection(db, ROOMS_DETAILS_COLLECTION, rid, ROOM_LECTURES), where('__name__', '==', lectureId));
+        const fetchedLecture = await fbQuerySingleDoc(q);
+        if (fetchedLecture)
+            setLecture(fetchedLecture);
+    }, [lectureId, rid]);
 
-    const onCommentUpdate = (comments) => {
-        const updatedLecture = {...lecture};
-        updatedLecture.comments = comments;
-        setLecture(updatedLecture);
-    };
+    useEffect(() => {
+        fetchLectureDetails().then(() => setIsLoading(false));
+    }, [fetchLectureDetails]);
+
+    if (isLoading) return <LoadingView/>;
 
     return (
-        <LoadingView isLoading={isLoading}>
-            <Container className='mt-5'>
-                <Row>
-                    <Col xl={4}>
-                        <LectureInfo lecture={lecture}/>
-                    </Col>
-                    <Col xl={8}>
-                        <LectureDiscussion comments={lecture?.comments} updateCommentsHandler={onCommentUpdate}/>
-                    </Col>
-                </Row>
-            </Container>
-        </LoadingView>
+        <Container className='mt-5'>
+            <Row>
+                <Col xl={4}>
+                    <LectureInfo lecture={lecture}/>
+                </Col>
+                <Col xl={8}>
+                    <LectureDiscussion comments={lecture?.comments} onCommentSubmit={fetchLectureDetails}/>
+                </Col>
+            </Row>
+        </Container>
     );
 
 };

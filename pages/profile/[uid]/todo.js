@@ -1,6 +1,5 @@
 import {useCallback, useEffect, useState} from "react";
 import Container from "react-bootstrap/Container";
-import LoadingView from "../../../hoc/LoadingView";
 import {fbQueryDocByUID} from "../../../firebase/functions/firestore-docs-functions";
 import {TODOS_COLLECTION} from "../../../firebase/constants/COLLECTIONS";
 import {useAuth} from "../../../context/AuthContext";
@@ -11,6 +10,7 @@ import AppModal from "../../../components/shared/AppModal";
 import AppButton from "../../../components/shared/AppButton";
 import {arrayRemove, arrayUnion, doc, setDoc, updateDoc} from "firebase/firestore";
 import {db} from "../../../firebase/firebase";
+import LoadingView from "../../../hoc/LoadingView";
 
 
 const TodoListPage = () => {
@@ -54,7 +54,7 @@ const TodoListPage = () => {
             await setDoc(doc(db, TODOS_COLLECTION, uid), fbTodo);
         }
 
-        setTodos([todo, ...todos]);
+        setTodos([...todos, todo]);
         setIsLoading(false);
         setIsNewTodoModalOpen(false);
     };
@@ -73,8 +73,10 @@ const TodoListPage = () => {
         await updateDoc(doc(db, TODOS_COLLECTION, uid), {todoArr: updatedTodos});
     };
 
+    if (isLoading) return <LoadingView />;
+
     return (
-        <LoadingView isLoading={isLoading}>
+        <>
             <Container className='mt-5'>
                 <div className='d-flex justify-content-between'>
                     <h1>Todo List</h1>
@@ -90,7 +92,7 @@ const TodoListPage = () => {
             >
                 <NewTodo onNewTodoSubmit={onNewTodoSubmit}/>
             </AppModal>
-        </LoadingView>
+        </>
     );
 };
 

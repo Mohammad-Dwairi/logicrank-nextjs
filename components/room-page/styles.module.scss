@@ -220,7 +220,10 @@ $sidebar-bg-color: #fff !default;
 
     & .postImage {
       width: 100%;
+      height: auto;
+      max-width: 30rem;
       max-height: 30rem;
+      margin-bottom: 2rem;
     }
   }
 
@@ -441,6 +444,7 @@ $sidebar-bg-color: #fff !default;
   display: flex;
   justify-content: center;
   border-bottom: 1px solid #4267B2;
+
   & .tab {
     min-width: 400px !important;
     border: 1px solid rgba(66, 103, 178, 0.48) !important;

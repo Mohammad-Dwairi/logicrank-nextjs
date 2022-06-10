@@ -13,7 +13,7 @@ const AttachmentView = props => {
 
     return (
         <div className='text-center'>
-            <FileType type={file.type} name={file.name} file={file} iconSize={40} noPreview/>
+            <FileType type={file.type} name={file.name} file={file} iconSize={40} noPreview displayName/>
             <AppButton title='delete' onClick={onDelete} outlined danger/>
         </div>
     );

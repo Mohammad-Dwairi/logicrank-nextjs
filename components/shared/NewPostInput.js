@@ -1,19 +1,32 @@
 import classes from './styles.module.scss';
-import {useRef, useState} from "react";
+import {useLayoutEffect, useRef, useState} from "react";
 import AttachmentView from "./AttachmentView";
 import {AiOutlineSend} from "react-icons/ai";
 import UserProfileBadge from "./UserProfileBadge";
 import LoadingSpinner from "../layout/LoadingSpinner";
 
+const MIN_TEXTAREA_HEIGHT = 32;
 
 const NewPostInput = props => {
 
     const {onSubmit} = props;
 
-    const textRef = useRef(null);
-    const [textareaRows, setTextareaRows] = useState(1);
     const [attachmentFile, setAttachmentFile] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
+
+    const textareaRef = useRef(null);
+    const [value, setValue] = useState("");
+    const onChange = (event) => setValue(event.target.value);
+
+    useLayoutEffect(() => {
+        // Reset height - important to shrink on delete
+        textareaRef.current.style.height = "inherit";
+        // Set height
+        textareaRef.current.style.height = `${Math.max(
+            textareaRef.current.scrollHeight,
+            MIN_TEXTAREA_HEIGHT
+        )}px`;
+    }, [value]);
 
     const attachmentFileHandler = (event) => {
         const file = event.target.files[0];
@@ -28,12 +41,6 @@ const NewPostInput = props => {
         setAttachmentFile(null);
     }
 
-    const textChangeHandler = e => {
-        const text = e.target.value;
-        const numOfRows = text.length / 85 + 1;
-        setTextareaRows(numOfRows);
-    };
-
     if (isLoading) {
         return (
             <div className={classes.newPostInputContainer} style={{padding: '1rem'}}>
@@ -47,10 +54,13 @@ const NewPostInput = props => {
             <UserProfileBadge/>
             <div className={classes.postControlContainer}>
                 <textarea
-                    placeholder="What&apos;s in your mind, Mohammad?"
-                    rows={textareaRows}
-                    onChange={textChangeHandler}
-                    ref={textRef}
+                    placeholder="What&apos;s in your mind?"
+                    style={{minHeight: MIN_TEXTAREA_HEIGHT, resize: "none"}}
+                    rows={1}
+                    onChange={onChange}
+                    ref={textareaRef}
+                    value={value}
+                    className='noScrollBar'
                 />
                 <div className={classes.postAttachments}>
                     <AttachmentView file={attachmentFile} onChange={attachmentFileHandler} onDelete={onDeleteFile}/>
@@ -58,7 +68,7 @@ const NewPostInput = props => {
             </div>
             <AiOutlineSend className={classes.sendBtn} onClick={async () => {
                 setIsLoading(true);
-                await onSubmit(textRef.current.value, attachmentFile);
+                await onSubmit(value, attachmentFile);
                 setAttachmentFile(null);
                 setIsLoading(false);
             }}/>

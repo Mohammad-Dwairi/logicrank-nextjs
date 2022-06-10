@@ -25,12 +25,21 @@ const Post = props => {
             <div className={classes.postContent}>
                 <p className={classes.postText}>{post.text}</p>
                 {post.attachment && !post.attachment.type.includes('image') && !post.attachment.type.includes('video') &&
-                    <a href={post.attachment.link} download><FileType type={post.attachment.type}
-                                                                      name={post.attachment.name}/></a>}
+                    <a href={post.attachment.link} download style={{display: 'block', width:' 100%'}}>
+                        <div className='py-3' style={{backgroundColor: '#eee'}}>
+                            <FileType
+                                type={post.attachment.type}
+                                name={post.attachment.name}
+                                iconSize={60}
+                                displayName
+                            />
+                        </div>
+
+                    </a>
+                }
                 {post.attachment && post.attachment.type.includes('image') &&
                     <div className={classes.postImage}>
-                        <Image src={post.attachment.link} alt='post img' width='100%' height='100%'
-                               layout='responsive'/>
+                        <Image src={post.attachment.link} alt='post img' width={1000} height={1000}/>
                     </div>
                 }
                 {post.attachment && post.attachment.type.includes('video') &&

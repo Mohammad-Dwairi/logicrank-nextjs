@@ -14,7 +14,7 @@ const ProblemCard = props => {
 
     const {name, source, difficulty, link} = problem;
 
-    const isCompleted = solvedProblems.find(problem => problem.problemId === problemId);
+    const isCompleted = solvedProblems.indexOf(problemId) !== -1;
 
     const {rid} = useRouter().query;
 

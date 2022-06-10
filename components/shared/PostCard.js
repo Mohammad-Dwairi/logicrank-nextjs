@@ -10,7 +10,7 @@ const PostCard = props => {
     return (
         <div className={classes.postCard}>
             <div className={classes.postHeader}>
-                <Image src={require('../../public/profile.jpeg')} />
+                <Image src={require('../../public/profile.jpeg')}/>
                 <div>
                     <div>{post.userName}</div>
                     <div>{new Date(post.datePosted).toDateString()}</div>
@@ -19,7 +19,13 @@ const PostCard = props => {
             <div className={classes.postBody}>
                 <p>{post.text}</p>
                 {attachment && <div>
-                    {<FileType type={attachment.type} name={attachment.name} link={attachment.link} iconSize={50}/>}
+                    {<FileType
+                        type={attachment.type}
+                        name={attachment.name}
+                        link={attachment.link}
+                        iconSize={50}
+                        displayName={!attachment.type.includes('image')}/>
+                    }
                 </div>}
             </div>
 

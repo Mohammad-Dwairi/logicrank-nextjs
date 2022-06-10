@@ -40,10 +40,10 @@ const FilesPage = props => {
         await loadFiles();
     }
 
+    if (isLoading) return <LoadingView/>;
+
     return (
-        <LoadingView isLoading={isLoading}>
-            <FilesSection title={title} files={files} onFileUpload={onFileUpload} onFileDelete={onFileDelete}/>
-        </LoadingView>
+        <FilesSection title={title} files={files} onFileUpload={onFileUpload} onFileDelete={onFileDelete}/>
     );
 };
 

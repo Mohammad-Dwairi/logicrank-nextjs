@@ -25,7 +25,7 @@ const FilePreview = props => {
         if (file && type.includes('image')) {
             return <BlobImageView imgFile={file}/>;
         }
-        if (type.includes('image')) {
+        if (type.includes('image') && link) {
             return (
                 <div>
                     <Image src={link} width={200} height={200} alt=''/>
@@ -49,12 +49,12 @@ const FilePreview = props => {
 
 const FileType = props => {
 
-    const {type, name, link, iconSize, file, noPreview} = props;
+    const {type, name, link, iconSize, file, noPreview, displayName} = props;
 
     return (
         <a href={link} download className={classes.fileTypeContainer}>
             <FilePreview iconSize={iconSize} type={type} link={link} file={file} noPreview={noPreview}/>
-            {(file || !type.includes('image')) && <div className={classes.fileName}>{name}</div>}
+            {(displayName && <div className={classes.fileName}>{name}</div>)}
         </a>
     );
 };

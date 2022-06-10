@@ -29,7 +29,7 @@ const FileUploadInput = ({onFileUpload}) => {
             {!file && <div className={classes.modalFileUploadInputContainer}>
                 <FileUpload Icon={MdFileUpload} label='Choose File' onChange={fileHandler}/>
             </div>}
-            {file && <FileType type={file.type} name={file.name}/>}
+            {file && <FileType type={file.type} name={file.name} iconSize={70} displayName/>}
             {file && <AppButton title='Upload File' onClick={() => onFileUpload(file)}/>}
         </div>
     );
