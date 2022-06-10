@@ -1,0 +1,177 @@
+@import "../../styles/sass/variables";
+
+.messagesListContainer {
+
+  height: 100vh;
+  padding: 1rem .5rem;
+  border-right: 1px solid $color-border;
+  //border-left: 1px solid $color-border;
+
+  & header {
+    border-bottom: 1px solid $color-border;
+    margin-bottom: 1rem;
+    & h1 {
+      font-size: 2rem;
+    }
+  }
+
+  & main {
+    height: 80vh;
+  }
+
+}
+
+.userMessageCardActive {
+  border-left: 7px solid $color-primary !important;
+}
+
+.userMessageCard {
+  background-color: $color-white;
+  border-left: 7px solid $color-white;
+  padding: 1rem .5rem;
+  display: flex;
+  align-items: center;
+  border-radius: 7px;
+  box-shadow: 0 .1rem .4rem rgba($color-black, .05);
+  margin-bottom: .5rem;
+
+  & .imgContainer {
+    min-width: 2.5rem;
+    min-height: 2.5rem;
+    max-width: 2.5rem;
+    max-height: 2.5rem;
+    border-radius: 30px;
+    overflow: hidden;
+    margin-right: .5rem;
+  }
+
+  & .userMessageContent {
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+
+    & div:first-child {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      & span {
+        font-size: .8rem;
+      }
+
+      & span:first-child {
+        display: block;
+        font-weight: 500;
+        font-size: 1rem;
+      }
+    }
+
+    & div:nth-child(2) {
+      font-size: .9rem;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+  }
+
+}
+
+.messagesAreaContainer {
+  position: relative;
+  background-color: white;
+  width: 100%;
+  height: 90vh;
+  padding: 0 1rem;
+
+  & header {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+
+    & .imgContainer {
+      margin-right: 1.5rem;
+      max-width: 3rem;
+      max-height: 3rem;
+      border-radius: 1.5rem;
+      overflow: hidden;
+    }
+
+    & .userInfo {
+
+      & div:first-child {
+        font-size: 1.15rem;
+        font-weight: 500;
+      }
+    }
+  }
+
+  & footer {
+
+    border-top: 1px solid $color-border;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    left: 0;
+    position: absolute;
+    bottom: 10px;
+
+    & svg {
+      color: $color-primary;
+      margin-right: 1rem;
+      cursor: pointer;
+      transition: all .3s;
+      &:hover {
+        color: darken($color-primary, 20%);
+      }
+    }
+
+    & textarea {
+      width: 100%;
+      border: none;
+      outline: none;
+    }
+
+  }
+
+}
+
+.messageSenderImg {
+  width: 2rem;
+  height: 2rem;
+  overflow: hidden;
+  border-radius: 1rem;
+}
+
+.messageSecondaryCardContainer {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 1rem;
+
+  & .messageBody {
+    background-color: $color-secondary;
+    color: $color-white;
+    max-width: 75%;
+    padding: .5rem;
+    border-radius: 10px;
+    margin-left: .5rem;
+  }
+
+}
+
+.messagePrimaryCardContainer {
+  display: flex;
+  flex-direction: row-reverse;
+  margin-bottom: 1rem;
+
+  & .messageBody {
+    background-color: $color-primary;
+    color: $color-white;
+    max-width: 75%;
+    padding: .5rem;
+    border-radius: 10px;
+    margin-right: .5rem;
+  }
+
+}

@@ -15,7 +15,10 @@ export const fbQueryDocByUID = async (collectionPath, uid) => {
     const collectionRef = collection(db, collectionPath);
     const q = await query(collectionRef, where('__name__', '==', uid));
     const querySnapshot = await getDocs(q);
-    return querySnapshot?.docs[0]?.data();
+    const data = querySnapshot?.docs[0]?.data();
+    if (data)
+        data['id'] = querySnapshot?.docs[0]?.id;
+    return data;
 };
 
 export const fbQueryAllDocs = async (col, key, value) => {

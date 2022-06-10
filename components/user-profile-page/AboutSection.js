@@ -3,15 +3,13 @@ import LabeledSeparator from "../layout/LabeledSeparator";
 import EditableText from "../shared/EditableText";
 import {useState} from "react";
 import {useAuth} from "../../context/AuthContext";
-import {useDispatch} from "react-redux";
-import {updateUserInfo} from "../../store/actions/user-actions";
 import {useRouter} from "next/router";
 
 const initState = (val) => val ? val : '';
 
 const AboutSection = ({userInfo}) => {
 
-    const {currentUser} = useAuth();
+    const {currentUser, updateUserInfo} = useAuth();
     const {uid} = currentUser;
     const {uid: routerUID} = useRouter().query;
 
@@ -19,11 +17,10 @@ const AboutSection = ({userInfo}) => {
 
     const [phone, setPhone] = useState(initState(userInfo.phoneNumber));
     const [nationality, setNationality] = useState(initState(userInfo.nationality));
-    const [email, setEmail] = useState(initState(currentUser.email));
+    const [email, setEmail] = useState(initState(userInfo.email));
     const [handle, setHandle] = useState(initState(userInfo.codeforcesHandle));
     const [birthday, setBirthday] = useState(initState(userInfo.birthday));
 
-    const dispatch = useDispatch();
 
     return (
         <>
@@ -45,7 +42,7 @@ const AboutSection = ({userInfo}) => {
                                 value={phone}
                                 placeholder='Add phone number'
                                 onChange={text => setPhone(text)}
-                                onFinish={() => dispatch(updateUserInfo(uid, {phoneNumber: phone}))}
+                                onFinish={() => updateUserInfo(uid, {phoneNumber: phone})}
                             />
                         </td>
                     </tr>
@@ -57,7 +54,7 @@ const AboutSection = ({userInfo}) => {
                                 value={nationality}
                                 placeholder='Add nationality'
                                 onChange={text => setNationality(text)}
-                                onFinish={() => dispatch(updateUserInfo(uid, {nationality}))}
+                                onFinish={() => updateUserInfo(uid, {nationality})}
                             />
                         </td>
                     </tr>
@@ -70,7 +67,7 @@ const AboutSection = ({userInfo}) => {
                                 value={email}
                                 placeholder='Add email'
                                 onChange={text => setEmail(text)}
-                                onFinish={() => dispatch(updateUserInfo(uid, {email}))}
+                                onFinish={() => updateUserInfo(uid, {email})}
                             />
                         </td>
                     </tr>
@@ -82,7 +79,7 @@ const AboutSection = ({userInfo}) => {
                                 value={handle}
                                 placeholder='Add Codeforces Handle'
                                 onChange={text => setHandle(text)}
-                                onFinish={() => dispatch(updateUserInfo(uid, {codeforcesHandle: handle}))}
+                                onFinish={() => updateUserInfo(uid, {codeforcesHandle: handle})}
                             />
                         </td>
                     </tr>
@@ -104,7 +101,7 @@ const AboutSection = ({userInfo}) => {
                                 type='date'
                                 placeholder='Add Birthday'
                                 onChange={text => setBirthday(text)}
-                                onFinish={() => dispatch(updateUserInfo(uid, {birthday}))}
+                                onFinish={() => updateUserInfo(uid, {birthday})}
                             />
                         </td>
                     </tr>

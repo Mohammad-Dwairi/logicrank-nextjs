@@ -1,0 +1,118 @@
+@import "../../../styles/sass/variables";
+@import "../../../styles/sass/mixins";
+
+.chatBottomBar {
+  position: fixed;
+  display: flex;
+  justify-content: flex-end;
+
+  width: 90%;
+
+  @include respond(phone) {
+    width: 100%;
+  }
+
+  bottom: 0;
+  //height: 2.5rem;
+  //border: 1px solid green;
+
+}
+
+
+.chatBarCollapsed {
+  height: 100%;
+  width: 20rem;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $color-white;
+  border: 1px solid $color-border;
+  box-shadow: 0 .1rem .1rem rgba($color-black, .1);
+  cursor: pointer;
+
+
+  & .chatUser {
+    font-weight: 500;
+  }
+}
+
+.chatHeader {
+  width: 20rem;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+  background-color: $color-secondary;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: .2rem .5rem;
+  cursor: pointer;
+
+  & .chatUserContainer {
+    display: flex;
+    align-items: center;
+  }
+
+  & .chatUserCollapseIcon {
+    cursor: pointer;
+
+    &:hover {
+      color: $color-primary;
+    }
+
+  }
+}
+
+.chatExpanded {
+  width: 20rem;
+  height: 25rem;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+  background-color: $color-white;
+  box-shadow: 0 .1rem .1rem rgba($color-black, .1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+
+  & .chatArea {
+    background-color: $color-white;
+    height: 100%;
+    overflow-y: scroll;
+    -ms-overflow-style: none;  /* IE and Edge */
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  & .chatExpandedFooter {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: $color-secondary;
+    padding: .3rem .5rem;
+
+    & svg {
+      color: $color-white;
+      cursor: pointer;
+      transition: all .3s;
+
+      &:hover {
+        color: $color-primary
+      }
+
+    }
+
+    & input[type='text'] {
+      width: 80%;
+      border-radius: 10px;
+      outline: none;
+      border: none;
+      padding: .2rem .5rem;
+    }
+  }
+
+}

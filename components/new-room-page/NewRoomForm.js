@@ -10,20 +10,16 @@ import {fbAddNewDoc} from "../../firebase/functions/firestore-docs-functions";
 import {useAuth} from "../../context/AuthContext";
 import {useRouter} from "next/router";
 import BlobImageView from "../shared/BlobImageView";
-import {arrayUnion, collection} from "firebase/firestore";
-import {ROOMS_COLLECTION} from "../../firebase/constants/COLLECTIONS";
-import {useDispatch, useSelector} from "react-redux";
-import {updateUserInfo} from "../../store/actions/user-actions";
+import {arrayUnion, collection, doc, setDoc} from "firebase/firestore";
+import {ROOMS_COLLECTION, ROOMS_DETAILS_COLLECTION} from "../../firebase/constants/COLLECTIONS";
 import {db} from "../../firebase/firebase";
 
 const NewRoomForm = ({onSubmitStart, onSubmitFinish}) => {
 
     const {register, handleSubmit, watch, formState: {errors}} = useForm();
     const [coverImage, setCoverImage] = useState(null);
-    const {uid} = useAuth().currentUser;
+    const {currentUser, userInfo, updateUserInfo} = useAuth();
     const router = useRouter();
-    const dispatch = useDispatch();
-    const userInfo = useSelector(state => state.userCtx.userInfo);
 
     const coverImageHandler = (event) => {
         const image = event.target.files[0];
@@ -40,9 +36,9 @@ const NewRoomForm = ({onSubmitStart, onSubmitFinish}) => {
     };
 
     const populateMetaData = async (originalData, roomUID) => {
-        originalData['roomInstructorUID'] = uid;
+        originalData['roomInstructorUID'] = currentUser.uid;
         originalData['roomInstructor'] = userInfo.fullName;
-        originalData['members'] = [uid];
+        originalData['members'] = [currentUser.uid];
         originalData['membersNum'] = 1;
         originalData['dateCreated'] = +new Date();
         if (coverImage) {
@@ -50,12 +46,13 @@ const NewRoomForm = ({onSubmitStart, onSubmitFinish}) => {
         }
     };
 
+
     const onFormSubmit = async data => {
         onSubmitStart();
         await populateMetaData(data);
         const roomsColRef = collection(db, ROOMS_COLLECTION);
         const roomRef = await fbAddNewDoc(roomsColRef, data);
-        dispatch(updateUserInfo(uid, {enrolledRooms: arrayUnion(roomRef.id)}));
+        await updateUserInfo(currentUser.uid, {enrolledRooms: arrayUnion(roomRef.id)});
         await router.replace(`/room/${roomRef.id}`);
         onSubmitFinish();
     };
@@ -114,7 +111,7 @@ const NewRoomForm = ({onSubmitStart, onSubmitFinish}) => {
                             {...register('roomPrice', {required: true, valueAsNumber: true, min: 0, max: 200})}
                         />
                         {errors.roomPrice &&
-                            <span className='text-danger'>Room's price should be between 0$ and 200$</span>}
+                            <span className='text-danger'>Room&apos;s price should be between 0$ and 200$</span>}
 
                     </Col>
                 </Row>

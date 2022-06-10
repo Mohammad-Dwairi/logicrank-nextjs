@@ -1,19 +1,21 @@
 import {withProtected} from "../../hoc/RouteAuth";
 import {useEffect} from "react";
-import {useDispatch} from "react-redux";
-import {logoutAction} from "../../store/actions/authActions";
 import {useAuth} from "../../context/AuthContext";
+import LoadingView from "../../hoc/LoadingView";
+import {fbLogout} from "../../firebase/functions/auth-functions";
+import {useRouter} from "next/router";
 
 
 const Logout = () => {
 
-    const dispatch = useDispatch();
     const {uid} = useAuth().currentUser;
+    const router = useRouter();
 
     useEffect(() => {
-        dispatch(logoutAction(uid));
-    }, [dispatch]);
+        fbLogout(uid);
+    }, [uid]);
 
+    return null
 };
 
 export default withProtected(Logout);

@@ -11,22 +11,22 @@ const NewRoomPage = () => {
 
     const [isLoading, setIsLoading] = useState(false);
 
+    if (isLoading) return <LoadingView isLoading={true}/>;
+
     return (
-        <LoadingView isLoading={isLoading}>
-            <Container className='mt-5'>
-                <Row>
-                    <Col xl={6}>
-                        <NewRoomForm
-                            onSubmitStart={() => setIsLoading(true)}
-                            onSubmitFinish={() => setIsLoading(false)}
-                        />
-                    </Col>
-                    <Col className='d-flex justify-content-end'>
-                        <Image src={require('../../../public/new-room.svg')} width={400}/>
-                    </Col>
-                </Row>
-            </Container>
-        </LoadingView>
+        <Container className='mt-5'>
+            <Row>
+                <Col xl={6}>
+                    <NewRoomForm
+                        onSubmitStart={() => setIsLoading(true)}
+                        onSubmitFinish={() => setIsLoading(false)}
+                    />
+                </Col>
+                <Col className='d-flex justify-content-end'>
+                    <Image src={require('../../../public/new-room.svg')} width={400} alt={''}/>
+                </Col>
+            </Row>
+        </Container>
     );
 
 };

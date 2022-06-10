@@ -5,13 +5,11 @@ import UserProfileBadge from "../UserProfileBadge";
 
 import classes from './styles.module.scss';
 import {useAuth} from "../../../context/AuthContext";
-import {useSelector} from "react-redux";
 
 const UserOptionsPopoverContent = props => {
 
     const {options} = props;
-    const userInfo = useSelector(state => state.userCtx.userInfo);
-    const {currentUser} = useAuth();
+    const {currentUser, userInfo} = useAuth();
 
     return (
         <div className={classes.popoverContentContainer}>

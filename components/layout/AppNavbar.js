@@ -6,16 +6,9 @@ import UserProfileBadgePopover from "../shared/popover/UserProfileBadgePopover";
 import NotificationsPopover from "../shared/popover/NotificationsPopover";
 import ChatPopover from "../shared/popover/ChatPopover";
 import Link from "next/link";
-import {useAuth} from "../../context/AuthContext";
 
 
 const AppNavbar = () => {
-
-    const {currentUser} = useAuth();
-
-    if (!currentUser) {
-        return null;
-    }
 
     return (
         <div style={{height: '4.5rem'}}>

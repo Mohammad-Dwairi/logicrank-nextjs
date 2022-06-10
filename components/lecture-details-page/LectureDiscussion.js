@@ -4,7 +4,6 @@ import {useEffect} from "react";
 import NewPostInput from "../shared/NewPostInput";
 import {fbUploadBlobToStorage} from "../../firebase/functions/firebase-storage-functions";
 import {useAuth} from "../../context/AuthContext";
-import {useSelector} from "react-redux";
 import {useRouter} from "next/router";
 import {arrayUnion, doc, updateDoc} from "firebase/firestore";
 import {db} from "../../firebase/firebase";
@@ -19,25 +18,22 @@ const renderComments = comments => comments.map((comment, index) => (
     />
 ));
 
-const LectureDiscussion = ({comments, updateCommentsHandler}) => {
+const LectureDiscussion = ({comments, onCommentSubmit}) => {
 
-    const {uid} = useAuth().currentUser;
+    const {currentUser, userInfo} = useAuth();
     const {rid, lectureId} = useRouter().query;
-
-    const userInfo = useSelector(state => state.userCtx.userInfo);
 
     useEffect(() => {
         const commentsList = document.getElementById('commentsList');
         commentsList.scrollTop = commentsList.scrollHeight;
     }, [comments]);
 
-    const onCommentSubmit = async (text, file) => {
+    const commentSubmitHandler = async (text, file) => {
         if (!text && !file) return;
-
         const commentContent = {
             text,
             datePosted: +new Date(),
-            userUID: uid,
+            userUID: currentUser.uid,
             userName: userInfo.fullName
         };
 
@@ -49,18 +45,18 @@ const LectureDiscussion = ({comments, updateCommentsHandler}) => {
                 name: file.name
             };
         }
-        updateCommentsHandler([...comments, commentContent]);
         await updateDoc(doc(db, ROOMS_DETAILS_COLLECTION, rid, ROOM_LECTURES, lectureId), {comments: arrayUnion(commentContent)});
-    };
+        onCommentSubmit();
 
+    };
 
     return (
         <div className={classes.discussionSection}>
             <div className={classes.commentsList} id='commentsList'>
-                {renderComments(comments)}
+                {renderComments(comments || [])}
             </div>
             <div className={classes.newCommentContainer}>
-                <NewPostInput onSubmit={onCommentSubmit}/>
+                <NewPostInput onSubmit={commentSubmitHandler}/>
             </div>
         </div>
     );

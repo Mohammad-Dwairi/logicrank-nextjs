@@ -20,6 +20,7 @@ const UserProfilePage = () => {
     const [userInfo, setUserInfo] = useState({});
     const [loading, setLoading] = useState(false);
 
+    const router = useRouter();
     const {uid} = useRouter().query;
 
     const loadUser = useCallback(async () => {
@@ -29,6 +30,9 @@ const UserProfilePage = () => {
     useLayoutEffect(() => {
         setLoading(true);
         loadUser().then(userInfo => {
+            if (!userInfo) {
+                return router.push('/404');
+            }
             setUserInfo(userInfo);
             setLoading(false);
         });

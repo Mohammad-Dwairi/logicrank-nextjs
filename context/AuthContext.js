@@ -1,7 +1,7 @@
-import React, {useContext, useEffect, useState} from "react";
+import React, {useCallback, useContext, useEffect, useState} from "react";
 import {auth} from '../firebase/firebase';
-import {useDispatch} from "react-redux";
-import {loadUserInfo} from "../store/actions/user-actions";
+import {fbQueryDocByUID, fbUpdateDocByUID} from "../firebase/functions/firestore-docs-functions";
+import {USERS_COLLECTION} from "../firebase/constants/COLLECTIONS";
 
 const AuthContext = React.createContext(null);
 
@@ -12,22 +12,45 @@ export function useAuth() {
 
 export function AuthProvider({children}) {
 
-    const [currentUser, setCurrentUser] = useState(null)
-    const [loading, setLoading] = useState(true)
-    const dispatch = useDispatch();
+    const [currentUser, setCurrentUser] = useState(null);
+    const [userInfo, setUserInfo] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
+
+    const fetchUserInfo = useCallback(async (userId) => {
+        if (userId) {
+            const fetchedUserInfo = await fbQueryDocByUID(USERS_COLLECTION, userId);
+            if (fetchedUserInfo) {
+                setUserInfo(fetchedUserInfo);
+            } else {
+                throw new Error("User's Info not found");
+            }
+        }
+    }, []);
+
+    const updateUserInfo = useCallback(async (userId, updatedInfoObj) => {
+        if (currentUser && currentUser.uid === userId) {
+            await fbUpdateDocByUID(USERS_COLLECTION, userId, updatedInfoObj);
+            await fetchUserInfo(currentUser.uid);
+        }
+    }, [currentUser, fetchUserInfo]);
 
     useEffect(() => {
         return auth.onAuthStateChanged(user => {
             setCurrentUser(user);
-            setLoading(false);
-        })
-    }, []);
+            if (user) {
+                fetchUserInfo(user.uid).then(() => setIsLoading(false));
+            } else {
+                setIsLoading(false);
+            }
+        });
+    }, [fetchUserInfo, userInfo]);
 
-    const value = {currentUser};
+
+    const value = {currentUser, userInfo, fetchUserInfo, updateUserInfo, isLoading};
 
     return (
         <AuthContext.Provider value={value}>
-            {!loading && children}
+            {!isLoading ? children : <h1>AUTH</h1>}
         </AuthContext.Provider>
     );
 }

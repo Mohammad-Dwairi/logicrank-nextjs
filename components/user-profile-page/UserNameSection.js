@@ -19,7 +19,8 @@ const UserNameSection = ({userInfo}) => {
     const [fullName, setFullName] = useState(initState(userInfo.fullName));
     const [location, setLocation] = useState(initState(userInfo.location));
 
-    const {uid: routerUID} = useRouter().query;
+    const router = useRouter();
+    const {uid: routerUID} = router.query;
 
     const {uid} = useAuth().currentUser;
     const readOnly = uid !== routerUID;
@@ -50,7 +51,7 @@ const UserNameSection = ({userInfo}) => {
                 />
             </div>
             {readOnly && <div className={classes.actions}>
-                <Link href='#' passHref>
+                <Link href={`/messages/${routerUID}`} passHref>
                     <a className={classes.sendMessage}>
                         <RiMessageFill className={classes.messageIcon}/>
                         <span className={classes.messageLink}>Send Message</span>
