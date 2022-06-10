@@ -3,6 +3,15 @@ import {getAuth} from "firebase/auth";
 import {getFirestore} from 'firebase/firestore';
 import {getStorage, ref} from 'firebase/storage';
 
+const firebaseBackupConfig = {
+    apiKey: "AIzaSyAdAUIScuwM171gPfLVFpir78kFa66flyg",
+    authDomain: "logickrank2.firebaseapp.com",
+    projectId: "logickrank2",
+    storageBucket: "logickrank2.appspot.com",
+    messagingSenderId: "1089431055294",
+    appId: "1:1089431055294:web:c8c8300b112b08df0867ef"
+}
+
 const firebaseConfig = {
     apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
     authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
@@ -16,7 +25,7 @@ const firebaseConfig = {
 let app = undefined;
 
 if (!getApps.length) {
-    app = initializeApp(firebaseConfig);
+    app = initializeApp(firebaseBackupConfig);
 }
 
 export default app;

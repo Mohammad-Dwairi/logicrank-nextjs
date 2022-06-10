@@ -6,13 +6,15 @@ import UserProfileBadgePopover from "../shared/popover/UserProfileBadgePopover";
 import NotificationsPopover from "../shared/popover/NotificationsPopover";
 import ChatPopover from "../shared/popover/ChatPopover";
 import Link from "next/link";
+import {useAuth} from "../../context/AuthContext";
 
 
 const AppNavbar = () => {
 
+    const {userInfo} = useAuth();
     return (
         <div style={{height: '4.5rem'}}>
-            <Navbar  variant="dark" fixed='top' style={{zIndex: 10, backgroundColor: '#4267B2'}}>
+            <Navbar variant="dark" fixed='top' style={{zIndex: 10, backgroundColor: '#4267B2'}}>
                 <Container>
                     <Link href='/home' passHref>
                         <Navbar.Brand style={{width: '10rem'}}>
@@ -28,7 +30,9 @@ const AppNavbar = () => {
                             <ChatPopover/>
                         </Nav.Link>
                         <Nav.Link>
-                            <UserProfileBadgePopover/>
+                            <div style={{position: 'relative', top: 4}}>
+                                <UserProfileBadgePopover imageLink={userInfo.profilePicture}/>
+                            </div>
                         </Nav.Link>
                     </Nav>
                 </Container>

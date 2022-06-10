@@ -43,7 +43,7 @@ const ChatPopover = props => {
     return (
         <PopoverContainer content={<ChatPopoverContent chats={chats}/>} positions={['bottom']}>
             <div>
-                <BiChat className={classes.popoverIcon}/>
+                <BiChat className={classes.popoverIcon} size={22}/>
             </div>
         </PopoverContainer>
     );

@@ -46,6 +46,7 @@ const GraphVisualizerPage = ({roadmap, onAddNodeFinish, title, direction}) => {
         onAddNodeFinish && await onAddNodeFinish(updatedGraph);
     };
 
+    console.log("GRAPH")
     return (
         <div>
             <Container>

@@ -30,7 +30,7 @@ const UserOptionsPopoverContent = props => {
 
 const UserProfileBadgePopover = props => {
 
-    const {userName} = props;
+    const {userName, imageLink} = props;
 
 
     return (
@@ -39,7 +39,7 @@ const UserProfileBadgePopover = props => {
             positions={['bottom']}
         >
             <div> {/* This div is necessary to position the popover correctly ... I DON'T KNOW WHY */}
-                <UserProfileBadge userName={userName}/>
+                <UserProfileBadge userName={userName} imageLink={imageLink}/>
             </div>
         </PopoverContainer>
     );

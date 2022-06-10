@@ -3,10 +3,11 @@ import Image from "next/image";
 
 
 const UserProfileBadge = props => {
+    const {imageLink} = props;
 
     return (
         <span className={classes.userProfileBadge}>
-            <Image src={require('../../public/profile.jpeg')} alt='profile picture'/>
+            <Image src={imageLink || require('../../public/default-user.png')} alt='profile picture' width={10000} height={10000}/>
         </span>
     );
 };

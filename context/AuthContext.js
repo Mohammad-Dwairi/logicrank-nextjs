@@ -32,7 +32,7 @@ export function AuthProvider({children}) {
             await fbUpdateDocByUID(USERS_COLLECTION, userId, updatedInfoObj);
             await fetchUserInfo(currentUser.uid);
         }
-    }, [currentUser, fetchUserInfo]);
+    }, []);
 
     useEffect(() => {
         return auth.onAuthStateChanged(user => {
@@ -43,7 +43,7 @@ export function AuthProvider({children}) {
                 setIsLoading(false);
             }
         });
-    }, [fetchUserInfo, userInfo]);
+    }, []);
 
 
     const value = {currentUser, userInfo, fetchUserInfo, updateUserInfo, isLoading};

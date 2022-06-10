@@ -52,14 +52,14 @@
 .fileUpload {
   display: flex;
   align-items: center;
-  color: $color-primary;
+  color: $color-white;
   //border: 1px dashed $color-primary;
   //padding: .5rem 1rem;
   //margin-right: 2rem;
 
   &:hover {
     cursor: pointer;
-    color: green;
+    //color: green;
   }
 
   & input[type='file'] {

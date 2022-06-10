@@ -8,11 +8,10 @@ import UserNameSection from "../../../components/user-profile-page/UserNameSecti
 import AdditionalInfoSection from "../../../components/user-profile-page/AdditionalInfoSection";
 import AboutSection from "../../../components/user-profile-page/AboutSection";
 import {useCallback, useLayoutEffect, useState} from "react";
-import Centered from "../../../components/layout/Centered";
-import LoadingSpinner from "../../../components/layout/LoadingSpinner";
 import {fbQueryDocByUID} from "../../../firebase/functions/firestore-docs-functions";
 import {USERS_COLLECTION} from "../../../firebase/constants/COLLECTIONS";
 import {useRouter} from "next/router";
+import LoadingView from "../../../hoc/LoadingView";
 
 const UserProfilePage = () => {
 
@@ -38,19 +37,13 @@ const UserProfilePage = () => {
         });
     }, [loadUser]);
 
-    if (loading) {
-        return (
-            <Centered>
-                <LoadingSpinner />
-            </Centered>
-        );
-    }
+    if (loading) return <LoadingView/>;
 
     return (
         <Container className='mt-5 p-4 bg-light'>
             <Row className='d-flex justify-content-center'>
                 <Col sm={12} lg={3}>
-                    <ProfilePicture/>
+                    <ProfilePicture link={userInfo.profilePicture}/>
                 </Col>
                 <Col sm={12} lg={1}/>
                 <Col sm={12} lg={6}>

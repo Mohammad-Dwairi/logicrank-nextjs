@@ -41,7 +41,7 @@ const NotificationsPopover = props => {
             positions={['bottom']}
         >
             <div>
-                <IoMdNotificationsOutline className={classes.popoverIcon}/>
+                <IoMdNotificationsOutline className={classes.popoverIcon} size={22}/>
             </div>
         </PopoverContainer>
 
