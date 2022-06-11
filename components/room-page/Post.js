@@ -46,9 +46,11 @@ const Post = props => {
                     </a>
                 }
                 {post.attachment && post.attachment.type.includes('image') &&
-                    <div className={classes.postImage}>
-                        <Image src={post.attachment.link} alt='post img' width={1000} height={1000}/>
-                    </div>
+                    <Link href={post.attachment.link} passHref>
+                        <a className={classes.postImage} target='_blank'>
+                            <Image src={post.attachment.link} alt='post img' width={1000} height={1000}/>
+                        </a>
+                    </Link>
                 }
                 {post.attachment && post.attachment.type.includes('video') &&
                     <div>
@@ -61,14 +63,14 @@ const Post = props => {
                     </div>
                 }
             </div>
-            <div className={classes.postFooter}>
-                <div className={classes.postAction}>
-                    <AiOutlineLike/>
-                </div>
-                <div className={classes.postAction}>
-                    <AiOutlineComment/>
-                </div>
-            </div>
+            {/*<div className={classes.postFooter}>*/}
+            {/*    <div className={classes.postAction}>*/}
+            {/*        <AiOutlineLike/>*/}
+            {/*    </div>*/}
+            {/*    <div className={classes.postAction}>*/}
+            {/*        <AiOutlineComment/>*/}
+            {/*    </div>*/}
+            {/*</div>*/}
         </div>
     );
 };
