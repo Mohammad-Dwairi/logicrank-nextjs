@@ -28,10 +28,8 @@ export function AuthProvider({children}) {
     }, []);
 
     const updateUserInfo = useCallback(async (userId, updatedInfoObj) => {
-        if (currentUser && currentUser.uid === userId) {
-            await fbUpdateDocByUID(USERS_COLLECTION, userId, updatedInfoObj);
-            await fetchUserInfo(currentUser.uid);
-        }
+        await fbUpdateDocByUID(USERS_COLLECTION, userId, updatedInfoObj);
+        await fetchUserInfo(userId);
     }, []);
 
     useEffect(() => {

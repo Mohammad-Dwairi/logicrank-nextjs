@@ -5,6 +5,7 @@ import Col from "react-bootstrap/Col";
 import Image from "next/image";
 import {useState} from "react";
 import LoadingView from "../../../hoc/LoadingView";
+import {withProtected} from "../../../hoc/RouteAuth";
 
 
 const NewRoomPage = () => {
@@ -31,4 +32,4 @@ const NewRoomPage = () => {
 
 };
 
-export default NewRoomPage;
+export default withProtected(NewRoomPage);

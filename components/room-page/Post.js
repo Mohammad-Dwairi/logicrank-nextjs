@@ -3,6 +3,8 @@ import Image from "next/image";
 import {BiDotsHorizontalRounded} from 'react-icons/bi';
 import {AiOutlineComment, AiOutlineLike} from "react-icons/ai";
 import FileType from "../files-shared/FileType";
+import Link from "next/link";
+import UserOnlineStatus from "../shared/UserOnlineStatus";
 
 const Post = props => {
 
@@ -12,11 +14,17 @@ const Post = props => {
         <div className={classes.post}>
             <div className={classes.postHeader}>
                 <div className={classes.imageContainer}>
-                    <Image src={require('../../public/profile.jpeg')} alt='photo' className={classes.image}/>
+                    <Image src={post.user.profilePicture || require('../../public/default-user.png')} alt='photo'
+                           width={100} height={100}/>
                 </div>
                 <div className={classes.postInfo}>
                     <div>
-                        <h3 className={classes.username}>{post.userName}</h3>
+                        <div className='d-flex align-items-center'>
+                            <Link href={`/profile/${post.userId}`} passHref>
+                                <a className={classes.username}>{post.user.fullName}</a>
+                            </Link>
+                            <UserOnlineStatus isOnline={post.user.isOnline} noLabel/>
+                        </div>
                         <p className={classes.time}>{new Date(post.datePosted).toLocaleDateString()}</p>
                     </div>
                     <BiDotsHorizontalRounded className={classes.optionsIcon}/>
@@ -25,7 +33,7 @@ const Post = props => {
             <div className={classes.postContent}>
                 <p className={classes.postText}>{post.text}</p>
                 {post.attachment && !post.attachment.type.includes('image') && !post.attachment.type.includes('video') &&
-                    <a href={post.attachment.link} download style={{display: 'block', width:' 100%'}}>
+                    <a href={post.attachment.link} download style={{display: 'block', width: ' 100%'}}>
                         <div className='py-3' style={{backgroundColor: '#eee'}}>
                             <FileType
                                 type={post.attachment.type}

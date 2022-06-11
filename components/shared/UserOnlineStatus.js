@@ -1,4 +1,4 @@
-const UserOnlineStatus = ({isOnline}) => {
+const UserOnlineStatus = ({isOnline, noLabel}) => {
 
     const style = {
         width: '.6rem',
@@ -11,7 +11,7 @@ const UserOnlineStatus = ({isOnline}) => {
     return (
         <div>
             <div style={style}/>
-            <span style={{fontSize: '.9rem'}}>{isOnline ? 'Online' : 'Offline'}</span>
+            {!noLabel && <span style={{fontSize: '.9rem'}}>{isOnline ? 'Online' : 'Offline'}</span>}
         </div>
     )
 

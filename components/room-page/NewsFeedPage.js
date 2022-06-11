@@ -6,8 +6,8 @@ import Post from "./Post";
 import {fbUploadBlobToStorage} from "../../firebase/functions/firebase-storage-functions";
 import {useAuth} from "../../context/AuthContext";
 import {useRouter} from "next/router";
-import {addDoc, collection, limit, orderBy, query} from "firebase/firestore";
-import {POSTS_COLLECTION, ROOMS_DETAILS_COLLECTION} from "../../firebase/constants/COLLECTIONS";
+import {addDoc, collection, limit, orderBy, query, where} from "firebase/firestore";
+import {POSTS_COLLECTION, ROOMS_DETAILS_COLLECTION, USERS_COLLECTION} from "../../firebase/constants/COLLECTIONS";
 import {db} from "../../firebase/firebase";
 import {useCallback, useEffect, useState} from "react";
 import LoadingView from "../../hoc/LoadingView";
@@ -29,6 +29,19 @@ const NewsFeedPage = () => {
         const postsColRef = collection(db, ROOMS_DETAILS_COLLECTION, rid, POSTS_COLLECTION);
         const q = query(postsColRef, orderBy("datePosted", "desc"), limit(100));
         const fetchedPosts = await fbQueryDocs(q);
+
+        // fetch users who owns the posts
+        const userIds = Object.values(fetchedPosts).map(post => post.userId);
+        const usersQuery = query(collection(db, USERS_COLLECTION), where("__name__", 'in', userIds));
+        const fetchedUsers = await fbQueryDocs(usersQuery);
+
+        // set each user in the post object
+        for (let postId of Object.keys(fetchedPosts)) {
+            fetchedPosts[postId]['user'] = fetchedUsers[fetchedPosts[postId].userId];
+        }
+
+        console.log('POSTS ', fetchedPosts)
+
         setPosts(fetchedPosts);
     }, [rid]);
 

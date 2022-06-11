@@ -8,6 +8,7 @@ import {useRouter} from "next/router";
 import {arrayUnion, doc, updateDoc} from "firebase/firestore";
 import {db} from "../../firebase/firebase";
 import {ROOM_LECTURES, ROOMS_DETAILS_COLLECTION} from "../../firebase/constants/COLLECTIONS";
+import Image from "next/image";
 
 
 const renderComments = comments => comments.map((comment, index) => (
@@ -53,7 +54,13 @@ const LectureDiscussion = ({comments, onCommentSubmit}) => {
     return (
         <div className={classes.discussionSection}>
             <div className={classes.commentsList} id='commentsList'>
-                {renderComments(comments || [])}
+                {
+                    comments && comments.length !== 0 ? renderComments(comments || []) :
+                        <div>
+                            <Image src={require('../../public/think.svg')} width={400} height={400}/>
+                            <p className='text-center fw-bold'>No Comments on this lecture yet</p>
+                        </div>
+                }
             </div>
             <div className={classes.newCommentContainer}>
                 <NewPostInput onSubmit={commentSubmitHandler}/>

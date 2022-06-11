@@ -4,6 +4,7 @@ import AttachmentView from "./AttachmentView";
 import {AiOutlineSend} from "react-icons/ai";
 import UserProfileBadge from "./UserProfileBadge";
 import LoadingSpinner from "../layout/LoadingSpinner";
+import {useAuth} from "../../context/AuthContext";
 
 const MIN_TEXTAREA_HEIGHT = 32;
 
@@ -17,6 +18,8 @@ const NewPostInput = props => {
     const textareaRef = useRef(null);
     const [value, setValue] = useState("");
     const onChange = (event) => setValue(event.target.value);
+
+    const {userInfo} = useAuth();
 
     useLayoutEffect(() => {
         // Reset height - important to shrink on delete
@@ -51,7 +54,7 @@ const NewPostInput = props => {
 
     return (
         <div className={classes.newPostInputContainer}>
-            <UserProfileBadge/>
+            <UserProfileBadge imageLink={userInfo.profilePicture}/>
             <div className={classes.postControlContainer}>
                 <textarea
                     placeholder="What&apos;s in your mind?"
@@ -63,7 +66,7 @@ const NewPostInput = props => {
                     className='noScrollBar'
                 />
                 <div className={classes.postAttachments}>
-                    <AttachmentView file={attachmentFile} onChange={attachmentFileHandler} onDelete={onDeleteFile}/>
+                    <AttachmentView file={attachmentFile} onChange={attachmentFileHandler} onDelete={onDeleteFile} displayName/>
                 </div>
             </div>
             <AiOutlineSend className={classes.sendBtn} onClick={async () => {

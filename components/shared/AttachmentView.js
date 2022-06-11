@@ -5,7 +5,7 @@ import AppButton from "./AppButton";
 
 
 const AttachmentView = props => {
-    const {file, onChange, onDelete} = props;
+    const {file, onChange, onDelete, displayName} = props;
 
     if (!file) {
         return <FileUpload label='Upload Attachment' Icon={MdAttachment} onChange={onChange}/>;
@@ -13,8 +13,8 @@ const AttachmentView = props => {
 
     return (
         <div className='text-center'>
-            <FileType type={file.type} name={file.name} file={file} iconSize={40} noPreview displayName/>
-            <AppButton title='delete' onClick={onDelete} outlined danger/>
+            <FileType type={file.type} name={file.name} file={file} iconSize={40} displayName={displayName} onFileRemove={onDelete}/>
+            {!file.type.includes('image') && <AppButton title='delete' onClick={onDelete} outlined danger/>}
         </div>
     );
 };

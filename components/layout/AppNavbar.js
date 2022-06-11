@@ -31,7 +31,7 @@ const AppNavbar = () => {
                         </Nav.Link>
                         <Nav.Link>
                             <div style={{position: 'relative', top: 4}}>
-                                <UserProfileBadgePopover imageLink={userInfo.profilePicture}/>
+                                <UserProfileBadgePopover imageLink={userInfo?.profilePicture}/>
                             </div>
                         </Nav.Link>
                     </Nav>

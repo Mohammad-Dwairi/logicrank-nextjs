@@ -14,6 +14,7 @@ import AppModal from "../shared/AppModal";
 import NewLectureForm from "./NewLectureForm";
 import LoadingView from "../../hoc/LoadingView";
 import {fbQueryDocs} from "../../firebase/functions/firestore-docs-functions";
+import Image from "next/image";
 
 const renderLectures = lectures => Object.keys(lectures).map((lectureId, index) => (
     <LectureCard id={lectureId} lecture={lectures[lectureId]} key={lectureId} num={index + 1}/>
@@ -61,9 +62,15 @@ const LecturesPage = () => {
                         <AppButton title='Add New Lecture' outlined onClick={() => setIsModalOpen(true)}/>
                     </Col>
                 </Row>
-                <Row className='d-flex justify-content-center'>
-                    <Col xl={7}>
-                        {renderLectures(lectures || {})}
+                <Row className='d-flex justify-content-center '>
+                    <Col xl={7} className='d-flex justify-content-center'>
+                        {
+                            lectures && Object.keys(lectures).length !== 0 ? renderLectures(lectures) :
+                                <div className='mt-5'>
+                                    <Image src={require('../../public/no-data.svg')} width={350} height={350}/>
+                                    <p className='text-center mt-3 fw-bold'>No Lectures yet</p>
+                                </div>
+                        }
                     </Col>
                 </Row>
             </Container>

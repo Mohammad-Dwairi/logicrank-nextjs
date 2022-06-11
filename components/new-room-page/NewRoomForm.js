@@ -10,9 +10,11 @@ import {fbAddNewDoc} from "../../firebase/functions/firestore-docs-functions";
 import {useAuth} from "../../context/AuthContext";
 import {useRouter} from "next/router";
 import BlobImageView from "../shared/BlobImageView";
-import {arrayUnion, collection, doc, setDoc} from "firebase/firestore";
-import {ROOMS_COLLECTION, ROOMS_DETAILS_COLLECTION} from "../../firebase/constants/COLLECTIONS";
+import {arrayUnion, collection} from "firebase/firestore";
+import {ROOMS_COLLECTION} from "../../firebase/constants/COLLECTIONS";
 import {db} from "../../firebase/firebase";
+import {CgTrash} from "react-icons/cg";
+import HoverControlledImage from "../shared/HoverControlledImage";
 
 const NewRoomForm = ({onSubmitStart, onSubmitFinish}) => {
 
@@ -120,7 +122,7 @@ const NewRoomForm = ({onSubmitStart, onSubmitFinish}) => {
                         <label htmlFor='roomDescription'>Room Description</label>
                     </Col>
                     <Col xl={9}>
-                        <textarea id='roomDescription' rows={4} {...register('roomDescription', {required: true})}/>
+                        <textarea placeholder='Write a brief description of your new room content' id='roomDescription' rows={7} {...register('roomDescription', {required: true})}/>
                         {errors.roomName && <span className='text-danger'>Room Description is required</span>}
                     </Col>
                 </Row>
@@ -134,10 +136,10 @@ const NewRoomForm = ({onSubmitStart, onSubmitFinish}) => {
                                 <input type="file" onChange={coverImageHandler}/>
                                 <BiUpload/>
                             </label> :
-                            <div>
-                                <BlobImageView imgFile={coverImage}/>
-                                <a className={classes.removeImageBtn} onClick={() => setCoverImage(null)}>Remove
-                                    Image</a>
+                            <div style={{maxHeight: 300}}>
+                                <HoverControlledImage imageBlob={coverImage}>
+                                    <CgTrash onClick={() => setCoverImage(null)} size={40}/>
+                                </HoverControlledImage>
                             </div>
                         }
                     </Col>

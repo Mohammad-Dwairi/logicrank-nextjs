@@ -3,6 +3,8 @@
 
 .formInputContainer {
 
+  margin-bottom: 3rem;
+
   & .header {
     font-size: 2rem;
     margin: 2rem 0;
@@ -31,6 +33,7 @@
 
   & textarea {
     display: inline-block;
+    padding: .3rem .6rem;
     width: 100%;
     outline: none;
     background-color: $color-background;
@@ -79,12 +82,18 @@
 
   & .removeImageBtn {
     color: crimson;
-    display: block;
-    text-align: end;
+    display: flex;
+    align-items: center;
+    margin: .4rem 0;
+    text-align: start;
     cursor: pointer;
 
     &:hover {
       color: darken(crimson, 10%)
+    }
+
+    & svg {
+      font-size: 1.2rem;
     }
   }
 
