@@ -15,20 +15,23 @@ import NewLectureForm from "./NewLectureForm";
 import LoadingView from "../../hoc/LoadingView";
 import {fbQueryDocs} from "../../firebase/functions/firestore-docs-functions";
 import Image from "next/image";
+import {useAuth} from "../../context/AuthContext";
 
 const renderLectures = lectures => Object.keys(lectures).map((lectureId, index) => (
     <LectureCard id={lectureId} lecture={lectures[lectureId]} key={lectureId} num={index + 1}/>
 ));
 
-const LecturesPage = () => {
+const LecturesPage = ({room}) => {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
 
     const {rid} = useRouter().query;
+    const {uid} = useAuth().currentUser;
 
     const [lectures, setLectures] = useState({});
 
+    const isOwner = uid === room.roomInstructorUID;
 
     const fetchLectures = useCallback(async () => {
         const lecturesRef = collection(db, ROOMS_DETAILS_COLLECTION, rid, ROOM_LECTURES);
@@ -56,17 +59,17 @@ const LecturesPage = () => {
     return (
         <>
             <Container className={classes.lecturesPage}>
-                <Row className={classes.newLectureButtonContainer}>
+                {isOwner && <Row className={classes.newLectureButtonContainer}>
                     <Col xl={7} className={classes.newLectureButton}>
                         <FaChalkboardTeacher className={classes.newLectureButtonIcon}/>
                         <AppButton title='Schedule New Lecture' outlined onClick={() => setIsModalOpen(true)}/>
                     </Col>
-                </Row>
+                </Row>}
                 <Row className='d-flex justify-content-center '>
-                    <Col xl={7} className='d-flex justify-content-center flex-column'>
+                    <Col xl={7} className='d-flex justify-content-center flex-column mt-5'>
                         {
                             lectures && Object.keys(lectures).length !== 0 ? renderLectures(lectures) :
-                                <div className='mt-5'>
+                                <div className='mt-5 d-flex flex-column justify-content-center'>
                                     <Image src={require('../../public/no-data.svg')} width={350} height={350}/>
                                     <p className='text-center mt-3 fw-bold'>No Lectures yet</p>
                                 </div>

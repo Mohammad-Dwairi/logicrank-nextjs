@@ -18,7 +18,7 @@ const EnrolledRoom = ({room}) => {
                         <NewsFeedPage/>
                     </Tab>
                     <Tab eventKey="lectures" title="Lectures" tabClassName={classes.tab}>
-                        <LecturesPage />
+                        <LecturesPage room={room}/>
                     </Tab>
                 </Tabs>
             </div>
