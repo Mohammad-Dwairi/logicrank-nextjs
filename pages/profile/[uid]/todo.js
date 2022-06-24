@@ -60,10 +60,13 @@ const TodoListPage = () => {
     };
 
     const onTodoRemove = async (todoIndex) => {
-        const updatedTodos = [...todos];
-        updatedTodos.splice(todoIndex, 1);
-        setTodos(updatedTodos);
-        await updateDoc(doc(db, TODOS_COLLECTION, uid), {todoArr: arrayRemove(todos[todoIndex])});
+        const isConfirmed = window.confirm("Are you sure?");
+        if (isConfirmed) {
+            const updatedTodos = [...todos];
+            updatedTodos.splice(todoIndex, 1);
+            setTodos(updatedTodos);
+            await updateDoc(doc(db, TODOS_COLLECTION, uid), {todoArr: arrayRemove(todos[todoIndex])});
+        }
     }
 
     const onTodoCompleteToggle = async (todoIndex, isCompleted) => {
