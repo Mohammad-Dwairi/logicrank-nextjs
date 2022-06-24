@@ -12,6 +12,7 @@ import {db} from "../../firebase/firebase";
 import {useCallback, useEffect, useState} from "react";
 import LoadingView from "../../hoc/LoadingView";
 import {fbQueryDocs} from "../../firebase/functions/firestore-docs-functions";
+import Image from "next/image";
 
 
 const renderPosts = posts => Object.keys(posts).map(postId => <Post post={posts[postId]} key={postId}/>);
@@ -22,7 +23,7 @@ const NewsFeedPage = () => {
     const {rid} = useRouter().query;
     const [isLoading, setIsLoading] = useState(false);
 
-    const [posts, setPosts] = useState({});
+    const [posts, setPosts] = useState(null);
 
     const fetchPosts = useCallback(async () => {
         setIsLoading(true);
@@ -41,9 +42,10 @@ const NewsFeedPage = () => {
             for (let postId of Object.keys(fetchedPosts)) {
                 fetchedPosts[postId]['user'] = fetchedUsers[fetchedPosts[postId].userId];
             }
+
+            setPosts(fetchedPosts);
         }
 
-        setPosts(fetchedPosts);
     }, [rid]);
 
     useEffect(() => {
@@ -77,6 +79,15 @@ const NewsFeedPage = () => {
         fetchPosts().then(() => setIsLoading(false));
     };
 
+    const renderEmptyPlaceholder = () => {
+        return (
+            <div className='mt-5 d-flex flex-column justify-content-center'>
+                <Image src={require('../../public/no-data.svg')} width={250} height={250}/>
+                <p className='text-center mt-3 fw-bold '>No Posts yet</p>
+            </div>
+        );
+    };
+
     if (isLoading) return <LoadingView/>;
 
     return (
@@ -90,7 +101,7 @@ const NewsFeedPage = () => {
             </Row>
             <Row className='d-flex justify-content-center'>
                 <Col xl={7}>
-                    {renderPosts(posts)}
+                    {posts ? renderPosts(posts) : renderEmptyPlaceholder()}
                 </Col>
             </Row>
         </Container>

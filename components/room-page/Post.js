@@ -27,7 +27,7 @@ const Post = props => {
                         </div>
                         <p className={classes.time}>{new Date(post.datePosted).toLocaleDateString()}</p>
                     </div>
-                    <BiDotsHorizontalRounded className={classes.optionsIcon}/>
+                    {/*<BiDotsHorizontalRounded className={classes.optionsIcon}/>*/}
                 </div>
             </div>
             <div className={classes.postContent}>
@@ -63,14 +63,6 @@ const Post = props => {
                     </div>
                 }
             </div>
-            {/*<div className={classes.postFooter}>*/}
-            {/*    <div className={classes.postAction}>*/}
-            {/*        <AiOutlineLike/>*/}
-            {/*    </div>*/}
-            {/*    <div className={classes.postAction}>*/}
-            {/*        <AiOutlineComment/>*/}
-            {/*    </div>*/}
-            {/*</div>*/}
         </div>
     );
 };

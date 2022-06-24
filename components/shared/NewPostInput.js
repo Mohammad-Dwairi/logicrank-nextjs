@@ -17,6 +17,7 @@ const NewPostInput = props => {
 
     const textareaRef = useRef(null);
     const [value, setValue] = useState("");
+
     const onChange = (event) => setValue(event.target.value);
 
     const {userInfo} = useAuth();
@@ -70,6 +71,7 @@ const NewPostInput = props => {
                 </div>
             </div>
             <AiOutlineSend className={classes.sendBtn} onClick={async () => {
+                if ((!value || value.trim().length === 0) && !attachmentFile) return;
                 setIsLoading(true);
                 await onSubmit(value, attachmentFile);
                 setAttachmentFile(null);
