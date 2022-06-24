@@ -4,8 +4,13 @@ import ProblemInfoSection from "../../../../components/problem-details-page/Prob
 import {useRouter} from "next/router";
 import {useEffect, useState} from "react";
 import LoadingView from "../../../../hoc/LoadingView";
-import {fbQueryDocs, fbQuerySingleDoc} from "../../../../firebase/functions/firestore-docs-functions";
-import {PROBLEMS_COLLECTION, ROOMS_DETAILS_COLLECTION, SUBMISSIONS} from "../../../../firebase/constants/COLLECTIONS";
+import {fbQueryDocByUID, fbQueryDocs, fbQuerySingleDoc} from "../../../../firebase/functions/firestore-docs-functions";
+import {
+    PROBLEMS_COLLECTION,
+    ROOMS_COLLECTION,
+    ROOMS_DETAILS_COLLECTION,
+    SUBMISSIONS
+} from "../../../../firebase/constants/COLLECTIONS";
 import {collection, query, where} from "firebase/firestore";
 import {db} from "../../../../firebase/firebase";
 import ProblemSubmissions from "../../../../components/problem-details-page/ProblemSubmissions";
@@ -16,12 +21,14 @@ const ProblemDetailsPage = () => {
 
     const [isLoading, setIsLoading] = useState(true);
     const [problem, setProblem] = useState(null);
-    const [submissions, setSubmissions] = useState([]);
+    const [submissions, setSubmissions] = useState({});
 
     const {uid} = useAuth().currentUser;
 
     const router = useRouter();
     const {problemId, rid} = router.query;
+
+    const [isAdmin, setIsAdmin] = useState(false);
 
     useEffect(() => {
         const handle = async () => {
@@ -33,11 +40,14 @@ const ProblemDetailsPage = () => {
                 return await router.replace(`/room/${rid}/problems`);
             }
 
-            const q = query(collection(db, SUBMISSIONS), where("userId", '==', uid), where("problemId", '==', problemId));
+            const q = query(collection(db, SUBMISSIONS), where("problemId", '==', problemId));
             const fetchedSubmissions = await fbQueryDocs(q);
-
+            const room = await fbQueryDocByUID(ROOMS_COLLECTION, rid);
+            if (room) {
+                setIsAdmin(room.roomInstructorUID === uid);
+            }
             if (fetchedSubmissions) {
-                setSubmissions(Object.values(fetchedSubmissions));
+                setSubmissions(fetchedSubmissions);
             }
 
             setProblem(fetchedProblem || null);
@@ -53,7 +63,7 @@ const ProblemDetailsPage = () => {
     return (
         <Container>
             <ProblemInfoSection problem={problem}/>
-            <ProblemSubmissions submissions={submissions}/>
+            <ProblemSubmissions submissions={submissions} isAdmin={isAdmin}/>
         </Container>
     );
 };

@@ -5,7 +5,7 @@ import AppButton from "../shared/AppButton";
 
 const PopoverContent = props => {
 
-    const {isCompleted, problemId, onDeleteProblem, onAddSolvedProblem, onRemoveSolvedProblem} = props;
+    const {isCompleted, problemId, onDeleteProblem, onAddSolvedProblem, onRemoveSolvedProblem, isOwner} = props;
 
     return (
         <div className={`${classes.popoverContentContainer} d-flex justify-content-center flex-column`}>
@@ -15,24 +15,25 @@ const PopoverContent = props => {
                 outlined
                 danger={isCompleted}
             />
-            <AppButton
+            {isOwner && <AppButton
                 onClick={() => onDeleteProblem(problemId)}
                 title={'Delete Problem'}
                 outlined
                 danger
-            />
+            />}
         </div>
     );
 };
 
 const ToggleProblemCompletePopover = props => {
 
-    const {isCompleted, onAddSolvedProblem, onRemoveSolvedProblem, problemId, onDeleteProblem} = props;
+    const {isCompleted, onAddSolvedProblem, onRemoveSolvedProblem, problemId, onDeleteProblem, isOwner} = props;
 
     return (
         <PopoverContainer
             content={
                 <PopoverContent
+                    isOwner={isOwner}
                     problemId={problemId}
                     isCompleted={isCompleted}
                     onAddSolvedProblem={onAddSolvedProblem}

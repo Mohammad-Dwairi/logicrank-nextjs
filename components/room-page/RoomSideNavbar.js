@@ -36,9 +36,6 @@ const RoomSideNavbar = props => {
                     <Link href={`/room/${rid}/materials`} passHref>
                         <MenuItem active={route === '/room/[rid]/materials'} icon={<BsStack/>}>Materials</MenuItem>
                     </Link>
-                    <Link href={`/room/${rid}/tasks`} passHref>
-                        <MenuItem active={route === '/room/[rid]/tasks'} icon={<BsNewspaper/>}>Tasks</MenuItem>
-                    </Link>
                     <Link href={`/room/${rid}/roadmap`} passHref>
                         <MenuItem active={route === '/room/[rid]/roadmap'} icon={<BsNewspaper/>}>RoadMap</MenuItem>
                     </Link>

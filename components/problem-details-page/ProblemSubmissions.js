@@ -7,29 +7,29 @@ import AppModal from "../shared/AppModal";
 import {useState} from "react";
 import ProblemExtraDetails from "./ProblemExtraDetails";
 
-const renderTableRows = submissions => {
+const renderTableRows = (submissions, isAdmin) => {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    return submissions.map((s, i) => (
+    return Object.keys(submissions).map((sId, i) => (
         <tr key={i}>
             <td>{i + 1}</td>
             <td>
-                <Link href={`/profile/${s.userId}`}>
-                    {s.userName}
+                <Link href={`/profile/${submissions[sId].userId}`}>
+                    {submissions[sId].userName}
                 </Link>
             </td>
-            <td>{new Date(s.solvedIn).toDateString()}</td>
+            <td>{new Date(submissions[sId].solvedIn).toDateString()}</td>
             <td>
                 {
-                    s.codeSnippet || s.comment ?
+                    submissions[sId].codeSnippet || submissions[sId].comment ?
                         <div className={classes.link} onClick={() => setIsModalOpen(true)}>
                             Show Submitted Code</div> :
                         <div>No Code or Comment Submitted</div>
                 }
             </td>
             <AppModal isOpen={isModalOpen} onRequestClose={() => setIsModalOpen(false)}>
-                <ProblemExtraDetails code={s.codeSnippet} comment={s.comment}/>
+                <ProblemExtraDetails submission={submissions[sId]} sId={sId} isAdmin={isAdmin}/>
             </AppModal>
         </tr>
     ));
@@ -37,7 +37,7 @@ const renderTableRows = submissions => {
 
 const ProblemSubmissions = props => {
 
-    const {submissions} = props;
+    const {submissions,isAdmin} = props;
 
     return (
         <Row className={classes.infoContainer}>
@@ -53,7 +53,7 @@ const ProblemSubmissions = props => {
                     </tr>
                     </thead>
                     <tbody>
-                    {renderTableRows(submissions)}
+                    {renderTableRows(submissions, isAdmin)}
                     </tbody>
                 </Table>
             </Col>

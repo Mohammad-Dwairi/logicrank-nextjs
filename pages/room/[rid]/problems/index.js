@@ -9,9 +9,9 @@ import {useEffect, useState} from "react";
 import NewProblemForm from "../../../../components/problems-page/NewProblemForm";
 import LoadingView from "../../../../hoc/LoadingView";
 import {useRouter} from "next/router";
-import {fbAddNewDoc, fbQueryDocs} from "../../../../firebase/functions/firestore-docs-functions";
+import {fbAddNewDoc, fbQueryDocByUID, fbQueryDocs} from "../../../../firebase/functions/firestore-docs-functions";
 import {
-    PROBLEMS_COLLECTION,
+    PROBLEMS_COLLECTION, ROOMS_COLLECTION,
     ROOMS_DETAILS_COLLECTION,
     SUBMISSIONS,
     USERS_COLLECTION
@@ -35,9 +35,10 @@ import {useAuth} from "../../../../context/AuthContext";
 import {withProtected} from "../../../../hoc/RouteAuth";
 
 
-const renderProblemCard = (problems, solvedProblems, onDeleteProblem, onAddSolvedProblem, onRemoveSolvedProblem) => Object.keys(problems).map(problemID => (
+const renderProblemCard = (problems, solvedProblems, onDeleteProblem, onAddSolvedProblem, onRemoveSolvedProblem, isOwner) => Object.keys(problems).map(problemID => (
     <ProblemCard
         key={problemID}
+        isOwner={isOwner}
         problemId={problemID}
         problem={problems[problemID]}
         solvedProblems={solvedProblems}
@@ -55,6 +56,8 @@ const ProblemsPage = () => {
     const {rid} = useRouter().query;
     const {currentUser, userInfo} = useAuth();
 
+    const [isOwner, setIsOwner] = useState(false);
+
     const {uid} = useAuth().currentUser;
 
     useEffect(() => {
@@ -62,6 +65,11 @@ const ProblemsPage = () => {
             const problemsColRef = collection(db, ROOMS_DETAILS_COLLECTION, rid, PROBLEMS_COLLECTION);
             const problemsQuery = query(problemsColRef, orderBy("dateCreated", "desc"));
             const fetchedProblems = await fbQueryDocs(problemsQuery);
+
+            const room = await fbQueryDocByUID(ROOMS_COLLECTION, rid);
+            if (room) {
+                setIsOwner(room.roomInstructorUID === uid);
+            }
             setProblems(fetchedProblems);
             setIsLoading(false);
         };
@@ -119,13 +127,13 @@ const ProblemsPage = () => {
         <Container>
             <Row className={classes.pageHeader}>
                 <Col xl={6}>
-                    <h1 className={classes.pageTitle}>Suggested Problems</h1>
+                    <h1 className={classes.pageTitle}>Problems Set</h1>
                 </Col>
-                <Col xl={6} className='d-flex justify-content-end p-0'>
+                {isOwner && <Col xl={6} className='d-flex justify-content-end p-0'>
                     <AppButton title='Add New Problem' onClick={() => setIsModalOpen(true)}/>
-                </Col>
+                </Col>}
             </Row>
-            {renderProblemCard(problems, userInfo.solvedProblems || [], onDeleteProblem, onAddSolvedProblem, onRemoveSolvedProblem)}
+            {renderProblemCard(problems, userInfo.solvedProblems || [], onDeleteProblem, onAddSolvedProblem, onRemoveSolvedProblem, isOwner)}
             <AppModal isOpen={isModalOpen} onRequestClose={() => setIsModalOpen(false)}>
                 <NewProblemForm onSubmit={uploadNewProblem}/>
             </AppModal>

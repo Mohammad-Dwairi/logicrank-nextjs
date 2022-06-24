@@ -23,9 +23,9 @@ const AppNavbar = () => {
                     </Link>
                     <Nav className="me-auto"/>
                     <Nav className='d-flex align-items-center justify-content-center'>
-                        <Nav.Link>
-                            <NotificationsPopover/>
-                        </Nav.Link>
+                        {/*<Nav.Link>*/}
+                        {/*    <NotificationsPopover/>*/}
+                        {/*</Nav.Link>*/}
                         <Nav.Link className='mx-2'>
                             <ChatPopover/>
                         </Nav.Link>

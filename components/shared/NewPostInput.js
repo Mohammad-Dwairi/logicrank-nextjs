@@ -10,7 +10,7 @@ const MIN_TEXTAREA_HEIGHT = 32;
 
 const NewPostInput = props => {
 
-    const {onSubmit} = props;
+    const {onSubmit, placeholder, hideImage, disableAttachment} = props;
 
     const [attachmentFile, setAttachmentFile] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
@@ -24,12 +24,17 @@ const NewPostInput = props => {
 
     useLayoutEffect(() => {
         // Reset height - important to shrink on delete
-        textareaRef.current.style.height = "inherit";
-        // Set height
-        textareaRef.current.style.height = `${Math.max(
-            textareaRef.current.scrollHeight,
-            MIN_TEXTAREA_HEIGHT
-        )}px`;
+        try {
+            textareaRef.current.style.height = "inherit";
+            // Set height
+            textareaRef.current.style.height = `${Math.max(
+                textareaRef.current.scrollHeight,
+                MIN_TEXTAREA_HEIGHT
+            )}px`;
+        } catch (e){
+
+        }
+
     }, [value]);
 
     const attachmentFileHandler = (event) => {
@@ -55,10 +60,10 @@ const NewPostInput = props => {
 
     return (
         <div className={classes.newPostInputContainer}>
-            <UserProfileBadge imageLink={userInfo.profilePicture}/>
+            {hideImage && <UserProfileBadge imageLink={userInfo.profilePicture}/>}
             <div className={classes.postControlContainer}>
                 <textarea
-                    placeholder="What&apos;s in your mind?"
+                    placeholder={placeholder || "What&apos;s in your mind?"}
                     style={{minHeight: MIN_TEXTAREA_HEIGHT, resize: "none"}}
                     rows={1}
                     onChange={onChange}
@@ -66,15 +71,17 @@ const NewPostInput = props => {
                     value={value}
                     className='noScrollBar'
                 />
-                <div className={classes.postAttachments}>
-                    <AttachmentView file={attachmentFile} onChange={attachmentFileHandler} onDelete={onDeleteFile} displayName/>
-                </div>
+                {disableAttachment || <div className={classes.postAttachments}>
+                    <AttachmentView file={attachmentFile} onChange={attachmentFileHandler} onDelete={onDeleteFile}
+                                    displayName/>
+                </div>}
             </div>
             <AiOutlineSend className={classes.sendBtn} onClick={async () => {
                 if ((!value || value.trim().length === 0) && !attachmentFile) return;
                 setIsLoading(true);
                 await onSubmit(value, attachmentFile);
                 setAttachmentFile(null);
+                setValue('')
                 setIsLoading(false);
             }}/>
         </div>

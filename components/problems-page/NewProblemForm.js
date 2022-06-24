@@ -20,6 +20,7 @@ const NewProblemForm = ({onSubmit}) => {
                     </Col>
                     <Col lg={9}>
                         <input type='text' id='name' {...register('name', {required: true})}/>
+                        {errors.name && <span className='text-danger'>Problem name is required</span>}
                     </Col>
                 </Row>
                 <Row className={classes.inputRow}>
@@ -28,6 +29,7 @@ const NewProblemForm = ({onSubmit}) => {
                     </Col>
                     <Col lg={9}>
                         <input type='text' id='link' {...register('link', {required: true})}/>
+                        {errors.link && <span className='text-danger'>Problem link is required</span>}
                     </Col>
                 </Row>
                 <Row className={classes.inputRow}>
@@ -36,6 +38,7 @@ const NewProblemForm = ({onSubmit}) => {
                     </Col>
                     <Col lg={9}>
                         <input type='text' id='website' {...register('source', {required: true})}/>
+                        {errors.link && <span className='text-danger'>Problem website is required</span>}
                     </Col>
                 </Row>
                 <Row className={classes.inputRow}>

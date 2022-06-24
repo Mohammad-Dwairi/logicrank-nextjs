@@ -10,7 +10,7 @@ import ProblemCompleteForm from "./ProblemCompleteForm";
 
 const ProblemCard = props => {
 
-    const {problem, solvedProblems, onDeleteProblem,problemId, onAddSolvedProblem, onRemoveSolvedProblem} = props;
+    const {problem, solvedProblems, onDeleteProblem,problemId, onAddSolvedProblem, onRemoveSolvedProblem, isOwner} = props;
 
     const {name, source, difficulty, link} = problem;
 
@@ -25,6 +25,7 @@ const ProblemCard = props => {
             <Col xl={8} className={classes.problemName}>
                 <div>
                     <ToggleProblemCompletePopover
+                        isOwner={isOwner}
                         problemId={problemId}
                         isCompleted={isCompleted}
                         onAddSolvedProblem={() => setIsModalOpen(true)}
