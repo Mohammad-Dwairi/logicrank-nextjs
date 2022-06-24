@@ -33,6 +33,7 @@ import {
 import {db} from "../../../../firebase/firebase";
 import {useAuth} from "../../../../context/AuthContext";
 import {withProtected} from "../../../../hoc/RouteAuth";
+import {WithRoomSideBar} from "../../../../hoc/WithRoomSideBar";
 
 
 const renderProblemCard = (problems, solvedProblems, onDeleteProblem, onAddSolvedProblem, onRemoveSolvedProblem, isOwner) => Object.keys(problems).map(problemID => (
@@ -124,21 +125,22 @@ const ProblemsPage = () => {
     if (isLoading) return <LoadingView/>;
 
     return (
-        <Container>
-            <Row className={classes.pageHeader}>
-                <Col xl={6}>
-                    <h1 className={classes.pageTitle}>Problems Set</h1>
-                </Col>
-                {isOwner && <Col xl={6} className='d-flex justify-content-end p-0'>
-                    <AppButton title='Add New Problem' onClick={() => setIsModalOpen(true)}/>
-                </Col>}
-            </Row>
-            {renderProblemCard(problems, userInfo.solvedProblems || [], onDeleteProblem, onAddSolvedProblem, onRemoveSolvedProblem, isOwner)}
-            <AppModal isOpen={isModalOpen} onRequestClose={() => setIsModalOpen(false)}>
-                <NewProblemForm onSubmit={uploadNewProblem}/>
-            </AppModal>
-        </Container>
-
+        <WithRoomSideBar>
+            <Container>
+                <Row className={classes.pageHeader}>
+                    <Col xl={6}>
+                        <h1 className={classes.pageTitle}>Problems Set</h1>
+                    </Col>
+                    {isOwner && <Col xl={6} className='d-flex justify-content-end p-0'>
+                        <AppButton title='Add New Problem' onClick={() => setIsModalOpen(true)}/>
+                    </Col>}
+                </Row>
+                {renderProblemCard(problems, userInfo.solvedProblems || [], onDeleteProblem, onAddSolvedProblem, onRemoveSolvedProblem, isOwner)}
+                <AppModal isOpen={isModalOpen} onRequestClose={() => setIsModalOpen(false)}>
+                    <NewProblemForm onSubmit={uploadNewProblem}/>
+                </AppModal>
+            </Container>
+        </WithRoomSideBar>
     );
 };
 

@@ -15,6 +15,7 @@ import {collection, query, where} from "firebase/firestore";
 import {db} from "../../../../firebase/firebase";
 import ProblemSubmissions from "../../../../components/problem-details-page/ProblemSubmissions";
 import {useAuth} from "../../../../context/AuthContext";
+import {WithRoomSideBar} from "../../../../hoc/WithRoomSideBar";
 
 
 const ProblemDetailsPage = () => {
@@ -61,10 +62,12 @@ const ProblemDetailsPage = () => {
     if (isLoading) return <LoadingView/>;
 
     return (
-        <Container>
-            <ProblemInfoSection problem={problem}/>
-            <ProblemSubmissions submissions={submissions} isAdmin={isAdmin}/>
-        </Container>
+        <WithRoomSideBar>
+            <Container>
+                <ProblemInfoSection problem={problem}/>
+                <ProblemSubmissions submissions={submissions} isAdmin={isAdmin}/>
+            </Container>
+        </WithRoomSideBar>
     );
 };
 

@@ -7,10 +7,10 @@ import AppModal from "../shared/AppModal";
 import {useState} from "react";
 import ProblemExtraDetails from "./ProblemExtraDetails";
 
-const renderTableRows = (submissions, isAdmin) => {
+export const SubmissionTableRows = ({submissions, isAdmin}) => {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
-
+    console.log(submissions, 'sssss')
     return Object.keys(submissions).map((sId, i) => (
         <tr key={i}>
             <td>{i + 1}</td>
@@ -37,7 +37,7 @@ const renderTableRows = (submissions, isAdmin) => {
 
 const ProblemSubmissions = props => {
 
-    const {submissions,isAdmin} = props;
+    const {submissions, isAdmin} = props;
 
     return (
         <Row className={classes.infoContainer}>
@@ -53,7 +53,7 @@ const ProblemSubmissions = props => {
                     </tr>
                     </thead>
                     <tbody>
-                    {renderTableRows(submissions, isAdmin)}
+                    <SubmissionTableRows submissions={submissions} isAdmin={isAdmin}/>
                     </tbody>
                 </Table>
             </Col>

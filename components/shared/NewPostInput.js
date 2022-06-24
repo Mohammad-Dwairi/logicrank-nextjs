@@ -63,7 +63,7 @@ const NewPostInput = props => {
             {hideImage && <UserProfileBadge imageLink={userInfo.profilePicture}/>}
             <div className={classes.postControlContainer}>
                 <textarea
-                    placeholder={placeholder || "What&apos;s in your mind?"}
+                    placeholder={placeholder || "What's in your mind?"}
                     style={{minHeight: MIN_TEXTAREA_HEIGHT, resize: "none"}}
                     rows={1}
                     onChange={onChange}
