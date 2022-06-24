@@ -1,5 +1,5 @@
 import FilesSection from "./FilesSection";
-import {useCallback, useEffect, useState} from "react";
+import {useCallback, useEffect, useLayoutEffect, useState} from "react";
 import LoadingView from "../../hoc/LoadingView";
 import {useAuth} from "../../context/AuthContext";
 import {
@@ -7,6 +7,9 @@ import {
     fbGetAllFiles,
     fbUploadBlobToStorage
 } from "../../firebase/functions/firebase-storage-functions";
+import {fbQueryDocByUID} from "../../firebase/functions/firestore-docs-functions";
+import {useRouter} from "next/router";
+import {ROOMS_COLLECTION} from "../../firebase/constants/COLLECTIONS";
 
 
 const FilesPage = props => {
@@ -16,6 +19,19 @@ const FilesPage = props => {
     const [isLoading, setIsLoading] = useState(true);
     const [files, setFiles] = useState([]);
     const {uid} = useAuth().currentUser;
+    const {rid} = useRouter().query;
+
+    const [isOwner, setIsOwner] = useState(false);
+
+    useLayoutEffect(() => {
+        const fetchRoom = async () => {
+            const room = await fbQueryDocByUID(ROOMS_COLLECTION, rid);
+            if (room) {
+                setIsOwner(room.roomInstructorUID === uid);
+            }
+        };
+        fetchRoom();
+    }, [rid, uid]);
 
     const loadFiles = useCallback(async () => {
         const fetchedFiles = await fbGetAllFiles(dirPath);
@@ -35,18 +51,20 @@ const FilesPage = props => {
     };
 
     const onFileDelete = async (filePath) => {
-        const isConfirmed = window.confirm("Please confirm to delete this file");
-        if (isConfirmed) {
-            setIsLoading(true);
-            await fbDeleteFileFromStorage(filePath);
-            await loadFiles();
+        if (isOwner) {
+            const isConfirmed = window.confirm("Please confirm to delete this file");
+            if (isConfirmed) {
+                setIsLoading(true);
+                await fbDeleteFileFromStorage(filePath);
+                await loadFiles();
+            } 
         }
     }
 
     if (isLoading) return <LoadingView/>;
 
     return (
-        <FilesSection title={title} files={files} onFileUpload={onFileUpload} onFileDelete={onFileDelete}/>
+        <FilesSection isOwner={isOwner} title={title} files={files} onFileUpload={onFileUpload} onFileDelete={onFileDelete}/>
     );
 };
 

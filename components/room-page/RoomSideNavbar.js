@@ -30,8 +30,12 @@ const RoomSideNavbar = props => {
                 </SidebarHeader>
 
                 <Menu iconShape='round'>
-                    <MenuItem active={route === '/room/[rid]/materials'} icon={<BsStack/>}>Materials</MenuItem>
-                    <MenuItem active={route === '/room/[rid]'} icon={<BsNewspaper/>}>Updates</MenuItem>
+                    <Link href={`/room/${rid}`} passHref>
+                        <MenuItem active={route === '/room/[rid]'} icon={<BsNewspaper/>}>Updates</MenuItem>
+                    </Link>
+                    <Link href={`/room/${rid}/materials`} passHref>
+                        <MenuItem active={route === '/room/[rid]/materials'} icon={<BsStack/>}>Materials</MenuItem>
+                    </Link>
                     <Link href={`/room/${rid}/tasks`} passHref>
                         <MenuItem active={route === '/room/[rid]/tasks'} icon={<BsNewspaper/>}>Tasks</MenuItem>
                     </Link>

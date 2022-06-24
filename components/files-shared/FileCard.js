@@ -9,7 +9,7 @@ import {useState} from "react";
 
 const FileCard = props => {
 
-    const {file, onFileDelete, displayOwner} = props;
+    const {file, onFileDelete, displayOwner, isOwner} = props;
     const [showControl, setShowControl] = useState(false);
 
     return (
@@ -35,7 +35,7 @@ const FileCard = props => {
                     </a>
                 </Col>
                 <Col className={classes.fileCardControl}>
-                    {(window.matchMedia("(pointer: coarse)").matches || showControl) &&
+                    {(window.matchMedia("(pointer: coarse)").matches || showControl) && isOwner &&
                         <AppButton onClick={() => onFileDelete(file.path)}
                                    title={<BiTrash size={25}/>} outlined danger/>}
                 </Col>

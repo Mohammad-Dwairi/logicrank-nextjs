@@ -10,12 +10,12 @@ import AppModal from "../shared/AppModal";
 import Image from "next/image";
 
 
-const renderFiles = (files, onFileDelete) => files.map(file => <FileCard file={file} key={file.timeCreated}
-                                                                         onFileDelete={onFileDelete}/>);
+const renderFiles = (files, onFileDelete, isOwner) => files.map(file => <FileCard file={file} key={file.timeCreated}
+                                                                         onFileDelete={onFileDelete} isOwner={isOwner}/>);
 
 const FilesSection = props => {
 
-    const {files, title, onFileUpload, onFileDelete} = props;
+    const {files, title, onFileUpload, onFileDelete, isOwner} = props;
     const [isNewFileModalOpen, setIsNewFileModalOpen] = useState(false);
 
 
@@ -24,10 +24,10 @@ const FilesSection = props => {
             <Row className='d-flex justify-content-center'>
                 <Col className='d-flex justify-content-between align-items-center' xl={8}>
                     <h1 className={classes.headerText}>{title}</h1>
-                    <div className={classes.openFileUploadModalIcon} onClick={() => setIsNewFileModalOpen(true)}>
-                        <IoAddCircleOutline />
+                    {isOwner && <div className={classes.openFileUploadModalIcon} onClick={() => setIsNewFileModalOpen(true)}>
+                        <IoAddCircleOutline/>
                         <span>Upload new file</span>
-                    </div>
+                    </div>}
                 </Col>
             </Row>
             <Row className='d-flex justify-content-center'>
@@ -36,7 +36,7 @@ const FilesSection = props => {
                         <Image alt='no files' src={require('../../public/personal-files.svg')}/>
                     </div>
                     :
-                    <Col xl={8}>{renderFiles(files, onFileDelete)}</Col>}
+                    <Col xl={8}>{renderFiles(files, onFileDelete, isOwner)}</Col>}
             </Row>
             <AppModal
                 isOpen={isNewFileModalOpen}
