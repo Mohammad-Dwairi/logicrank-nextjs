@@ -18,12 +18,18 @@ const UserOptionsPopoverContent = props => {
                     {userInfo.fullName}
                 </a>
             </Link>
-
-            {options.map((option, index) => (
-                <Link href={option.link} key={index} passHref>
-                    <div className={classes.option}>{option.label}</div>
-                </Link>
-            ))}
+            <Link href={`/profile/${currentUser.uid}`} passHref>
+                <div className={classes.option}>Profile Settings</div>
+            </Link>
+            <Link href={`/room/new`} passHref>
+                <div className={classes.option}>Create New Room</div>
+            </Link>
+            <Link href={`/profile/${currentUser.uid}/rooms`} passHref>
+                <div className={classes.option}>My Rooms</div>
+            </Link>
+            <Link href={`/logout`} passHref>
+                <div className={classes.option}>Logout</div>
+            </Link>
         </div>
     );
 };

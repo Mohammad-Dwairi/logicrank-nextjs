@@ -5,7 +5,7 @@ import {useRouter} from "next/router";
 
 const RoomCard = props => {
 
-    const {room, roomUID} = props;
+    const {room, roomUID, hidePrice} = props;
     const router = useRouter();
 
     return (
@@ -19,7 +19,7 @@ const RoomCard = props => {
             </div>
             <div className={classes.roomCardFooter}>
                 <h3 className={classes.roomCardInstructor}>By {room?.roomInstructor}</h3>
-                <h3 className={classes.roomCardPrice}>${room?.roomPrice}</h3>
+                {hidePrice || <h3 className={classes.roomCardPrice}>${room?.roomPrice}</h3>}
             </div>
         </div>
     );
