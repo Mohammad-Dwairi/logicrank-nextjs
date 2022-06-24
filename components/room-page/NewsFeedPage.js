@@ -32,15 +32,16 @@ const NewsFeedPage = () => {
 
         // fetch users who owns the posts
         const userIds = Object.values(fetchedPosts).map(post => post.userId);
-        const usersQuery = query(collection(db, USERS_COLLECTION), where("__name__", 'in', userIds));
-        const fetchedUsers = await fbQueryDocs(usersQuery);
 
-        // set each user in the post object
-        for (let postId of Object.keys(fetchedPosts)) {
-            fetchedPosts[postId]['user'] = fetchedUsers[fetchedPosts[postId].userId];
+        if (userIds && userIds.length > 0) {
+            const usersQuery = query(collection(db, USERS_COLLECTION), where("__name__", 'in', userIds));
+            const fetchedUsers = await fbQueryDocs(usersQuery);
+
+            // set each user in the post object
+            for (let postId of Object.keys(fetchedPosts)) {
+                fetchedPosts[postId]['user'] = fetchedUsers[fetchedPosts[postId].userId];
+            }
         }
-
-        console.log('POSTS ', fetchedPosts)
 
         setPosts(fetchedPosts);
     }, [rid]);

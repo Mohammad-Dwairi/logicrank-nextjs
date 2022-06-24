@@ -5,7 +5,7 @@ import {useState} from "react";
 
 const NewNodeForm = props => {
 
-    const {roadmap, onSubmit} = props;
+    const {roadmap, onSubmit, nodeName, parentNode, childNode, addNode} = props;
 
     const [text, setText] = useState('');
     const [selectedParentNodes, setSelectedParentNodes] = useState([]);
@@ -35,11 +35,11 @@ const NewNodeForm = props => {
     return (
         <form className={classes.newNodeForm} onSubmit={onSubmitHandler}>
             <div>
-                <label>Node Name</label>
+                <label>{nodeName || "Node Name"}</label>
                 <input type='text' onChange={e => setText(e.target.value)}/>
             </div>
             <div>
-                <label>Parent Nodes</label>
+                <label>{parentNode || "Parent Nodes"}</label>
                 <Select
                     name='parentNodes'
                     isMulti
@@ -50,7 +50,7 @@ const NewNodeForm = props => {
                 />
             </div>
             <div>
-                <label>Child Nodes (Keep empty if leaf node)</label>
+                <label>{childNode || "Child Nodes (Keep empty if leaf node)"}</label>
                 <Select
                     name='childNodes'
                     isMulti
@@ -60,7 +60,7 @@ const NewNodeForm = props => {
                     onChange={handleSelectChangeChild}
                 />
             </div>
-            <input type='submit' value='Add Node' className={classes.authButton}/>
+            <input type='submit' value={addNode || 'Add Node'} className={classes.authButton}/>
         </form>
     );
 };

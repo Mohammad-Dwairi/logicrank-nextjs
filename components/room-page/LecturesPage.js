@@ -1,6 +1,6 @@
 import {useCallback, useEffect, useState} from "react";
 import Container from "react-bootstrap/Container";
-import {addDoc, collection, query} from "firebase/firestore";
+import {addDoc, collection, orderBy, query} from "firebase/firestore";
 import {db} from "../../firebase/firebase";
 import {ROOM_LECTURES, ROOMS_DETAILS_COLLECTION} from "../../firebase/constants/COLLECTIONS";
 import {useRouter} from "next/router";
@@ -32,7 +32,7 @@ const LecturesPage = () => {
 
     const fetchLectures = useCallback(async () => {
         const lecturesRef = collection(db, ROOMS_DETAILS_COLLECTION, rid, ROOM_LECTURES);
-        const q = query(lecturesRef);
+        const q = query(lecturesRef, orderBy("dateCreated", "desc"));
         const fetchedLectures = await fbQueryDocs(q);
         if (fetchedLectures)
             setLectures(fetchedLectures);
@@ -59,11 +59,11 @@ const LecturesPage = () => {
                 <Row className={classes.newLectureButtonContainer}>
                     <Col xl={7} className={classes.newLectureButton}>
                         <FaChalkboardTeacher className={classes.newLectureButtonIcon}/>
-                        <AppButton title='Add New Lecture' outlined onClick={() => setIsModalOpen(true)}/>
+                        <AppButton title='Schedule New Lecture' outlined onClick={() => setIsModalOpen(true)}/>
                     </Col>
                 </Row>
                 <Row className='d-flex justify-content-center '>
-                    <Col xl={7} className='d-flex justify-content-center'>
+                    <Col xl={7} className='d-flex justify-content-center flex-column'>
                         {
                             lectures && Object.keys(lectures).length !== 0 ? renderLectures(lectures) :
                                 <div className='mt-5'>

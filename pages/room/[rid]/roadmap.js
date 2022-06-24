@@ -37,6 +37,10 @@ const RoadmapPage = () => {
             direction='DOWN'
             onAddNodeFinish={onAddNodeFinish}
             roadmap={roadmap}
+            nodeName="Topic Title"
+            parentNode="Pre-requisites"
+            childNode="Opens"
+            addNode="Add Topic to The Road Map"
         />
     );
 };

@@ -22,7 +22,7 @@ const NewLectureForm = props => {
                 </Row>
                 <Row className={classes.inputRow}>
                     <Col lg={3}>
-                        <label htmlFor='link'>Lecture Link</label>
+                        <label htmlFor='link'>Meeting Link</label>
                     </Col>
                     <Col lg={9}>
                         <input type='text' id='link' {...register('link', {required: true})}/>
@@ -47,7 +47,7 @@ const NewLectureForm = props => {
                     </Col>
                 </Row>
 
-                <input type='submit' value='Add Lecture' />
+                <input type='submit' value='Schedule Lecture' />
             </Container>
         </form>
     );
