@@ -5,15 +5,19 @@ import Image from "next/image";
 import UserOnlineStatus from "../shared/UserOnlineStatus";
 import {ImExit} from "react-icons/im";
 import Link from "next/link";
+import {useAuth} from "../../context/AuthContext";
 
 const RoomMemberCard = props => {
 
-    const {member} = props;
+    const {member, room} = props;
+    const {uid} = useAuth().currentUser;
+
+    const hasPermissions = room.roomInstructorUID === uid || member.id === uid;
 
     return (
         <Row className={classes.roomMemberCard}>
             <Col md={2} className='d-flex align-items-center'>
-                <Image src={require('../../public/profile.jpeg')} height={50} width={50}/>
+                <Image src={member.profilePicture || require('../../public/default-user.png')} height={50} width={50}/>
             </Col>
             <Col md={4}>
                 <Link href={`/profile/${member.id}`}>
@@ -26,9 +30,9 @@ const RoomMemberCard = props => {
             <Col md={1}>
                 <UserOnlineStatus isOnline={member.isOnline}/>
             </Col>
-            <Col md={1}>
-                <ImExit color='crimson' size={20} style={{cursor: 'pointer'}}/>
-            </Col>
+            {/*{hasPermissions && <Col md={1}>*/}
+            {/*    <ImExit color='crimson' size={20} style={{cursor: 'pointer'}}/>*/}
+            {/*</Col>}*/}
         </Row>
     );
 };
