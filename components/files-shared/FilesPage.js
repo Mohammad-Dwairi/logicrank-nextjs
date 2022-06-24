@@ -35,9 +35,12 @@ const FilesPage = props => {
     };
 
     const onFileDelete = async (filePath) => {
-        setIsLoading(true);
-        await fbDeleteFileFromStorage(filePath);
-        await loadFiles();
+        const isConfirmed = window.confirm("Please confirm to delete this file");
+        if (isConfirmed) {
+            setIsLoading(true);
+            await fbDeleteFileFromStorage(filePath);
+            await loadFiles();
+        }
     }
 
     if (isLoading) return <LoadingView/>;
