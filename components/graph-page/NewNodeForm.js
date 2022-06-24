@@ -11,15 +11,19 @@ const NewNodeForm = props => {
     const [selectedParentNodes, setSelectedParentNodes] = useState([]);
     const [selectedChildNodes, setSelectedChildNodes] = useState([]);
 
+    const [error, setError] = useState('');
+
     const onSubmitHandler = e => {
         e.preventDefault();
+        if (!text || text.trim().length === 0) {
+            return setError('Node name is required');
+        }
         const node = {
             id: text,
             text: text,
             parentNodes: selectedParentNodes.map((n) => ({id: n.value, text: n.value})),
             childNodes: selectedChildNodes.map((n) => ({id: n.value, text: n.value}))
         };
-        console.log(node, 'NODE')
         onSubmit(node);
     };
 
@@ -37,6 +41,7 @@ const NewNodeForm = props => {
             <div>
                 <label>{nodeName || "Node Name"}</label>
                 <input type='text' onChange={e => setText(e.target.value)}/>
+                {error && <span className='text-danger'>{error}</span>}
             </div>
             <div>
                 <label>{parentNode || "Parent Nodes"}</label>
