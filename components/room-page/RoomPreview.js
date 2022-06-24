@@ -4,6 +4,7 @@ import Image from "next/image";
 import Col from "react-bootstrap/Col";
 
 import classes from './styles.module.scss';
+import GraphCanvas from "../graph-page/GraphCanvas";
 
 const RoomPreview = (props) => {
 
@@ -23,7 +24,6 @@ const RoomPreview = (props) => {
                 <Col className='d-flex flex-column justify-content-between'>
                     <div className='mt-3'>
                         <h2>{room.roomName}</h2>
-                        <p>{room.roomDescription}</p>
                         <div className={classes.roomInfoRow}>
                             <span className={classes.key}>Level</span>
                             <span>{room.roomLevel}</span>
@@ -44,6 +44,7 @@ const RoomPreview = (props) => {
                             <span className={classes.key}>Created In</span>
                             <span>{new Date(room?.dateCreated).toLocaleDateString()}</span>
                         </div>
+                        <p>{room.roomDescription}</p>
                     </div>
 
                     <div className={classes.roomInfoRow}>
@@ -52,6 +53,10 @@ const RoomPreview = (props) => {
                     </div>
                 </Col>
             </Row>
+            {room.roadmap && <Row className='mt-5'>
+                <h2 className='text-center mb-4'>Road Map Overview</h2>
+                <GraphCanvas graph={room.roadmap} direction='DOWN'/>
+            </Row>}
         </Container>
     );
 };

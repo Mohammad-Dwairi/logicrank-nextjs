@@ -47,7 +47,6 @@ const GraphVisualizerPage = props => {
         onAddNodeFinish && await onAddNodeFinish(updatedGraph);
     };
 
-    console.log("GRAPH")
     return (
         <div>
             <Container>

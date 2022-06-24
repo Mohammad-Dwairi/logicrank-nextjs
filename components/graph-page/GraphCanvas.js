@@ -13,6 +13,7 @@ const GraphCanvas = props => {
     const {height, width} = useWindowDimensions();
 
     let dir = direction || 'RIGHT';
+
     if (height > width) {
         dir = 'DOWN';
     }
