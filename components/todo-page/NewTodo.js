@@ -16,6 +16,7 @@ const NewTodo = props => {
             </div>
             <div className={classes.newTodoInputContainer}>
                 <input type='text' {...register('newTodo', {required: true})}/>
+                {errors.newTodo && <span className='text-danger'>Required*</span>}
             </div>
             <input type='submit' className={classes.newTodoBtn} value='Add New To-Do'/>
         </form>
