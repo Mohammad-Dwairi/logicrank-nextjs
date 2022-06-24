@@ -90,6 +90,7 @@
   margin-bottom: 2rem;
   box-shadow: 0 .1rem .5rem rgba($color-black, .13);
   transition: all .3s;
+  max-height: 30rem;
 
   & h1 {
     text-align: center;
@@ -119,6 +120,8 @@
 
   & .roomCardBody {
     overflow: hidden;
+    //width: 200px;
+
     & .roomCardTitle {
       overflow: hidden;
 
@@ -127,7 +130,9 @@
 
     & .roomCardDescription {
       overflow: hidden;
-
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
       font-size: .8rem;
     }
   }
