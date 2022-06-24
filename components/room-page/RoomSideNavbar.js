@@ -43,7 +43,7 @@ const RoomSideNavbar = props => {
                         <MenuItem active={route === '/code-editor'} icon={<BsCodeSquare/>}>Code Editor</MenuItem>
                     </Link>
                     <Link href={`/room/${rid}/problems`} passHref>
-                        <MenuItem active={route === '/room/[rid]/problems'} icon={<GiMaze/>}>Problems</MenuItem>
+                        <MenuItem active={route === '/room/[rid]/problems'} icon={<GiMaze/>}>Problems Set</MenuItem>
                     </Link>
                     <Link href={`/room/${rid}/submissions`} passHref>
                         <MenuItem active={route === '/room/[rid]/submissions'} icon={<BsUpload/>}>Submissions</MenuItem>

@@ -19,6 +19,7 @@ const ProfilePicture = props => {
     const [isLoading, setIsLoading] = useState(false);
 
     const [newProfilePicture, setNewProfilePicture] = useState(null);
+    const [profilePictureLink, setProfilePictureLink] = useState(link);
 
     const pictureUploadHandler = (e) => {
         const f = e.target.files[0];
@@ -34,8 +35,10 @@ const ProfilePicture = props => {
     const updateProfilePictureHandler = async () => {
         setIsLoading(true);
         const link = await fbUploadBlobToStorage(`${uid}`, newProfilePicture, uid);
-        if (link)
+        if (link) {
+            setProfilePictureLink(link);
             await updateDoc(doc(db, USERS_COLLECTION, uid), {profilePicture: link});
+        }
         setNewProfilePicture(null);
         setIsLoading(false);
     };
@@ -56,7 +59,7 @@ const ProfilePicture = props => {
         <div className={classes["story"]}>
             <figure className={classes["story__shape"]}>
                 {newProfilePicture ? <BlobImageView imgFile={newProfilePicture}/> :
-                    <Image src={link || require('../../public/default-user.png')} alt="Person"
+                    <Image src={profilePictureLink || require('../../public/default-user.png')} alt="Person"
                            className={classes["story__img"]} width={10000} height={10000}/>}
                 <figcaption className={classes["story__caption"]}>
                     {!newProfilePicture && <FileUpload Icon={BiCamera} iconSize={50} label='Upload Picture'

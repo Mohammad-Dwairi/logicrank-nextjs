@@ -14,11 +14,10 @@ const ProblemCard = props => {
 
     const {name, source, difficulty, link} = problem;
 
-    const isCompleted = solvedProblems.indexOf(problemId) !== -1;
-
     const {rid} = useRouter().query;
 
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isCompleted, setIsCompleted] = useState(solvedProblems.indexOf(problemId) !== -1);
 
     return (
         <Row className={classes.problemCard}>
@@ -45,7 +44,10 @@ const ProblemCard = props => {
                     <ProblemCompleteForm
                         problemId={problemId}
                         onAddSolvedProblem={onAddSolvedProblem}
-                        onSubmitFinish={() => setIsModalOpen(false)}
+                        onSubmitFinish={() => {
+                            setIsModalOpen(false);
+                            setIsCompleted(true)
+                        }}
                     />
                 </AppModal>
             </Col>

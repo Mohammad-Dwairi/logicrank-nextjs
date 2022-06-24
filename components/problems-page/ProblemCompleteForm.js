@@ -22,12 +22,11 @@ const ProblemCompleteForm = props => {
                 </Row>
                 <Row className={classes.inputRow}>
                     <Col lg={3}>
-                        <label htmlFor='code'>Submit Your Solution Code
-                            <span className='text-muted mx-2 fw-light'>(optional)</span>
-                        </label>
+                        <label htmlFor='code'>Submit Your Solution Code</label>
                     </Col>
                     <Col lg={9}>
-                        <textarea rows={8} id='code' {...register('code')}/>
+                        <textarea rows={8} id='code' {...register('code', {required: true})}/>
+                        {errors.code && <span className='text-danger'>Solution code is required</span>}
                     </Col>
                 </Row>
                 <Row className={classes.inputRow}>

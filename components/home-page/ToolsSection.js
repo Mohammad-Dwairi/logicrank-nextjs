@@ -37,7 +37,7 @@ const ToolsSection = props => {
                 <Link href={`/profile/${currentUser.uid}/files`} passHref>
                     <a className={classes.toolCard}>
                         <AiFillFolder className={classes.toolCardIcon}/>
-                        <span>My Files</span>
+                        <span>My Private Files</span>
                     </a>
                 </Link>
             </Col>
