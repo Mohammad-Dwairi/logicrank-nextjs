@@ -26,11 +26,11 @@ const AppNavbar = () => {
                         {/*<Nav.Link>*/}
                         {/*    <NotificationsPopover/>*/}
                         {/*</Nav.Link>*/}
-                        <Nav.Link className='mx-2'>
-                            <ChatPopover/>
-                        </Nav.Link>
+                        {/*<Nav.Link className='mx-2'>*/}
+                        {/*    <ChatPopover/>*/}
+                        {/*</Nav.Link>*/}
                         <Nav.Link>
-                            <div style={{position: 'relative', top: 4}}>
+                            <div style={{position: 'relative', top: 3}}>
                                 <UserProfileBadgePopover imageLink={userInfo?.profilePicture}/>
                             </div>
                         </Nav.Link>
